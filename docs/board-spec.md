@@ -1,7 +1,7 @@
 # PULSER r2 PCB Spec / Cheatsheet for Firmware Developer
 
 This document specifies the PCB hardware interface needed for firmware development,
-to meet the requirements defined in [user-PULSER.md](user-PULSER.md).
+to meet the requirements defined in [user-manual.md](user-manual.md).
 
 
 ## Conditions to consider
