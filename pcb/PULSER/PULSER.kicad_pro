@@ -578,6 +578,9 @@
       "Net-(C10-Pad1)": [
         "HC"
       ],
+      "Net-(C33-Pad2)": [
+        "HC"
+      ],
       "Net-(C5-Pad1)": [
         "HVHC"
       ],
@@ -618,6 +621,12 @@
         "HV"
       ],
       "Net-(Q18-D)": [
+        "HV"
+      ],
+      "Net-(Q18-PadG)": [
+        "HV"
+      ],
+      "Net-(Q19-PadG)": [
         "HV"
       ],
       "Net-(Q6-G)": [
