@@ -9,8 +9,8 @@
 	(paper "A4")
 	(title_block
 		(title "PULSER")
-		(date "2025-03-28")
-		(rev "3")
+		(date "2025-08-06")
+		(rev "4")
 		(company "Spark Project")
 		(comment 1 "Author: 夕月霞 (xyx)")
 		(comment 2 "EDM Pulse Generator Board")
@@ -39405,7 +39405,7 @@
 			(justify left bottom)
 		)
 	)
-	(gr_text "PULSER r3"
+	(gr_text "PULSER r4"
 		(at 69.596 142.748 0)
 		(layer "F.SilkS")
 		(uuid "871cc66f-b501-4fc8-a061-c33e3caca895")
