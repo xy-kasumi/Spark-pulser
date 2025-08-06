@@ -28,8 +28,9 @@ J7,JST_XH_B3B-XH-AM_1x03_P2.50mm_Vertical,1,XH 3pin,C161870
 L1,L_12x12mm_H6mm,1,1u,C230666
 L2,L_12x12mm_H8mm,1,"100uH, Isat=2.7A",C2453104
 L4,BOURNS-PQ2614B,1,10u,C1330029
-"Q14, Q15, Q16, Q17, Q18, Q19, Q20, Q21, Q7, Q8",Infineon-TG-TDSON-8-NMOS,10,"N-ch, Vds>=200V, fast switch, low Rds",C501501
+"Q14, Q15, Q16, Q17, Q18, Q19, Q20, Q21",Infineon-TG-TDSON-8-NMOS,8,"N-ch, Vds>=200V, fast switch, low Rds",C412739
 "Q2, Q6",Infineon-TG-TDSON-8-NMOS,2,"N-ch, Vds>=60V, fast switch, low Rds",C24199
+"Q7, Q8",Infineon-TG-TDSON-8-NMOS,2,"N-ch, Vds>=200V, fast switch, low Rds",C501501
 R1,0603,1,1k,C21190
 "R14, R23, R24, R25, R26",0603,5,10k,C25804
 "R16, R17, R21, R27, R28, R29, R30, R31, R32, R33, R34, R35",0603,12,10,C22859
