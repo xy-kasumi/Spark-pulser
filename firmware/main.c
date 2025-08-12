@@ -12,7 +12,6 @@
  * - PIN_LED_STATUS
  *
  * Core1: fast, simple (no IRQ)
- * - PIN_GATE
  * - PIN_GATE_IG, PIN_GATE_MAIN_PWM
  * - PIN_CURR_DETECT
  * - PIN_MUX_V0, PIN_MUX_VC
@@ -39,6 +38,7 @@ static _Atomic bool error_mode =
 
 // core0, core1 shared, only accessed in csec_pulse section or initialization.
 static critical_section_t csec_pulse;
+static volatile absolute_time_t csec_pulse_last_ckp;
 static volatile uint8_t csec_pulse_pol;
 static volatile uint8_t csec_pulse_pcurr;
 static volatile int csec_pulse_pdur;
@@ -286,6 +286,11 @@ uint8_t read_reg(uint8_t reg) {
     return val;
   }
   case CKP_PS: {
+    absolute_time_t now = get_absolute_time();
+    critical_section_enter_blocking(&csec_pulse);
+    csec_pulse_last_ckp = now;
+    critical_section_exit(&csec_pulse);
+
     // Move content to visible buffer and reset internal buffer.
     // Copy to temp vars to leave critical section ASAP to avoid distrupting
     // core1.
@@ -359,6 +364,8 @@ void init_reg_rw_i2c() {
 ////////////////////////////////////////////////////////////////////////////////
 // Main loops for each core.
 
+static const uint32_t CKP_TIMEOUT_US = 100000; // 100ms
+
 // Treat ignition time of this or smaller as short.
 static const uint16_t IG_THRESH_SHORT_US = 5;
 // Treat ignition time of this or larger as open.
@@ -369,20 +376,6 @@ static const uint16_t COOLDOWN_SHORT_US = 100;
 static const uint16_t COOLDOWN_PULSE_MIN_US = 5;
 
 static const uint32_t MASK_ALL_MUX_PINS = (1 << PIN_MUX_V0) | (1 << PIN_MUX_VC);
-
-// Get pin value with about ~250ns noise filtering.
-// Returns the denoised value, or default_val if the signal is unstable.
-static inline bool get_pin_denoise(uint gpio_pin, bool default_val) {
-  bool val = gpio_get(gpio_pin);
-  for (uint8_t i = 0; i < 8; i++) {
-    // each cycle is about 10 cycle
-    bool val_verify = gpio_get(gpio_pin);
-    if (val_verify != val) {
-      return default_val;
-    }
-  }
-  return val;
-}
 
 static inline float clampf(float val, float min, float max) {
   if (val < min) {
@@ -408,6 +401,7 @@ void core1_main() {
 
     // Fetch latest pulse config for processing.
     critical_section_enter_blocking(&csec_pulse);
+    absolute_time_t last_ckp = csec_pulse_last_ckp;
     uint8_t new_pol = csec_pulse_pol;
     uint8_t new_pcurr = csec_pulse_pcurr;
     uint16_t pdur = csec_pulse_pdur;
@@ -440,8 +434,9 @@ void core1_main() {
     // Apply current change.
     curr_pcurr_a = new_pcurr_a;
 
-    bool gate = get_pin_denoise(PIN_GATE, false);
-    if (!gate) {
+    bool ckp_timeout =
+        absolute_time_diff_us(last_ckp, get_absolute_time()) >= CKP_TIMEOUT_US;
+    if (ckp_timeout) {
       continue;
     }
 
@@ -452,10 +447,6 @@ void core1_main() {
     gpio_put(PIN_GATE_IG, true);
     uint16_t igt_us = 0;
     while (true && !test_disable_ig_wait) {
-      if (!get_pin_denoise(PIN_GATE, true)) {
-        turnoff_out();
-        goto pulse_ended;
-      }
       if (get_latest_current_a() >= 0.5) {
         // discharge started.
         break;
@@ -491,7 +482,6 @@ void core1_main() {
       // effect of IG impulse on current reading lasts about 10us.
       absolute_time_t t_ig_effect_end = delayed_by_us(t_pulse_begin, 15);
 
-      int gate_off_consecutive = 0;
       const float duty_neutral =
           0.5; // "neutral" duty for 20V gap is 0.55. Set conservative and rely
                // on I-control to adjust.
@@ -502,17 +492,6 @@ void core1_main() {
         if (time_reached(t_pulse_end)) {
           // if some cycle is longer than 1us, this can happen.
           break;
-        }
-
-        // Monitor gate with denoising.
-        if (!gpio_get(PIN_GATE)) {
-          gate_off_consecutive++;
-        } else {
-          gate_off_consecutive = 0;
-        }
-        if (gate_off_consecutive > 10) {
-          turnoff_out();
-          goto pulse_ended;
         }
 
         // Turn off ignition voltage and hand over to PWM current.
@@ -561,7 +540,6 @@ void core1_main() {
       }
       sleep_us(cooldown_time);
     }
-  pulse_ended:
   }
 
 fatal_error:
@@ -580,6 +558,7 @@ fatal_error:
 // core0
 int main() {
   // Init compute.
+  csec_pulse_last_ckp = 0;
   csec_pulse_pol = POL_OFF;
   csec_pulse_pcurr = PCURR_ON_RESET;
   csec_pulse_pdur = PDUR_ON_RESET;
@@ -594,20 +573,13 @@ int main() {
                                (1 << PIN_TS_I2C_SCL) | (1 << PIN_GATE_IG) |
                                (1 << PIN_GATE_MAIN_PWM) | MASK_ALL_MUX_PINS;
 
-  const uint32_t input_mask = (1 << PIN_GATE);
-
-  gpio_init_mask(output_mask | input_mask);
-  gpio_set_dir_masked(output_mask | input_mask, output_mask);
+  gpio_init_mask(output_mask);
+  gpio_set_dir_masked(output_mask, output_mask);
   gpio_clr_mask(output_mask);
-  gpio_pull_down(PIN_GATE); // for safety when host is unavailable
 
   ////////////////////////////////////////////////////////////
   // Initialize "modules" with sanity checks, starting from safe ones.
 
-  if (gpio_get(PIN_GATE)) {
-    // Sanity check; master must not be driving GATE high when turning on ED.
-    goto fatal_error;
-  }
   if (!init_temp_sensor_and_check_sanity()) {
     goto fatal_error;
   }
