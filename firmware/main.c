@@ -264,12 +264,11 @@ uint8_t read_reg(uint8_t reg) {
     return val;
   }
   case REG_TEMPERATURE:
-    if (current_temp_c == TEMP_INVALID) {
-      return 255;
-    } else if (current_temp_c < 0) {
+    // Temp sensor is initialized before I2C.
+    if (current_temp_c < 0) {
       return 0;
-    } else if (current_temp_c >= 254) {
-      return 254;
+    } else if (current_temp_c >= 255) {
+      return 255;
     } else {
       return current_temp_c;
     }
