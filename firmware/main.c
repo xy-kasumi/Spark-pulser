@@ -48,11 +48,9 @@ static volatile bool csec_pulse_test_disable_ig_wait;
 
 // core0, core1 shared, only accessed in csec_stat section.
 static critical_section_t csec_stat;
-static uint32_t csec_stat_n_pulse = 0;
 static uint32_t csec_stat_dur = 0;
 static uint32_t csec_stat_dur_pulse = 0;
 static uint32_t csec_stat_dur_short = 0;
-static uint32_t csec_stat_dur_open = 0;
 
 ////////////////////////////////////////////////////////////////////////////////
 // Core1: Gate & current threshold PWM driving and computation.
@@ -184,19 +182,12 @@ static const uint8_t REG_PULSE_CURRENT = 0x02;
 static const uint8_t REG_TEMPERATURE = 0x03;
 static const uint8_t REG_PULSE_DUR = 0x04;
 static const uint8_t REG_MAX_DUTY = 0x05;
-static const uint8_t REG_CKP_N_PULSE = 0x10;
-static const uint8_t REG_T_IGNITION = 0x11;
-static const uint8_t REG_T_IGNITION_SD = 0x12;
-static const uint8_t REG_R_PULSE = 0x13;
-static const uint8_t REG_R_SHORT = 0x14;
-static const uint8_t REG_R_OPEN = 0x15;
+static const uint8_t CKP_PS = 0x10;
 static const uint8_t REG_TEST = 0x80;
 
 static const uint8_t POL_OFF = 0;
-static const uint8_t POL_TPWN = 1; // Tool+, Work-
-static const uint8_t POL_TNWP = 2; // Tool-, Work+
-static const uint8_t POL_TPGN = 3; // Tool+, Grinder-
-static const uint8_t POL_TNGP = 4; // Tool-, Grinder+
+static const uint8_t POL_TPOS = 1; // Tool+
+static const uint8_t POL_TNEG = 2; // Tool-
 
 static const uint8_t TEST_DISABLE_SHORT = 1 << 0;
 static const uint8_t TEST_DISABLE_IG_WAIT = 1 << 1;
@@ -204,17 +195,11 @@ static const uint8_t TEST_DISABLE_IG_WAIT = 1 << 1;
 static bool i2c_ptr_written = false;
 static uint8_t i2c_reg_ptr = 0;
 
-static uint8_t visible_n_pulse = 0;
-static uint8_t visible_r_pulse = 0;
-static uint8_t visible_r_short = 0;
-static uint8_t visible_r_open = 0;
-
 // write to register. ignores invalid reg address.
 void write_reg(uint8_t reg, uint8_t val) {
   switch (reg) {
   case REG_POLARITY:
-    if (val != POL_OFF && val != POL_TPWN && val != POL_TNWP &&
-        val != POL_TPGN && val != POL_TNGP) {
+    if (val != POL_OFF && val != POL_TPOS && val != POL_TNEG) {
       val = POL_OFF; // treat unknown value as OFF for safety.
     }
     critical_section_enter_blocking(&csec_pulse);
@@ -300,41 +285,30 @@ uint8_t read_reg(uint8_t reg) {
     critical_section_exit(&csec_pulse);
     return val;
   }
-  case REG_CKP_N_PULSE: {
+  case CKP_PS: {
     // Move content to visible buffer and reset internal buffer.
     // Copy to temp vars to leave critical section ASAP to avoid distrupting
     // core1.
     critical_section_enter_blocking(&csec_stat);
-    uint32_t stat_n_pulse = csec_stat_n_pulse;
     uint32_t stat_dur = csec_stat_dur;
     uint32_t stat_dur_pulse = csec_stat_dur_pulse;
     uint32_t stat_dur_short = csec_stat_dur_short;
-    uint32_t stat_dur_open = csec_stat_dur_open;
     // reset
-    csec_stat_n_pulse = 0;
     csec_stat_dur = 0;
     csec_stat_dur_pulse = 0;
     csec_stat_dur_short = 0;
-    csec_stat_dur_open = 0;
     critical_section_exit(&csec_stat);
 
     // convert
-    visible_n_pulse = stat_n_pulse > 255 ? 255 : stat_n_pulse;
-    visible_r_pulse = (uint64_t)stat_dur_pulse * 255 / stat_dur;
-    visible_r_short = (uint64_t)stat_dur_short * 255 / stat_dur;
-    visible_r_open = (uint64_t)stat_dur_open * 255 / stat_dur;
-    return visible_n_pulse;
+    if (stat_dur == 0) {
+      // was not active
+      return 0;
+    } else {
+      uint8_t visible_r_pulse = (uint64_t)stat_dur_pulse * 15 / stat_dur;
+      uint8_t visible_r_short = (uint64_t)stat_dur_short * 15 / stat_dur;
+      return (visible_r_pulse & 0xf) << 4 | (visible_r_short & 0xf);
+    }
   }
-  case REG_T_IGNITION:
-    return 0; // Deprecated, return 0 for compatibility
-  case REG_T_IGNITION_SD:
-    return 0; // Deprecated, return 0 for compatibility
-  case REG_R_PULSE:
-    return visible_r_pulse;
-  case REG_R_SHORT:
-    return visible_r_short;
-  case REG_R_OPEN:
-    return visible_r_open;
   case REG_TEST: {
     critical_section_enter_blocking(&csec_pulse);
     uint8_t val = 0;
@@ -452,11 +426,11 @@ void core1_main() {
       gpio_put_masked(MASK_ALL_MUX_PINS, 0);
       sleep_us(MUX_MAX_SETTLE_TIME_US);
 
-      if (new_pol == POL_TPWN || new_pol == POL_TPGN) {
-        // T+, others-
+      if (new_pol == POL_TPOS) {
+        // T+
         gpio_put_masked(MASK_ALL_MUX_PINS, 1 << PIN_MUX_VC);
       } else {
-        // T-, others+ (including OFF)
+        // T- (including OFF)
         gpio_put_masked(MASK_ALL_MUX_PINS, 1 << PIN_MUX_V0);
       }
       sleep_us(MUX_MAX_SETTLE_TIME_US);
@@ -489,7 +463,6 @@ void core1_main() {
       sleep_us(1);
       critical_section_enter_blocking(&csec_stat);
       csec_stat_dur++;
-      csec_stat_dur_open++;
       critical_section_exit(&csec_stat);
 
       igt_us++;
@@ -508,9 +481,6 @@ void core1_main() {
       critical_section_exit(&csec_stat);
     } else {
       // normal pulse; update stats & wait for pulse duration.
-      critical_section_enter_blocking(&csec_stat);
-      csec_stat_n_pulse++;
-      critical_section_exit(&csec_stat);
 
       // control current for pdur.
       absolute_time_t t_pulse_begin = get_absolute_time();
@@ -520,7 +490,7 @@ void core1_main() {
       absolute_time_t t_end_ig = delayed_by_us(t_pulse_begin, 1);
       // effect of IG impulse on current reading lasts about 10us.
       absolute_time_t t_ig_effect_end = delayed_by_us(t_pulse_begin, 15);
-      
+
       int gate_off_consecutive = 0;
       const float duty_neutral =
           0.5; // "neutral" duty for 20V gap is 0.55. Set conservative and rely
@@ -584,15 +554,12 @@ void core1_main() {
       csec_stat_dur_pulse += actual_pulse_time_us;
       critical_section_exit(&csec_stat);
 
-      // Cooldown
+      // Cooldown to stay within max duty.
       int32_t cooldown_time = pinterval - (int32_t)(igt_us + pdur);
       if (cooldown_time < COOLDOWN_PULSE_MIN_US) {
         cooldown_time = COOLDOWN_PULSE_MIN_US;
       }
       sleep_us(cooldown_time);
-      critical_section_enter_blocking(&csec_stat);
-      csec_stat_dur += cooldown_time;
-      critical_section_exit(&csec_stat);
     }
   pulse_ended:
   }
