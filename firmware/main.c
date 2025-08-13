@@ -433,14 +433,15 @@ void core1_main() {
     // Apply current change.
     curr_pcurr_a = new_pcurr_a;
 
+    // Activeness check
     bool ckp_timeout =
         absolute_time_diff_us(last_ckp, get_absolute_time()) >= CKP_TIMEOUT_US;
-    if (ckp_timeout) {
+    if (ckp_timeout || curr_pol == POL_OFF) {
       continue;
     }
 
     /////
-    //  Emit single pulse if gate is HIGH.
+    //  Pulse control.
 
     // turn on and wait for discharge to happen.
     gpio_put(PIN_GATE_IG, true);
