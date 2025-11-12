@@ -582,7 +582,7 @@
         "HC"
       ],
       "Net-(C5-Pad1)": [
-        "HVHC"
+        "HV"
       ],
       "Net-(D10-K)": [
         "HV"
@@ -963,13 +963,19 @@
           "label": "EXCLUDE_FROM_BOM",
           "name": "${EXCLUDE_FROM_BOM}",
           "show": false
+        },
+        {
+          "group_by": false,
+          "label": "Field6",
+          "name": "Field6",
+          "show": false
         }
       ],
       "filter_string": "",
       "group_symbols": true,
       "include_excluded_from_bom": false,
       "name": "",
-      "sort_asc": false,
+      "sort_asc": true,
       "sort_field": "Reference"
     },
     "connection_grid_size": 50.0,
