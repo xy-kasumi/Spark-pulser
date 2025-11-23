@@ -446,26 +446,28 @@ void core1_main() {
     // turn on and wait for discharge to happen.
     gpio_put(PIN_GATE_IG, true);
     uint16_t igt_us = 0;
-    while (true && !test_disable_ig_wait) {
-      // This threshold is important.
-      // It must be smaller than saturated output current of 100V converter.
-      // The current is determined by:
-      //   (36V - D7 Vf) / R2 = 160mA
-      //
-      // If the threshold is too big, ignition can't be detected and 100V
-      // circuit will burn.
-      if (get_latest_current_a() >= 0.1) {
-        // discharge started.
-        break;
-      }
-      sleep_us(1);
-      critical_section_enter_blocking(&csec_stat);
-      csec_stat_dur++;
-      critical_section_exit(&csec_stat);
+    if (!test_disable_ig_wait) {
+      while (true) {
+        // This threshold is important.
+        // It must be smaller than saturated output current of 100V converter.
+        // The current is determined by:
+        //   (36V - D7 Vf) / R2 = 160mA
+        //
+        // If the threshold is too big, ignition can't be detected and 100V
+        // circuit will burn.
+        if (get_latest_current_a() >= 0.1) {
+          // discharge started.
+          break;
+        }
+        sleep_us(1);
+        critical_section_enter_blocking(&csec_stat);
+        csec_stat_dur++;
+        critical_section_exit(&csec_stat);
 
-      igt_us++;
-      if (igt_us > IG_THRESH_OPEN_US) {
-        igt_us = IG_THRESH_OPEN_US;
+        igt_us++;
+        if (igt_us > IG_THRESH_OPEN_US) {
+          igt_us = IG_THRESH_OPEN_US;
+        }
       }
     }
 
