@@ -447,7 +447,14 @@ void core1_main() {
     gpio_put(PIN_GATE_IG, true);
     uint16_t igt_us = 0;
     while (true && !test_disable_ig_wait) {
-      if (get_latest_current_a() >= 0.5) {
+      // This threshold is important.
+      // It must be smaller than saturated output current of 100V converter.
+      // The current is determined by:
+      //   (36V - D7 Vf) / R2 = 160mA
+      //
+      // If the threshold is too big, ignition can't be detected and 100V
+      // circuit will burn.
+      if (get_latest_current_a() >= 0.1) {
         // discharge started.
         break;
       }
