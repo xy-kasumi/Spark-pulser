@@ -450,12 +450,11 @@ void core1_main() {
       while (true) {
         // This threshold is important.
         // It must be smaller than saturated output current of 100V converter.
-        // The current is determined by:
-        //   (36V - D7 Vf) / R2 = 160mA
+        // The current is determined by: (36V - D7.Vf) / R2
         //
         // If the threshold is too big, ignition can't be detected and 100V
         // circuit will burn.
-        if (get_latest_current_a() >= 0.1) {
+        if (get_latest_current_a() >= 1.0f) {
           // discharge started.
           break;
         }
@@ -497,6 +496,10 @@ void core1_main() {
       const float gain = 0.02;
       const float t_integ = 20e-6;
       float err_accum = 0;
+
+      // immediately start CC PSU before C5 runs out and/or GATE_IG turns off.
+      set_out_level(duty_neutral);
+
       for (int i = 0; i < pdur; i++) {
         if (time_reached(t_pulse_end)) {
           // if some cycle is longer than 1us, this can happen.
