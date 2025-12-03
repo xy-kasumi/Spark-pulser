@@ -548,7 +548,7 @@ void core1_main() {
             break;
           }
           float err = (curr_pcurr_a - curr_a);
-          err_accum += err * 1e-6;
+          err_accum += err * 1e-6f;
 
           float duty = duty_neutral + err * gain + err_accum * (gain / t_integ);
           duty = clampf(duty, 0, PWM_MAX_DUTY);
