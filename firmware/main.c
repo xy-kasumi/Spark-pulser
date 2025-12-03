@@ -430,7 +430,18 @@ ig_result_t ignite(bool test_disable_short, bool test_disable_ig_wait) {
     return IG_RESULT_OK;
   }
 
-  for (int igt_us = 0; igt_us < IG_THRESH_OPEN_US; igt_us++) {
+  absolute_time_t t_begin = get_absolute_time();
+  while (true) {
+    int dt = absolute_time_diff_us(t_begin, get_absolute_time());
+
+    // ignition didn't happen
+    if (dt >= IG_THRESH_OPEN_US) {
+      critical_section_enter_blocking(&csec_stat);
+      csec_stat_dur += dt;
+      critical_section_exit(&csec_stat);
+      return IG_RESULT_OPEN;
+    }
+
     // This threshold is important.
     // It must be smaller than saturated output current of 100V converter.
     // The current is determined by: (36V - D7.Vf) / R2
@@ -438,18 +449,19 @@ ig_result_t ignite(bool test_disable_short, bool test_disable_ig_wait) {
     // If the threshold is too big, ignition can't be detected and 100V
     // circuit will burn.
     if (get_latest_current_a() >= 1.0f) {
-      if (igt_us <= IG_THRESH_SHORT_US && !test_disable_short) {
+      if (dt <= IG_THRESH_SHORT_US && !test_disable_short) {
+        critical_section_enter_blocking(&csec_stat);
+        csec_stat_dur += dt;
+        critical_section_exit(&csec_stat);
         return IG_RESULT_SHORT;
       } else {
+        critical_section_enter_blocking(&csec_stat);
+        csec_stat_dur += dt;
+        critical_section_exit(&csec_stat);
         return IG_RESULT_OK;
       }
     }
-    sleep_us(1);
-    critical_section_enter_blocking(&csec_stat);
-    csec_stat_dur++;
-    critical_section_exit(&csec_stat);
   }
-  return IG_RESULT_OPEN;
 }
 
 void core1_main() {
