@@ -127,8 +127,8 @@ static float get_latest_current_a() {
     // max measurement: 18.79A
 
     uint16_t val = (uint16_t)adc_hw->result;
-    float voltage_mv = (float)val * 0.732;
-    latest_curr_a = (voltage_mv - 500) * (1.0 / 133);
+    float voltage_mv = (float)val * 0.732f;
+    latest_curr_a = (voltage_mv - 500) * (1.0f / 133);
 
     // start next sampling
     hw_set_bits(&adc_hw->cs, ADC_CS_START_ONCE_BITS);
