@@ -371,10 +371,22 @@ static const uint16_t IG_THRESH_SHORT_US = 5;
 static const uint16_t IG_THRESH_OPEN_US = 1000;
 
 static const uint16_t COOLDOWN_SHORT_US = 100;
+static const uint16_t COOLDOWN_OPEN_US = 50;
 
 static const uint16_t COOLDOWN_PULSE_MIN_US = 5;
 
 static const uint32_t MASK_ALL_MUX_PINS = (1 << PIN_MUX_V0) | (1 << PIN_MUX_VC);
+
+typedef enum {
+  // Ignition didn't happen within specified time window.
+  IG_RESULT_OPEN,
+
+  // Ignition happened too early; considered as short.
+  IG_RESULT_SHORT,
+
+  // Ignition happened normally; should proceed to pulse current control.
+  IG_RESULT_OK,
+} ig_result_t;
 
 static inline float clampf(float val, float min, float max) {
   if (val < min) {
@@ -386,12 +398,64 @@ static inline float clampf(float val, float min, float max) {
   }
 }
 
+static inline int maxi(int a, int b) { return (a > b) ? a : b; }
+
+/**
+ * Set polarity.
+ * Takes at most 10us.
+ */
+void set_pol(uint8_t pol) {
+  sleep_us(DISCHARGE_MAX_SETTLE_TIME_US);
+
+  gpio_put_masked(MASK_ALL_MUX_PINS, 0);
+  sleep_us(MUX_MAX_SETTLE_TIME_US);
+
+  if (pol == POL_TPOS) {
+    // T+
+    gpio_put_masked(MASK_ALL_MUX_PINS, 1 << PIN_MUX_VC);
+  } else {
+    // T- (including OFF)
+    gpio_put_masked(MASK_ALL_MUX_PINS, 1 << PIN_MUX_V0);
+  }
+  sleep_us(MUX_MAX_SETTLE_TIME_US);
+}
+
+/**
+ * Start applying HV to the gap and wait for discharge to happen until
+ * IG_THRESH_OPEN_US passes.
+ */
+ig_result_t ignite(bool test_disable_short, bool test_disable_ig_wait) {
+  gpio_put(PIN_GATE_IG, true);
+  if (test_disable_ig_wait) {
+    return IG_RESULT_OK;
+  }
+
+  for (int igt_us = 0; igt_us < IG_THRESH_OPEN_US; igt_us++) {
+    // This threshold is important.
+    // It must be smaller than saturated output current of 100V converter.
+    // The current is determined by: (36V - D7.Vf) / R2
+    //
+    // If the threshold is too big, ignition can't be detected and 100V
+    // circuit will burn.
+    if (get_latest_current_a() >= 1.0f) {
+      if (igt_us <= IG_THRESH_SHORT_US && !test_disable_short) {
+        return IG_RESULT_SHORT;
+      } else {
+        return IG_RESULT_OK;
+      }
+    }
+    sleep_us(1);
+    critical_section_enter_blocking(&csec_stat);
+    csec_stat_dur++;
+    critical_section_exit(&csec_stat);
+  }
+  return IG_RESULT_OPEN;
+}
+
 void core1_main() {
   uint8_t curr_pol = POL_OFF;
   float curr_pcurr_a = 1;
 
-  // Each loop is expected to finish well within 1us.
-  // But when applying changes to pol/pcurr, it can take as long as it needs.
   while (true) {
     // Exit if global error mode is set.
     if (atomic_load(&error_mode)) {
@@ -408,29 +472,15 @@ void core1_main() {
     bool test_disable_short = csec_pulse_test_disable_short;
     bool test_disable_ig_wait = csec_pulse_test_disable_ig_wait;
     critical_section_exit(&csec_pulse);
-    uint16_t pinterval = (uint32_t)pdur * 100 / (uint32_t)max_duty;
+    int pinterval = (uint32_t)pdur * 100 / (uint32_t)max_duty;
+    int pcooldown = pinterval - pdur;
     float new_pcurr_a = (float)new_pcurr * 0.1f;
 
-    // Apply POL change.
+    // Apply config changes.
     if (curr_pol != new_pol) {
-      // LONG PROCESS
-      sleep_us(DISCHARGE_MAX_SETTLE_TIME_US);
-
-      gpio_put_masked(MASK_ALL_MUX_PINS, 0);
-      sleep_us(MUX_MAX_SETTLE_TIME_US);
-
-      if (new_pol == POL_TPOS) {
-        // T+
-        gpio_put_masked(MASK_ALL_MUX_PINS, 1 << PIN_MUX_VC);
-      } else {
-        // T- (including OFF)
-        gpio_put_masked(MASK_ALL_MUX_PINS, 1 << PIN_MUX_V0);
-      }
-      sleep_us(MUX_MAX_SETTLE_TIME_US);
+      set_pol(new_pol);
       curr_pol = new_pol;
     }
-
-    // Apply current change.
     curr_pcurr_a = new_pcurr_a;
 
     // Activeness check
@@ -443,34 +493,11 @@ void core1_main() {
     /////
     //  Pulse control.
 
-    // turn on and wait for discharge to happen.
-    gpio_put(PIN_GATE_IG, true);
-    uint16_t igt_us = 0;
-    if (!test_disable_ig_wait) {
-      while (true) {
-        // This threshold is important.
-        // It must be smaller than saturated output current of 100V converter.
-        // The current is determined by: (36V - D7.Vf) / R2
-        //
-        // If the threshold is too big, ignition can't be detected and 100V
-        // circuit will burn.
-        if (get_latest_current_a() >= 1.0f) {
-          // discharge started.
-          break;
-        }
-        sleep_us(1);
-        critical_section_enter_blocking(&csec_stat);
-        csec_stat_dur++;
-        critical_section_exit(&csec_stat);
+    absolute_time_t t_ig_begin = get_absolute_time();
+    ig_result_t ig_res = ignite(test_disable_short, test_disable_ig_wait);
+    int dt_ig = absolute_time_diff_us(t_ig_begin, get_absolute_time());
 
-        igt_us++;
-        if (igt_us > IG_THRESH_OPEN_US) {
-          igt_us = IG_THRESH_OPEN_US;
-        }
-      }
-    }
-
-    if (igt_us < IG_THRESH_SHORT_US && !test_disable_short) {
+    if (ig_res == IG_RESULT_SHORT) {
       // short; turn-off and short-cooldown.
       turnoff_out();
       sleep_us(COOLDOWN_SHORT_US);
@@ -478,21 +505,22 @@ void core1_main() {
       csec_stat_dur += COOLDOWN_SHORT_US;
       csec_stat_dur_short += COOLDOWN_SHORT_US;
       critical_section_exit(&csec_stat);
+    } else if (ig_res == IG_RESULT_OPEN) {
+      // open
+      turnoff_out();
+      // cooldown is necessary to recharge boostrap capacitor of the gate driver
+      // for ignition power supply
+      sleep_us(COOLDOWN_OPEN_US);
+      critical_section_enter_blocking(&csec_stat);
+      csec_stat_dur += COOLDOWN_OPEN_US;
+      critical_section_exit(&csec_stat);
     } else {
       // normal pulse; update stats & wait for pulse duration.
-
       // control current for pdur.
-      absolute_time_t t_pulse_begin = get_absolute_time();
-      absolute_time_t t_pulse_end = delayed_by_us(t_pulse_begin, pdur);
 
-      // Empirically, 3us is enough for discharge to stabilize to 20V.
-      absolute_time_t t_end_ig = delayed_by_us(t_pulse_begin, 1);
-      // effect of IG impulse on current reading lasts about 10us.
-      absolute_time_t t_ig_effect_end = delayed_by_us(t_pulse_begin, 15);
-
-      const float duty_neutral =
-          0.5; // "neutral" duty for 20V gap is 0.55. Set conservative and rely
-               // on I-control to adjust.
+      // "neutral" duty for 20V gap is 0.55. Set conservative and rely
+      // on I-control to adjust.
+      const float duty_neutral = 0.5;
       const float gain = 0.02;
       const float t_integ = 20e-6;
       float err_accum = 0;
@@ -500,18 +528,15 @@ void core1_main() {
       // immediately start CC PSU before C5 runs out and/or GATE_IG turns off.
       set_out_level(duty_neutral);
 
-      for (int i = 0; i < pdur; i++) {
-        if (time_reached(t_pulse_end)) {
-          // if some cycle is longer than 1us, this can happen.
-          break;
-        }
-
+      for (int us = 0; us < pdur; us++) {
         // Turn off ignition voltage and hand over to PWM current.
-        if (time_reached(t_end_ig)) {
+        // Wait for a us to have some overlap.
+        if (us >= 1) {
           gpio_put(PIN_GATE_IG, false);
         }
 
-        if (time_reached(t_ig_effect_end)) {
+        // Start current control after ignition effect settles.
+        if (us >= 15) {
           // Control constant-current PWM.
           float curr_a = get_latest_current_a();
           if (curr_a > curr_pcurr_a + MAX_CURR_OVERSHOOT_A) {
@@ -531,26 +556,23 @@ void core1_main() {
         } else {
           set_out_level(duty_neutral);
         }
-
-        // Absorb processing time variation to keep cycle at least 1us.
-        sleep_until(delayed_by_us(t_pulse_begin, i + 1));
+        sleep_us(1);
       }
       // Turn-off
       turnoff_out();
+
       // Record spent time as pulse time.
-      int actual_pulse_time_us =
-          absolute_time_diff_us(t_pulse_begin, get_absolute_time());
       critical_section_enter_blocking(&csec_stat);
-      csec_stat_dur += actual_pulse_time_us;
-      csec_stat_dur_pulse += actual_pulse_time_us;
+      csec_stat_dur += pdur;
+      csec_stat_dur_pulse += pdur;
       critical_section_exit(&csec_stat);
 
       // Cooldown to stay within max duty.
-      int32_t cooldown_time = pinterval - (int32_t)(igt_us + pdur);
-      if (cooldown_time < COOLDOWN_PULSE_MIN_US) {
-        cooldown_time = COOLDOWN_PULSE_MIN_US;
-      }
+      // Ignition wait time can be counted as cooldown.
+      int cooldown_time = maxi(pcooldown - dt_ig, COOLDOWN_PULSE_MIN_US);
       sleep_us(cooldown_time);
+
+      // do not count cooldown of succesful pulse as either short, pulse, open.
     }
   }
 
