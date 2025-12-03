@@ -537,18 +537,23 @@ void core1_main() {
       const float t_integ = 20e-6;
       float err_accum = 0;
 
-      // immediately start CC PSU before C5 runs out and/or GATE_IG turns off.
-      set_out_level(duty_neutral);
+      absolute_time_t t_pulse_begin = get_absolute_time();
+      while (true) {
+        int dt = absolute_time_diff_us(t_pulse_begin, get_absolute_time());
+        // pulse duration ended?
+        if (dt >= pdur) {
+          break;
+        }
 
-      for (int us = 0; us < pdur; us++) {
         // Turn off ignition voltage and hand over to PWM current.
         // Wait for a us to have some overlap.
-        if (us >= 1) {
+        if (dt >= 1) {
           gpio_put(PIN_GATE_IG, false);
         }
 
-        // Start current control after ignition effect settles.
-        if (us >= 15) {
+        // Control current. Initially fixed value, later dynamic control (after
+        // ignition current settles).
+        if (dt >= 15) {
           // Control constant-current PWM.
           float curr_a = get_latest_current_a();
           if (curr_a > curr_pcurr_a + MAX_CURR_OVERSHOOT_A) {
@@ -568,6 +573,7 @@ void core1_main() {
         } else {
           set_out_level(duty_neutral);
         }
+
         sleep_us(1);
       }
       // Turn-off
