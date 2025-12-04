@@ -402,20 +402,23 @@ static inline int maxi(int a, int b) { return (a > b) ? a : b; }
 
 /**
  * Set polarity.
- * Takes at most 10us.
+ * Takes at most MUX_REFRESH_TIME_US + MUX_MAX_SETTLE_TIME_US.
+ * Even when the polarity did not change, this must be called often (more than
+ * 1kHz) to refresh gate driver boostrap capacitor.
  */
 void set_pol(uint8_t pol) {
-  sleep_us(DISCHARGE_MAX_SETTLE_TIME_US);
-
+  // To refresh bootstrap capacitor, set low and wait for a while.
   gpio_put_masked(MASK_ALL_MUX_PINS, 0);
-  sleep_us(MUX_MAX_SETTLE_TIME_US);
+  sleep_us(MUX_REFRESH_TIME_US);
 
-  if (pol == POL_TPOS) {
-    // T+
+  // Set polarity (or do nothing for POL_OFF).
+  switch (pol) {
+  case POL_TPOS:
     gpio_put_masked(MASK_ALL_MUX_PINS, 1 << PIN_MUX_VC);
-  } else {
-    // T- (including OFF)
+    break;
+  case POL_TNEG:
     gpio_put_masked(MASK_ALL_MUX_PINS, 1 << PIN_MUX_V0);
+    break;
   }
   sleep_us(MUX_MAX_SETTLE_TIME_US);
 }
@@ -465,9 +468,6 @@ ig_result_t ignite(bool test_disable_short, bool test_disable_ig_wait) {
 }
 
 void core1_main() {
-  uint8_t curr_pol = POL_OFF;
-  float curr_pcurr_a = 1;
-
   while (true) {
     // Exit if global error mode is set.
     if (atomic_load(&error_mode)) {
@@ -477,8 +477,8 @@ void core1_main() {
     // Fetch latest pulse config for processing.
     critical_section_enter_blocking(&csec_pulse);
     absolute_time_t last_ckp = csec_pulse_last_ckp;
-    uint8_t new_pol = csec_pulse_pol;
-    uint8_t new_pcurr = csec_pulse_pcurr;
+    uint8_t pol = csec_pulse_pol;
+    uint8_t pcurr = csec_pulse_pcurr;
     uint16_t pdur = csec_pulse_pdur;
     uint8_t max_duty = csec_pulse_max_duty;
     bool test_disable_short = csec_pulse_test_disable_short;
@@ -486,19 +486,15 @@ void core1_main() {
     critical_section_exit(&csec_pulse);
     int pinterval = (uint32_t)pdur * 100 / (uint32_t)max_duty;
     int pcooldown = pinterval - pdur;
-    float new_pcurr_a = (float)new_pcurr * 0.1f;
+    float pcurr_a = (float)pcurr * 0.1f;
 
-    // Apply config changes.
-    if (curr_pol != new_pol) {
-      set_pol(new_pol);
-      curr_pol = new_pol;
-    }
-    curr_pcurr_a = new_pcurr_a;
+    // Apply polarity & refresh.
+    set_pol(pol);
 
     // Activeness check
     bool ckp_timeout =
         absolute_time_diff_us(last_ckp, get_absolute_time()) >= CKP_TIMEOUT_US;
-    if (ckp_timeout || curr_pol == POL_OFF) {
+    if (ckp_timeout || pol == POL_OFF) {
       continue;
     }
 
@@ -556,7 +552,7 @@ void core1_main() {
         if (dt >= 15) {
           // Control constant-current PWM.
           float curr_a = get_latest_current_a();
-          if (curr_a > curr_pcurr_a + MAX_CURR_OVERSHOOT_A) {
+          if (curr_a > pcurr_a + MAX_CURR_OVERSHOOT_A) {
             // current is too high for a normal gap.
             // gap might get shorted during the pulse,
             // or control is oscillating.
@@ -564,7 +560,7 @@ void core1_main() {
             // register?
             break;
           }
-          float err = (curr_pcurr_a - curr_a);
+          float err = (pcurr_a - curr_a);
           err_accum += err * 1e-6f;
 
           float duty = duty_neutral + err * gain + err_accum * (gain / t_integ);

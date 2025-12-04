@@ -40,6 +40,7 @@ static const uint8_t PIN_POWER_PS = 23;
 #define TS_I2C_DEV_ADDR 0x49
 #define TS_I2C_TIMEOUT_US 500
 
+#define MUX_REFRESH_TIME_US 5
 #define MUX_MAX_SETTLE_TIME_US 1
 #define DISCHARGE_MAX_SETTLE_TIME_US 5 // PWM delay + MOSFET delay
 #define THRESH_MAX_SETTLE_TIME_MS 1    // PWM delay
