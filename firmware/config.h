@@ -13,7 +13,10 @@
 #define I2C_DEV_ADDR 0x3b // I2C Device Address
 #define I2C_BAUD 400000   // I2C target baud (Hz)
 
-#define MAX_ALLOWED_TEMP 80 // degree celcius
+#define THROTTLE_TEMP_C 70 // Above this, start reducing duty factor [℃]
+#define MAX_ALLOWED_TEMP 80 // Above this, enter permanent error mode [℃]
+
+#define THROTTLE_DUTY 10 // Max duty factor when throttling [%]
 
 /**
  * GPIO pin definitions & internal parts-specific parameters.

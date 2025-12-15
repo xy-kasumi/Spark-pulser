@@ -52,6 +52,10 @@ static uint32_t csec_stat_dur = 0;
 static uint32_t csec_stat_dur_pulse = 0;
 static uint32_t csec_stat_dur_short = 0;
 
+// core0, core1 shared no explicit protection
+static const int TEMP_INVALID = -1000;
+static volatile int current_temp_c = TEMP_INVALID;
+
 ////////////////////////////////////////////////////////////////////////////////
 // Core1: Gate & current threshold PWM driving and computation.
 
@@ -138,9 +142,6 @@ static float get_latest_current_a() {
 
 ////////////////////////////////////////////////////////////////////////////////
 // Core0: Temperature sensor
-
-static const int TEMP_INVALID = -1000;
-static int current_temp_c = TEMP_INVALID;
 
 // Update current_temp by doing ADC read.
 // Returns true if ok, false otherwise.
@@ -399,6 +400,7 @@ static inline float clampf(float val, float min, float max) {
 }
 
 static inline int maxi(int a, int b) { return (a > b) ? a : b; }
+static inline int mini(int a, int b) { return (a < b) ? a : b; }
 
 /**
  * Set polarity.
@@ -484,6 +486,11 @@ void core1_main() {
     bool test_disable_short = csec_pulse_test_disable_short;
     bool test_disable_ig_wait = csec_pulse_test_disable_ig_wait;
     critical_section_exit(&csec_pulse);
+
+    // Thermal throttling by reducing max duty.
+    if (current_temp_c > THROTTLE_TEMP_C) {
+      max_duty = mini(max_duty, THROTTLE_DUTY);
+    }
     int pinterval = (uint32_t)pdur * 100 / (uint32_t)max_duty;
     int pcooldown = pinterval - pdur;
     float pcurr_a = (float)pcurr * 0.1f;
