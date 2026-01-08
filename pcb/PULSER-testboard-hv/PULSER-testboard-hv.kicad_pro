@@ -412,6 +412,14 @@
     [
       "853931f0-9d2b-49ab-aae3-2a7153967e0f",
       "Root"
+    ],
+    [
+      "bd7f0006-b363-44d9-a542-e4fe897a7941",
+      "Boost Converter"
+    ],
+    [
+      "a58ab8a7-d919-4bb1-bcb6-a07722db020b",
+      "Pulse Controller"
     ]
   ],
   "text_variables": {}

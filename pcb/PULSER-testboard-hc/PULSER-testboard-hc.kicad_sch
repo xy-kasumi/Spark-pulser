@@ -4,8 +4,15 @@
 	(generator_version "9.0")
 	(uuid "5d11a05d-bf43-4696-ad3f-8cbacb82ef15")
 	(paper "A4")
+	(title_block
+		(title "Pulser V2 HV Test Board")
+		(date "2026-01-08")
+		(rev "1")
+		(company "Spark Project")
+		(comment 1 "夕月霞")
+	)
 	(lib_symbols
-		(symbol "Connector:Conn_01x01_Pin"
+		(symbol "Connector:Conn_01x02_Pin"
 			(pin_names
 				(offset 1.016)
 				(hide yes)
@@ -21,8 +28,8 @@
 					)
 				)
 			)
-			(property "Value" "Conn_01x01_Pin"
-				(at 0 -2.54 0)
+			(property "Value" "Conn_01x02_Pin"
+				(at 0 -5.08 0)
 				(effects
 					(font
 						(size 1.27 1.27)
@@ -47,7 +54,7 @@
 					(hide yes)
 				)
 			)
-			(property "Description" "Generic connector, single row, 01x01, script generated"
+			(property "Description" "Generic connector, single row, 01x02, script generated"
 				(at 0 0 0)
 				(effects
 					(font
@@ -82,10 +89,21 @@
 					(hide yes)
 				)
 			)
-			(symbol "Conn_01x01_Pin_1_1"
+			(symbol "Conn_01x02_Pin_1_1"
 				(rectangle
 					(start 0.8636 0.127)
 					(end 0 -0.127)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(rectangle
+					(start 0.8636 -2.413)
+					(end 0 -2.667)
 					(stroke
 						(width 0.1524)
 						(type default)
@@ -106,6 +124,18 @@
 						(type none)
 					)
 				)
+				(polyline
+					(pts
+						(xy 1.27 -2.54) (xy 0.8636 -2.54)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
 				(pin passive line
 					(at 5.08 0 180)
 					(length 3.81)
@@ -117,6 +147,24 @@
 						)
 					)
 					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 5.08 -2.54 180)
+					(length 3.81)
+					(name "Pin_2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -2451,16 +2499,6 @@
 		)
 		(uuid "06898e09-21a8-41cb-867a-5eac76dbddd0")
 	)
-	(text "current timing control"
-		(exclude_from_sim no)
-		(at 58.42 22.86 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-		)
-		(uuid "07f583db-cd68-4711-95f8-da222b474b50")
-	)
 	(text "computed using\nVo=20V"
 		(exclude_from_sim no)
 		(at 124.968 82.042 0)
@@ -2939,6 +2977,16 @@
 	)
 	(wire
 		(pts
+			(xy 30.48 74.93) (xy 34.29 74.93)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "28c56b8e-1cd0-4f4c-b672-2ff78c011c9a")
+	)
+	(wire
+		(pts
 			(xy 156.21 62.23) (xy 156.21 69.85)
 		)
 		(stroke
@@ -2989,7 +3037,7 @@
 	)
 	(wire
 		(pts
-			(xy 48.26 49.53) (xy 58.42 49.53)
+			(xy 31.75 30.48) (xy 41.91 30.48)
 		)
 		(stroke
 			(width 0)
@@ -3139,17 +3187,7 @@
 	)
 	(wire
 		(pts
-			(xy 162.56 137.16) (xy 162.56 168.91)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "5750c952-e43b-4a8a-989b-13e5ab8a8305")
-	)
-	(wire
-		(pts
-			(xy 58.42 44.45) (xy 58.42 46.99)
+			(xy 41.91 25.4) (xy 41.91 27.94)
 		)
 		(stroke
 			(width 0)
@@ -3189,6 +3227,16 @@
 	)
 	(wire
 		(pts
+			(xy 30.48 72.39) (xy 41.91 72.39)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5ed81ea3-16cc-418b-bce5-f11f3d3e6fe4")
+	)
+	(wire
+		(pts
 			(xy 158.75 67.31) (xy 195.58 67.31)
 		)
 		(stroke
@@ -3219,6 +3267,16 @@
 	)
 	(wire
 		(pts
+			(xy 35.56 57.15) (xy 35.56 60.96)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "65430c21-70bb-441a-801e-4c81c9a631f7")
+	)
+	(wire
+		(pts
 			(xy 96.52 46.99) (xy 104.14 46.99)
 		)
 		(stroke
@@ -3226,6 +3284,16 @@
 			(type default)
 		)
 		(uuid "66cc4c3f-fbee-44e3-9698-15a5cedcdb21")
+	)
+	(wire
+		(pts
+			(xy 34.29 74.93) (xy 34.29 80.01)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6c15a824-5e12-4e8f-88db-4c23e083b34c")
 	)
 	(wire
 		(pts
@@ -3259,7 +3327,7 @@
 	)
 	(wire
 		(pts
-			(xy 58.42 49.53) (xy 58.42 59.69)
+			(xy 41.91 30.48) (xy 41.91 40.64)
 		)
 		(stroke
 			(width 0)
@@ -3419,6 +3487,16 @@
 	)
 	(wire
 		(pts
+			(xy 135.89 118.11) (xy 135.89 120.65)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9370a898-a7cf-4821-942e-bf12ce6bbcbf")
+	)
+	(wire
+		(pts
 			(xy 181.61 41.91) (xy 181.61 46.99)
 		)
 		(stroke
@@ -3426,6 +3504,16 @@
 			(type default)
 		)
 		(uuid "93afabd3-2282-40ff-9cd1-8ddc63e5e6a6")
+	)
+	(wire
+		(pts
+			(xy 121.92 41.91) (xy 124.46 41.91)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "96163f01-9e01-4fbe-8253-a75f38e1fa0f")
 	)
 	(wire
 		(pts
@@ -3579,6 +3667,16 @@
 	)
 	(wire
 		(pts
+			(xy 30.48 57.15) (xy 35.56 57.15)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b6358eff-209d-446e-918d-885135c6f1c0")
+	)
+	(wire
+		(pts
 			(xy 152.4 59.69) (xy 158.75 59.69)
 		)
 		(stroke
@@ -3699,7 +3797,7 @@
 	)
 	(wire
 		(pts
-			(xy 58.42 46.99) (xy 48.26 46.99)
+			(xy 41.91 27.94) (xy 31.75 27.94)
 		)
 		(stroke
 			(width 0)
@@ -3779,16 +3877,6 @@
 	)
 	(wire
 		(pts
-			(xy 46.99 137.16) (xy 162.56 137.16)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "e1c09c2c-24fd-421c-b6e2-7171c0c42343")
-	)
-	(wire
-		(pts
 			(xy 138.43 24.13) (xy 138.43 33.02)
 		)
 		(stroke
@@ -3829,6 +3917,16 @@
 	)
 	(wire
 		(pts
+			(xy 30.48 54.61) (xy 41.91 54.61)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e69d6d2d-a99a-44be-844f-8ace83fbcb09")
+	)
+	(wire
+		(pts
 			(xy 121.92 166.37) (xy 121.92 172.72)
 		)
 		(stroke
@@ -3846,6 +3944,16 @@
 			(type default)
 		)
 		(uuid "ea333373-4801-4a23-bb34-6aa9b934097f")
+	)
+	(wire
+		(pts
+			(xy 132.08 128.27) (xy 135.89 128.27)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ec624511-a209-416a-95d6-211cbe9c8329")
 	)
 	(wire
 		(pts
@@ -4307,6 +4415,50 @@
 			"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=="
 		)
 	)
+	(global_label "EN"
+		(shape input)
+		(at 121.92 41.91 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "2b58068e-38d4-4b0d-aa23-f0b5cd197663")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 116.4553 41.91 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "EN"
+		(shape input)
+		(at 41.91 54.61 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "7b07eed8-5148-4a9d-8906-68cae04ae4c8")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 47.3747 54.61 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+	)
 	(global_label "CTRL1"
 		(shape input)
 		(at 121.92 54.61 180)
@@ -4320,6 +4472,28 @@
 		(uuid "d54ea386-db65-4923-8568-f93c8e1a8655")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 113.1896 54.61 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "EN"
+		(shape input)
+		(at 132.08 128.27 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "e25c10d6-0e1a-4d55-8759-eb9a0085ec7d")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 126.6153 128.27 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4351,6 +4525,28 @@
 			)
 		)
 	)
+	(global_label "CTRL1"
+		(shape input)
+		(at 41.91 72.39 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "f39dfd7f-8e1d-46ee-bb59-bd5b2b94900a")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 50.6404 72.39 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+	)
 	(symbol
 		(lib_id "Device:R")
 		(at 111.76 176.53 180)
@@ -4361,7 +4557,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "000597e1-6e3c-488e-bc4a-769f2ce364ad")
-		(property "Reference" "R10"
+		(property "Reference" "R11"
 			(at 114.3 175.2599 0)
 			(effects
 				(font
@@ -4415,7 +4611,7 @@
 		(instances
 			(project "PULSER-testboard-hc"
 				(path "/5d11a05d-bf43-4696-ad3f-8cbacb82ef15"
-					(reference "R10")
+					(reference "R11")
 					(unit 1)
 				)
 			)
@@ -4524,7 +4720,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "06de5037-78c5-470b-a7e1-bed244df0df3")
-		(property "Reference" "#PWR016"
+		(property "Reference" "#PWR015"
 			(at 121.92 154.94 0)
 			(effects
 				(font
@@ -4574,7 +4770,7 @@
 		(instances
 			(project "PULSER-testboard-hc"
 				(path "/5d11a05d-bf43-4696-ad3f-8cbacb82ef15"
-					(reference "#PWR016")
+					(reference "#PWR015")
 					(unit 1)
 				)
 			)
@@ -4582,15 +4778,15 @@
 	)
 	(symbol
 		(lib_id "Connector:Screw_Terminal_01x02")
-		(at 43.18 49.53 180)
+		(at 26.67 30.48 180)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
 		(uuid "0c801a79-2494-419d-b76e-0abe92f89666")
-		(property "Reference" "J1"
-			(at 42.926 55.372 0)
+		(property "Reference" "J2"
+			(at 26.416 36.322 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4598,7 +4794,7 @@
 			)
 		)
 		(property "Value" "Screw_Terminal 2pin"
-			(at 43.688 58.928 0)
+			(at 27.178 39.878 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4606,7 +4802,7 @@
 			)
 		)
 		(property "Footprint" "SparkAll:Wurth_TerminalBlock_2pin_P5mm_691137710002"
-			(at 43.18 49.53 0)
+			(at 26.67 30.48 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4615,7 +4811,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 43.18 49.53 0)
+			(at 26.67 30.48 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4624,7 +4820,7 @@
 			)
 		)
 		(property "Description" "Generic screw terminal, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"
-			(at 43.18 49.53 0)
+			(at 26.67 30.48 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4633,7 +4829,7 @@
 			)
 		)
 		(property "LCSC" "C8269"
-			(at 43.18 49.53 0)
+			(at 26.67 30.48 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4642,7 +4838,7 @@
 			)
 		)
 		(property "Sim.Library" ""
-			(at 43.18 49.53 0)
+			(at 26.67 30.48 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4651,7 +4847,7 @@
 			)
 		)
 		(property "Sim.Name" ""
-			(at 43.18 49.53 0)
+			(at 26.67 30.48 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4660,7 +4856,7 @@
 			)
 		)
 		(property "Sim.Type" ""
-			(at 43.18 49.53 0)
+			(at 26.67 30.48 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4669,7 +4865,7 @@
 			)
 		)
 		(property "Sim.Device" ""
-			(at 43.18 49.53 0)
+			(at 26.67 30.48 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4677,7 +4873,7 @@
 			)
 		)
 		(property "Sim.Pins" ""
-			(at 43.18 49.53 0)
+			(at 26.67 30.48 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4693,7 +4889,7 @@
 		(instances
 			(project "PULSER-testboard-hc"
 				(path "/5d11a05d-bf43-4696-ad3f-8cbacb82ef15"
-					(reference "J1")
+					(reference "J2")
 					(unit 1)
 				)
 			)
@@ -4874,7 +5070,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "0f258833-3eef-4167-a309-88025c9d0f1d")
-		(property "Reference" "JP1"
+		(property "Reference" "JP2"
 			(at 154.94 154.94 0)
 			(effects
 				(font
@@ -4926,7 +5122,73 @@
 		(instances
 			(project ""
 				(path "/5d11a05d-bf43-4696-ad3f-8cbacb82ef15"
-					(reference "JP1")
+					(reference "JP2")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 34.29 80.01 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "1185dc31-84b9-4b4a-9ef3-09c8d042a8c1")
+		(property "Reference" "#PWR018"
+			(at 34.29 86.36 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 34.29 85.09 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 34.29 80.01 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 34.29 80.01 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 34.29 80.01 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "596e426d-fa0f-48d1-960e-c586681e1b0f")
+		)
+		(instances
+			(project "PULSER-testboard-hc"
+				(path "/5d11a05d-bf43-4696-ad3f-8cbacb82ef15"
+					(reference "#PWR018")
 					(unit 1)
 				)
 			)
@@ -5011,7 +5273,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "1b6ec5ba-4875-4696-965f-41f377f0332a")
-		(property "Reference" "#PWR03"
+		(property "Reference" "#PWR02"
 			(at 181.61 27.94 0)
 			(effects
 				(font
@@ -5061,7 +5323,7 @@
 		(instances
 			(project "PULSER-testboard-hc"
 				(path "/5d11a05d-bf43-4696-ad3f-8cbacb82ef15"
-					(reference "#PWR03")
+					(reference "#PWR02")
 					(unit 1)
 				)
 			)
@@ -5077,7 +5339,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "1ecf1844-fcd8-437c-8109-aaec574fff61")
-		(property "Reference" "#PWR07"
+		(property "Reference" "#PWR011"
 			(at 181.61 92.71 0)
 			(effects
 				(font
@@ -5127,7 +5389,7 @@
 		(instances
 			(project "PULSER-testboard-hc"
 				(path "/5d11a05d-bf43-4696-ad3f-8cbacb82ef15"
-					(reference "#PWR07")
+					(reference "#PWR011")
 					(unit 1)
 				)
 			)
@@ -5143,7 +5405,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "2448a691-2f8f-469e-a42b-10e96338d5e1")
-		(property "Reference" "#PWR015"
+		(property "Reference" "#PWR014"
 			(at 97.79 154.94 0)
 			(effects
 				(font
@@ -5193,7 +5455,77 @@
 		(instances
 			(project ""
 				(path "/5d11a05d-bf43-4696-ad3f-8cbacb82ef15"
-					(reference "#PWR015")
+					(reference "#PWR014")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 135.89 124.46 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "2512e090-3adf-4550-a12c-9ab3be26f48e")
+		(property "Reference" "R15"
+			(at 138.43 123.1899 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "100k"
+			(at 138.43 125.7299 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 134.112 124.46 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 135.89 124.46 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Resistor"
+			(at 135.89 124.46 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "afa9da61-d9e9-4f5d-8604-4d4ab184e9b8")
+		)
+		(pin "2"
+			(uuid "d3bf2341-18f2-42a0-90f1-051d4de0e4f7")
+		)
+		(instances
+			(project "PULSER-testboard-hc"
+				(path "/5d11a05d-bf43-4696-ad3f-8cbacb82ef15"
+					(reference "R15")
 					(unit 1)
 				)
 			)
@@ -5208,7 +5540,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "28680fa7-a9e9-49ed-81e7-fbf956c7e969")
-		(property "Reference" "C1"
+		(property "Reference" "C2"
 			(at 107.696 73.914 0)
 			(effects
 				(font
@@ -5260,7 +5592,73 @@
 		(instances
 			(project "PULSER-testboard-hc"
 				(path "/5d11a05d-bf43-4696-ad3f-8cbacb82ef15"
-					(reference "C1")
+					(reference "C2")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:VCC")
+		(at 135.89 118.11 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "29e88d50-c776-4316-8197-86ec3fe381fb")
+		(property "Reference" "#PWR019"
+			(at 135.89 121.92 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+3V3"
+			(at 135.89 113.03 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 135.89 118.11 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 135.89 118.11 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"VCC\""
+			(at 135.89 118.11 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "a622782f-9ce0-40ec-a7e4-96fb28c87718")
+		)
+		(instances
+			(project "PULSER-testboard-hc"
+				(path "/5d11a05d-bf43-4696-ad3f-8cbacb82ef15"
+					(reference "#PWR019")
 					(unit 1)
 				)
 			)
@@ -5343,7 +5741,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "2f8dabbc-fc32-4b66-b0ac-1840e802b22a")
-		(property "Reference" "R7"
+		(property "Reference" "R10"
 			(at 82.55 168.9099 0)
 			(effects
 				(font
@@ -5397,7 +5795,7 @@
 		(instances
 			(project "PULSER-testboard-hc"
 				(path "/5d11a05d-bf43-4696-ad3f-8cbacb82ef15"
-					(reference "R7")
+					(reference "R10")
 					(unit 1)
 				)
 			)
@@ -5413,7 +5811,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "3583e975-e4bb-4424-98ac-c00a0eeb5c5a")
-		(property "Reference" "#PWR05"
+		(property "Reference" "#PWR04"
 			(at 250.19 62.23 0)
 			(effects
 				(font
@@ -5463,7 +5861,7 @@
 		(instances
 			(project "PULSER-testboard-hc"
 				(path "/5d11a05d-bf43-4696-ad3f-8cbacb82ef15"
-					(reference "#PWR05")
+					(reference "#PWR04")
 					(unit 1)
 				)
 			)
@@ -5635,7 +6033,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 58.42 59.69 0)
+		(at 41.91 40.64 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -5643,8 +6041,8 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "44dfcff7-5306-4940-a392-27a592cb6138")
-		(property "Reference" "#PWR04"
-			(at 58.42 66.04 0)
+		(property "Reference" "#PWR05"
+			(at 41.91 46.99 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5653,7 +6051,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 58.42 64.77 0)
+			(at 41.91 45.72 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5661,7 +6059,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 58.42 59.69 0)
+			(at 41.91 40.64 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5670,7 +6068,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 58.42 59.69 0)
+			(at 41.91 40.64 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5679,7 +6077,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 58.42 59.69 0)
+			(at 41.91 40.64 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5693,7 +6091,75 @@
 		(instances
 			(project ""
 				(path "/5d11a05d-bf43-4696-ad3f-8cbacb82ef15"
-					(reference "#PWR04")
+					(reference "#PWR05")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:Conn_01x02_Pin")
+		(at 25.4 54.61 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "4bb3d172-af8d-4496-879b-92a31625ffb3")
+		(property "Reference" "J4"
+			(at 26.035 49.53 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "Conn_01x02_Pin"
+			(at 26.035 52.07 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 25.4 54.61 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 25.4 54.61 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Generic connector, single row, 01x02, script generated"
+			(at 25.4 54.61 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "b3feada9-e00f-41c4-835b-cfac5a6b55d5")
+		)
+		(pin "1"
+			(uuid "3d6f3bd9-2893-4fb4-8a80-87233169de33")
+		)
+		(instances
+			(project ""
+				(path "/5d11a05d-bf43-4696-ad3f-8cbacb82ef15"
+					(reference "J4")
 					(unit 1)
 				)
 			)
@@ -5779,7 +6245,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "5551af60-ae3e-49d0-9c4c-6de3b6d23b7d")
-		(property "Reference" "R11"
+		(property "Reference" "R7"
 			(at 124.46 157.4799 0)
 			(effects
 				(font
@@ -5833,7 +6299,7 @@
 		(instances
 			(project "PULSER-testboard-hc"
 				(path "/5d11a05d-bf43-4696-ad3f-8cbacb82ef15"
-					(reference "R11")
+					(reference "R7")
 					(unit 1)
 				)
 			)
@@ -5849,7 +6315,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "59917f15-7392-4404-bac7-d0d3c40dd556")
-		(property "Reference" "#PWR08"
+		(property "Reference" "#PWR012"
 			(at 214.63 92.71 0)
 			(effects
 				(font
@@ -5899,7 +6365,7 @@
 		(instances
 			(project "PULSER-testboard-hc"
 				(path "/5d11a05d-bf43-4696-ad3f-8cbacb82ef15"
-					(reference "#PWR08")
+					(reference "#PWR012")
 					(unit 1)
 				)
 			)
@@ -5914,7 +6380,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "5e5590e3-a15c-4a35-bd03-da3dd16e7382")
-		(property "Reference" "J2"
+		(property "Reference" "J1"
 			(at 260.35 43.434 0)
 			(effects
 				(font
@@ -6018,7 +6484,7 @@
 		(instances
 			(project "PULSER-testboard-hc"
 				(path "/5d11a05d-bf43-4696-ad3f-8cbacb82ef15"
-					(reference "J2")
+					(reference "J1")
 					(unit 1)
 				)
 			)
@@ -6101,7 +6567,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "72ce850d-f4f7-497a-9a37-9177fc437d00")
-		(property "Reference" "JP3"
+		(property "Reference" "JP4"
 			(at 154.94 170.18 0)
 			(effects
 				(font
@@ -6153,7 +6619,7 @@
 		(instances
 			(project "PULSER-testboard-hc"
 				(path "/5d11a05d-bf43-4696-ad3f-8cbacb82ef15"
-					(reference "JP3")
+					(reference "JP4")
 					(unit 1)
 				)
 			)
@@ -6169,7 +6635,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "74a2ec04-3672-4301-832d-8dff00b721e6")
-		(property "Reference" "#PWR06"
+		(property "Reference" "#PWR010"
 			(at 137.16 92.71 0)
 			(effects
 				(font
@@ -6219,7 +6685,7 @@
 		(instances
 			(project "PULSER-testboard-hc"
 				(path "/5d11a05d-bf43-4696-ad3f-8cbacb82ef15"
-					(reference "#PWR06")
+					(reference "#PWR010")
 					(unit 1)
 				)
 			)
@@ -6235,7 +6701,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "7ba32ce0-395f-43cc-b796-f04b1205d7da")
-		(property "Reference" "R8"
+		(property "Reference" "R14"
 			(at 165.1 177.7999 0)
 			(effects
 				(font
@@ -6289,7 +6755,7 @@
 		(instances
 			(project "PULSER-testboard-hc"
 				(path "/5d11a05d-bf43-4696-ad3f-8cbacb82ef15"
-					(reference "R8")
+					(reference "R14")
 					(unit 1)
 				)
 			)
@@ -6304,7 +6770,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "7cf00356-5ae1-4796-90b2-3e71031753aa")
-		(property "Reference" "C2"
+		(property "Reference" "C1"
 			(at 164.592 53.594 0)
 			(effects
 				(font
@@ -6356,7 +6822,7 @@
 		(instances
 			(project ""
 				(path "/5d11a05d-bf43-4696-ad3f-8cbacb82ef15"
-					(reference "C2")
+					(reference "C1")
 					(unit 1)
 				)
 			)
@@ -6372,7 +6838,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "8bc5dc0a-8a63-4fe4-8f46-6b967e914fdd")
-		(property "Reference" "#PWR014"
+		(property "Reference" "#PWR016"
 			(at 121.92 191.77 0)
 			(effects
 				(font
@@ -6422,7 +6888,7 @@
 		(instances
 			(project "PULSER-testboard-hc"
 				(path "/5d11a05d-bf43-4696-ad3f-8cbacb82ef15"
-					(reference "#PWR014")
+					(reference "#PWR016")
 					(unit 1)
 				)
 			)
@@ -6430,7 +6896,7 @@
 	)
 	(symbol
 		(lib_id "power:VCC")
-		(at 58.42 44.45 0)
+		(at 41.91 25.4 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -6438,8 +6904,8 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "8be4b37b-94b4-49be-a593-db61d809a7aa")
-		(property "Reference" "#PWR01"
-			(at 58.42 48.26 0)
+		(property "Reference" "#PWR03"
+			(at 41.91 29.21 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6448,7 +6914,7 @@
 			)
 		)
 		(property "Value" "+36V"
-			(at 58.42 39.37 0)
+			(at 41.91 20.32 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6456,7 +6922,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 58.42 44.45 0)
+			(at 41.91 25.4 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6465,7 +6931,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 58.42 44.45 0)
+			(at 41.91 25.4 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6474,7 +6940,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"VCC\""
-			(at 58.42 44.45 0)
+			(at 41.91 25.4 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6488,7 +6954,7 @@
 		(instances
 			(project ""
 				(path "/5d11a05d-bf43-4696-ad3f-8cbacb82ef15"
-					(reference "#PWR01")
+					(reference "#PWR03")
 					(unit 1)
 				)
 			)
@@ -6504,7 +6970,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "8cae624d-148a-45fb-a6d4-ef0a37ceb38b")
-		(property "Reference" "R6"
+		(property "Reference" "R9"
 			(at 82.55 158.7499 0)
 			(effects
 				(font
@@ -6558,7 +7024,7 @@
 		(instances
 			(project "PULSER-testboard-hc"
 				(path "/5d11a05d-bf43-4696-ad3f-8cbacb82ef15"
-					(reference "R6")
+					(reference "R9")
 					(unit 1)
 				)
 			)
@@ -6770,7 +7236,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "9020b86f-aabe-4145-98bf-fc46a74b9de1")
-		(property "Reference" "HS2"
+		(property "Reference" "HS1"
 			(at 230.378 27.94 0)
 			(effects
 				(font
@@ -6825,71 +7291,7 @@
 		(instances
 			(project ""
 				(path "/5d11a05d-bf43-4696-ad3f-8cbacb82ef15"
-					(reference "HS2")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Connector:Conn_01x01_Pin")
-		(at 41.91 137.16 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "9acf8979-c0af-40dc-b2fe-cc3c0ac6ab42")
-		(property "Reference" "J3"
-			(at 42.418 133.604 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "CTRL1"
-			(at 46.99 133.604 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 41.91 137.16 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 41.91 137.16 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Generic connector, single row, 01x01, script generated"
-			(at 41.91 137.16 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "6d95a437-b1de-42c3-b308-db8f02f303c5")
-		)
-		(instances
-			(project ""
-				(path "/5d11a05d-bf43-4696-ad3f-8cbacb82ef15"
-					(reference "J3")
+					(reference "HS1")
 					(unit 1)
 				)
 			)
@@ -6905,7 +7307,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "a4e7c3ae-8eec-4107-8a60-a62574a130bd")
-		(property "Reference" "U4"
+		(property "Reference" "U2"
 			(at 62.23 148.59 0)
 			(effects
 				(font
@@ -6961,7 +7363,7 @@
 		(instances
 			(project ""
 				(path "/5d11a05d-bf43-4696-ad3f-8cbacb82ef15"
-					(reference "U4")
+					(reference "U2")
 					(unit 1)
 				)
 			)
@@ -6977,7 +7379,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "a50e13a4-ae3d-4b0a-a2ea-4995f852e266")
-		(property "Reference" "JP2"
+		(property "Reference" "JP3"
 			(at 154.94 162.56 0)
 			(effects
 				(font
@@ -7029,7 +7431,7 @@
 		(instances
 			(project "PULSER-testboard-hc"
 				(path "/5d11a05d-bf43-4696-ad3f-8cbacb82ef15"
-					(reference "JP2")
+					(reference "JP3")
 					(unit 1)
 				)
 			)
@@ -7045,7 +7447,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "a7bb5f43-4de6-4f7d-811d-4d5156f2db02")
-		(property "Reference" "R13"
+		(property "Reference" "R8"
 			(at 133.35 157.4799 0)
 			(effects
 				(font
@@ -7099,7 +7501,7 @@
 		(instances
 			(project "PULSER-testboard-hc"
 				(path "/5d11a05d-bf43-4696-ad3f-8cbacb82ef15"
-					(reference "R13")
+					(reference "R8")
 					(unit 1)
 				)
 			)
@@ -7115,7 +7517,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "a934ca98-ef42-4e7e-a733-6db2c9fceb91")
-		(property "Reference" "#PWR012"
+		(property "Reference" "#PWR07"
 			(at 96.52 92.71 0)
 			(effects
 				(font
@@ -7165,7 +7567,141 @@
 		(instances
 			(project "PULSER-testboard-hc"
 				(path "/5d11a05d-bf43-4696-ad3f-8cbacb82ef15"
-					(reference "#PWR012")
+					(reference "#PWR07")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 35.56 60.96 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "bcc1e42a-919f-47d0-860e-9a3391f27362")
+		(property "Reference" "#PWR017"
+			(at 35.56 67.31 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 35.56 66.04 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 35.56 60.96 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 35.56 60.96 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 35.56 60.96 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "81a9209e-05f0-491c-8580-e153964e39df")
+		)
+		(instances
+			(project "PULSER-testboard-hc"
+				(path "/5d11a05d-bf43-4696-ad3f-8cbacb82ef15"
+					(reference "#PWR017")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:Conn_01x02_Pin")
+		(at 25.4 72.39 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "c4356e3d-3a71-4f4e-a7c9-ba2736d331f5")
+		(property "Reference" "J5"
+			(at 26.035 67.31 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "Conn_01x02_Pin"
+			(at 26.035 69.85 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 25.4 72.39 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 25.4 72.39 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Generic connector, single row, 01x02, script generated"
+			(at 25.4 72.39 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "7b7e272d-5763-479c-b4d7-a856110977fd")
+		)
+		(pin "1"
+			(uuid "2d4735ec-9339-460d-8418-66706ce770a4")
+		)
+		(instances
+			(project "PULSER-testboard-hc"
+				(path "/5d11a05d-bf43-4696-ad3f-8cbacb82ef15"
+					(reference "J5")
 					(unit 1)
 				)
 			)
@@ -7247,7 +7783,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "d1d37464-d344-403a-b7bc-d6ba5e63893b")
-		(property "Reference" "JP4"
+		(property "Reference" "JP1"
 			(at 106.934 48.768 0)
 			(effects
 				(font
@@ -7300,7 +7836,7 @@
 		(instances
 			(project ""
 				(path "/5d11a05d-bf43-4696-ad3f-8cbacb82ef15"
-					(reference "JP4")
+					(reference "JP1")
 					(unit 1)
 				)
 			)
@@ -7382,7 +7918,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "e00e5cbe-8a33-45fb-b173-9c594e6f95bd")
-		(property "Reference" "#PWR011"
+		(property "Reference" "#PWR06"
 			(at 86.36 92.71 0)
 			(effects
 				(font
@@ -7432,7 +7968,7 @@
 		(instances
 			(project "PULSER-testboard-hc"
 				(path "/5d11a05d-bf43-4696-ad3f-8cbacb82ef15"
-					(reference "#PWR011")
+					(reference "#PWR06")
 					(unit 1)
 				)
 			)
@@ -7612,7 +8148,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "eff88c09-c688-4541-aa74-8c64ce573b32")
-		(property "Reference" "#PWR010"
+		(property "Reference" "#PWR08"
 			(at 104.14 92.71 0)
 			(effects
 				(font
@@ -7662,7 +8198,7 @@
 		(instances
 			(project "PULSER-testboard-hc"
 				(path "/5d11a05d-bf43-4696-ad3f-8cbacb82ef15"
-					(reference "#PWR010")
+					(reference "#PWR08")
 					(unit 1)
 				)
 			)
@@ -7678,7 +8214,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "f4bd80d6-a977-484d-b9e2-961586564666")
-		(property "Reference" "#PWR02"
+		(property "Reference" "#PWR01"
 			(at 138.43 27.94 0)
 			(effects
 				(font
@@ -7728,7 +8264,7 @@
 		(instances
 			(project "PULSER-testboard-hc"
 				(path "/5d11a05d-bf43-4696-ad3f-8cbacb82ef15"
-					(reference "#PWR02")
+					(reference "#PWR01")
 					(unit 1)
 				)
 			)
@@ -7743,7 +8279,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "f6e0e86c-06db-4d19-8d79-e3625b43d08f")
-		(property "Reference" "D4"
+		(property "Reference" "D2"
 			(at 155.702 45.466 0)
 			(effects
 				(font
@@ -7822,7 +8358,7 @@
 		(instances
 			(project "PULSER-testboard-hc"
 				(path "/5d11a05d-bf43-4696-ad3f-8cbacb82ef15"
-					(reference "D4")
+					(reference "D2")
 					(unit 1)
 				)
 			)
@@ -7838,7 +8374,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "f873342a-5ade-43bf-b9c9-33e14b4e2303")
-		(property "Reference" "R14"
+		(property "Reference" "R13"
 			(at 133.35 175.2599 0)
 			(effects
 				(font
@@ -7892,7 +8428,7 @@
 		(instances
 			(project "PULSER-testboard-hc"
 				(path "/5d11a05d-bf43-4696-ad3f-8cbacb82ef15"
-					(reference "R14")
+					(reference "R13")
 					(unit 1)
 				)
 			)
@@ -7908,7 +8444,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "fd26ec83-0915-4dd9-bca1-cbc79abdb8ac")
-		(property "Reference" "R9"
+		(property "Reference" "R6"
 			(at 114.3 157.4799 0)
 			(effects
 				(font
@@ -7962,7 +8498,7 @@
 		(instances
 			(project "PULSER-testboard-hc"
 				(path "/5d11a05d-bf43-4696-ad3f-8cbacb82ef15"
-					(reference "R9")
+					(reference "R6")
 					(unit 1)
 				)
 			)
