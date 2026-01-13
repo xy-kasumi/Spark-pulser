@@ -2199,7 +2199,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "0361c4f3-37ea-4c1b-a228-e516db7c943a")
-		(property "Reference" "#PWR019"
+		(property "Reference" "#PWR029"
 			(at 149.86 111.76 0)
 			(effects
 				(font
@@ -2249,7 +2249,7 @@
 		(instances
 			(project "PULSER-testboard-hv"
 				(path "/853931f0-9d2b-49ab-aae3-2a7153967e0f/bd7f0006-b363-44d9-a542-e4fe897a7941"
-					(reference "#PWR019")
+					(reference "#PWR029")
 					(unit 1)
 				)
 			)
@@ -2264,7 +2264,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "0a4023e5-8ef6-429e-915b-f0fee828c4ac")
-		(property "Reference" "C8"
+		(property "Reference" "C12"
 			(at 182.118 90.424 0)
 			(effects
 				(font
@@ -2273,7 +2273,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "0.22uF"
+		(property "Value" "0.22u"
 			(at 181.61 95.25 0)
 			(effects
 				(font
@@ -2370,7 +2370,7 @@
 		(instances
 			(project "PULSER-testboard-hv"
 				(path "/853931f0-9d2b-49ab-aae3-2a7153967e0f/bd7f0006-b363-44d9-a542-e4fe897a7941"
-					(reference "C8")
+					(reference "C12")
 					(unit 1)
 				)
 			)
@@ -2506,7 +2506,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "52997ed7-2130-4fb8-93c9-0a9adc638729")
-		(property "Reference" "C5"
+		(property "Reference" "C9"
 			(at 90.17 74.9299 0)
 			(effects
 				(font
@@ -2612,7 +2612,7 @@
 		(instances
 			(project "PULSER-testboard-hv"
 				(path "/853931f0-9d2b-49ab-aae3-2a7153967e0f/bd7f0006-b363-44d9-a542-e4fe897a7941"
-					(reference "C5")
+					(reference "C9")
 					(unit 1)
 				)
 			)
@@ -2781,7 +2781,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "81554bbd-44a3-44ba-87b7-d2f4b5dcc181")
-		(property "Reference" "C7"
+		(property "Reference" "C11"
 			(at 104.648 86.36 0)
 			(effects
 				(font
@@ -2790,7 +2790,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "1uF"
+		(property "Value" "1u"
 			(at 104.648 88.392 0)
 			(effects
 				(font
@@ -2887,7 +2887,7 @@
 		(instances
 			(project "PULSER-testboard-hv"
 				(path "/853931f0-9d2b-49ab-aae3-2a7153967e0f/bd7f0006-b363-44d9-a542-e4fe897a7941"
-					(reference "C7")
+					(reference "C11")
 					(unit 1)
 				)
 			)
@@ -2902,7 +2902,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "8d42388a-1638-46ff-a6ae-1517c7c769a3")
-		(property "Reference" "R8"
+		(property "Reference" "R17"
 			(at 118.618 86.614 0)
 			(effects
 				(font
@@ -3006,7 +3006,7 @@
 		(instances
 			(project "PULSER-testboard-hv"
 				(path "/853931f0-9d2b-49ab-aae3-2a7153967e0f/bd7f0006-b363-44d9-a542-e4fe897a7941"
-					(reference "R8")
+					(reference "R17")
 					(unit 1)
 				)
 			)
@@ -3022,7 +3022,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "91b2196b-4673-40a6-9048-a2b145601759")
-		(property "Reference" "C9"
+		(property "Reference" "C13"
 			(at 119.38 95.2499 0)
 			(effects
 				(font
@@ -3031,7 +3031,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "1nF"
+		(property "Value" "1n"
 			(at 119.38 97.7899 0)
 			(effects
 				(font
@@ -3128,7 +3128,7 @@
 		(instances
 			(project "PULSER-testboard-hv"
 				(path "/853931f0-9d2b-49ab-aae3-2a7153967e0f/bd7f0006-b363-44d9-a542-e4fe897a7941"
-					(reference "C9")
+					(reference "C13")
 					(unit 1)
 				)
 			)
@@ -3143,7 +3143,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "a1355a1d-fa89-4a27-b823-fb267a2197bb")
-		(property "Reference" "R10"
+		(property "Reference" "R19"
 			(at 173.228 92.202 0)
 			(effects
 				(font
@@ -3247,7 +3247,7 @@
 		(instances
 			(project "PULSER-testboard-hv"
 				(path "/853931f0-9d2b-49ab-aae3-2a7153967e0f/bd7f0006-b363-44d9-a542-e4fe897a7941"
-					(reference "R10")
+					(reference "R19")
 					(unit 1)
 				)
 			)
@@ -3262,7 +3262,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "b134d257-2ec2-4815-8ee3-a570f7001591")
-		(property "Reference" "C6"
+		(property "Reference" "C10"
 			(at 219.202 75.438 0)
 			(effects
 				(font
@@ -3280,7 +3280,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
+		(property "Footprint" "Capacitor_SMD:C_1206_3216Metric"
 			(at 219.4052 81.28 0)
 			(effects
 				(font
@@ -3307,7 +3307,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC" "C342865"
+		(property "LCSC" "C113894"
 			(at 218.44 77.47 0)
 			(effects
 				(font
@@ -3368,7 +3368,7 @@
 		(instances
 			(project "PULSER-testboard-hv"
 				(path "/853931f0-9d2b-49ab-aae3-2a7153967e0f/bd7f0006-b363-44d9-a542-e4fe897a7941"
-					(reference "C6")
+					(reference "C10")
 					(unit 1)
 				)
 			)
@@ -3399,7 +3399,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Diode_SMD:D_PowerDI-123"
+		(property "Footprint" "Diode_SMD:D_SMC"
 			(at 191.77 58.42 0)
 			(effects
 				(font
@@ -3453,7 +3453,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC" "C156325"
+		(property "LCSC" "C241922"
 			(at 191.77 58.42 0)
 			(effects
 				(font
@@ -3502,7 +3502,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "f7ef6fc5-77c7-408e-a187-3aa7caaab25f")
-		(property "Reference" "R9"
+		(property "Reference" "R18"
 			(at 202.184 87.63 0)
 			(effects
 				(font
@@ -3606,7 +3606,7 @@
 		(instances
 			(project "PULSER-testboard-hv"
 				(path "/853931f0-9d2b-49ab-aae3-2a7153967e0f/bd7f0006-b363-44d9-a542-e4fe897a7941"
-					(reference "R9")
+					(reference "R18")
 					(unit 1)
 				)
 			)
@@ -3621,7 +3621,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "f91639d1-a477-438d-ba36-90a7091b54d4")
-		(property "Reference" "R7"
+		(property "Reference" "R16"
 			(at 198.882 72.644 0)
 			(effects
 				(font
@@ -3637,7 +3637,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0805_2012Metric"
+		(property "Footprint" "Resistor_SMD:R_1206_3216Metric"
 			(at 207.518 73.66 90)
 			(effects
 				(font
@@ -3664,7 +3664,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC" "C17709"
+		(property "LCSC" "C17997"
 			(at 205.74 73.66 0)
 			(effects
 				(font
@@ -3725,7 +3725,7 @@
 		(instances
 			(project "PULSER-testboard-hv"
 				(path "/853931f0-9d2b-49ab-aae3-2a7153967e0f/bd7f0006-b363-44d9-a542-e4fe897a7941"
-					(reference "R7")
+					(reference "R16")
 					(unit 1)
 				)
 			)
