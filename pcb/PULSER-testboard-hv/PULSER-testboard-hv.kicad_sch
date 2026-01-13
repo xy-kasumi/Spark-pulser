@@ -3634,12 +3634,6 @@
 		(uuid "dfc53b3d-2753-40a9-a338-bf00321a9ce0")
 	)
 	(junction
-		(at 69.85 184.15)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "f1a2429a-4b14-4e05-9ffd-9a1cd311515a")
-	)
-	(junction
 		(at 157.48 39.37)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -4303,16 +4297,6 @@
 	)
 	(wire
 		(pts
-			(xy 87.63 184.15) (xy 69.85 184.15)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "822b2839-2d28-42c5-afd0-dbbc40745b93")
-	)
-	(wire
-		(pts
 			(xy 220.98 49.53) (xy 196.85 49.53)
 		)
 		(stroke
@@ -4360,16 +4344,6 @@
 			(type default)
 		)
 		(uuid "88b8ab91-1f57-4320-8ab0-2a3ceacede5a")
-	)
-	(wire
-		(pts
-			(xy 69.85 184.15) (xy 33.02 184.15)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "8ff82414-e42c-45a5-9284-23d0bf95af7f")
 	)
 	(wire
 		(pts
@@ -7661,7 +7635,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "61eb1627-8291-40c6-ae5c-23338627e225")
-		(property "Reference" "Q2"
+		(property "Reference" "Q1"
 			(at 120.65 34.036 90)
 			(effects
 				(font
@@ -7726,7 +7700,7 @@
 		(instances
 			(project ""
 				(path "/853931f0-9d2b-49ab-aae3-2a7153967e0f"
-					(reference "Q2")
+					(reference "Q1")
 					(unit 1)
 				)
 			)
@@ -9355,6 +9329,72 @@
 	)
 	(symbol
 		(lib_id "power:GND")
+		(at 33.02 184.15 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "a96eaad8-899a-46ce-a59e-ed8f46dbbb1d")
+		(property "Reference" "#PWR056"
+			(at 33.02 190.5 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 33.02 189.23 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 33.02 184.15 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 33.02 184.15 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 33.02 184.15 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "4e123d67-f802-432a-8f36-b178551a38be")
+		)
+		(instances
+			(project "PULSER-testboard-hv"
+				(path "/853931f0-9d2b-49ab-aae3-2a7153967e0f"
+					(reference "#PWR056")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
 		(at 166.37 153.67 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -10003,6 +10043,72 @@
 			(project "PULSER-testboard-hv"
 				(path "/853931f0-9d2b-49ab-aae3-2a7153967e0f"
 					(reference "#PWR017")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 87.63 184.15 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "c9d788de-6b84-4c18-af18-4e161f86aec6")
+		(property "Reference" "#PWR059"
+			(at 87.63 190.5 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 87.63 189.23 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 87.63 184.15 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 87.63 184.15 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 87.63 184.15 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "4bf805ca-2e6a-43d0-8040-f52079a6c905")
+		)
+		(instances
+			(project "PULSER-testboard-hv"
+				(path "/853931f0-9d2b-49ab-aae3-2a7153967e0f"
+					(reference "#PWR059")
 					(unit 1)
 				)
 			)
@@ -11436,6 +11542,72 @@
 			(project "PULSER-testboard-hv"
 				(path "/853931f0-9d2b-49ab-aae3-2a7153967e0f"
 					(reference "R6")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 69.85 184.15 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "ed3ae830-a118-448d-8750-e8dfd6b7e928")
+		(property "Reference" "#PWR058"
+			(at 69.85 190.5 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 69.85 189.23 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 69.85 184.15 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 69.85 184.15 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 69.85 184.15 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "2c314918-b646-4c90-bf4e-76addfc2ec41")
+		)
+		(instances
+			(project "PULSER-testboard-hv"
+				(path "/853931f0-9d2b-49ab-aae3-2a7153967e0f"
+					(reference "#PWR058")
 					(unit 1)
 				)
 			)

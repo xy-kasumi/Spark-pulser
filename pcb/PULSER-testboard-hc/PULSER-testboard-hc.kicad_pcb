@@ -7,6 +7,13 @@
 		(legacy_teardrops no)
 	)
 	(paper "A4")
+	(title_block
+		(title "Pulser V2 HC Test Board")
+		(date "2026-01-14")
+		(rev "1")
+		(company "Spark Project")
+		(comment 1 "夕月霞")
+	)
 	(layers
 		(0 "F.Cu" signal)
 		(4 "In1.Cu" signal)
@@ -1766,12 +1773,12 @@
 			)
 		)
 	)
-	(footprint "SparkAll:HS-P23D1.6"
+	(footprint "SparkAll:HS-P23D1.6-30x30"
 		(layer "F.Cu")
 		(uuid "24d79482-360a-4040-9e08-99975ba5d672")
 		(at 122.555 65.786 180)
 		(property "Reference" "HS1"
-			(at 11.555 7.286 0)
+			(at 0 -0.5 180)
 			(unlocked yes)
 			(layer "F.SilkS")
 			(uuid "9095246c-dc24-41e9-b2e7-74b86820c926")
@@ -1833,7 +1840,7 @@
 				(type default)
 			)
 			(layer "F.SilkS")
-			(uuid "a4e2dabf-7b4d-40e1-aa75-71c6bb8c31e0")
+			(uuid "a2b51ed9-d540-4385-af50-4c579da7006b")
 		)
 		(fp_line
 			(start 13.5 -5)
@@ -1843,7 +1850,7 @@
 				(type default)
 			)
 			(layer "F.SilkS")
-			(uuid "5bd13736-c868-4eaa-8734-df1b55be0241")
+			(uuid "12a97f6d-f169-4160-b8d6-77325843529d")
 		)
 		(fp_line
 			(start 6.5 -15)
@@ -1853,7 +1860,7 @@
 				(type default)
 			)
 			(layer "F.SilkS")
-			(uuid "0f787988-d781-4806-a7e4-374439a9d9ee")
+			(uuid "8434b67e-db72-4b24-9b3c-265a1fe39a2f")
 		)
 		(fp_line
 			(start 5 -15)
@@ -1863,7 +1870,7 @@
 				(type default)
 			)
 			(layer "F.SilkS")
-			(uuid "b5cf7447-499c-4ff3-a1e2-2f1328d7f8ad")
+			(uuid "b012f1ea-5a14-4e89-bf9a-dc9990fb6e14")
 		)
 		(fp_line
 			(start -5 -15)
@@ -1873,7 +1880,7 @@
 				(type default)
 			)
 			(layer "F.SilkS")
-			(uuid "851bf9ca-e269-4cdf-a1d9-e81858764dfe")
+			(uuid "c3cb046b-fd94-44ad-a79d-2eb75f6b3d92")
 		)
 		(fp_line
 			(start -6.5 -15)
@@ -1883,7 +1890,7 @@
 				(type default)
 			)
 			(layer "F.SilkS")
-			(uuid "a9e05df4-6708-466b-bde8-2ac29e50331a")
+			(uuid "ef1a8a3a-d4ac-43fa-8d6b-db857e123202")
 		)
 		(fp_line
 			(start -13.5 15)
@@ -1893,7 +1900,7 @@
 				(type default)
 			)
 			(layer "F.SilkS")
-			(uuid "6d35400d-22d9-494c-a365-856322d06de3")
+			(uuid "9404be8e-0300-468d-a590-f1d65ce6855e")
 		)
 		(fp_line
 			(start -13.5 0)
@@ -1903,7 +1910,7 @@
 				(type default)
 			)
 			(layer "F.SilkS")
-			(uuid "5a8b9a8f-ccb5-44ed-a9a2-19ec01b2c485")
+			(uuid "3c9aac5e-44c1-454b-8b4a-16b03ed292cd")
 		)
 		(fp_line
 			(start -13.5 -5)
@@ -1913,7 +1920,7 @@
 				(type default)
 			)
 			(layer "F.SilkS")
-			(uuid "f2c26e3e-4532-4acb-8ad5-19d8704d0767")
+			(uuid "3078da84-d3d9-4d86-823e-e8aeb8440dd9")
 		)
 		(fp_line
 			(start -13.5 -15)
@@ -1923,7 +1930,7 @@
 				(type default)
 			)
 			(layer "F.SilkS")
-			(uuid "51797eff-9c9f-4716-9388-fa34d2354bc6")
+			(uuid "31665a2c-a8b4-409a-bf1c-997f9b480372")
 		)
 		(fp_rect
 			(start -15 -15)
@@ -1934,7 +1941,7 @@
 			)
 			(fill no)
 			(layer "F.SilkS")
-			(uuid "2b5291da-4745-43bb-bfa8-47eb955a1ec2")
+			(uuid "ae058593-0abb-454c-bc18-1b3e879b4a2c")
 		)
 		(fp_text user "${REFERENCE}"
 			(at 0 2.5 180)
@@ -13439,7 +13446,7 @@
 			(net 20 "Net-(D1-A)")
 			(pinfunction "A")
 			(pintype "passive")
-			(uuid "fec51e84-5707-44b3-bb42-531f0cd60577")
+			(uuid "6eec8333-cd66-4fea-85ce-ba0aedf2a2b6")
 		)
 		(embedded_fonts no)
 	)
@@ -20592,7 +20599,7 @@
 		)
 		(polygon
 			(pts
-				(xy 67 75) (xy 109.5 75) (xy 109.5 99) (xy 104.5 99) (xy 104.5 99) (xy 95 99) (xy 95 85) (xy 67 85)
+				(xy 67 75) (xy 109.5 75) (xy 109.5 99) (xy 104.5 99) (xy 95 99) (xy 95 85) (xy 67 85)
 			)
 		)
 		(filled_polygon
@@ -20651,7 +20658,7 @@
 		)
 		(polygon
 			(pts
-				(xy 52.5 74.5) (xy 64.5 74.5) (xy 64.5 84) (xy 52.5 84) (xy 52.5 74.5)
+				(xy 52.5 74.5) (xy 64.5 74.5) (xy 64.5 84) (xy 52.5 84)
 			)
 		)
 		(filled_polygon
@@ -20801,7 +20808,7 @@
 		)
 		(polygon
 			(pts
-				(xy 116.5 91.5) (xy 116.5 96) (xy 110 96) (xy 110 83.5) (xy 116.5 83.5) (xy 116.5 91.5)
+				(xy 116.5 91.5) (xy 116.5 96) (xy 110 96) (xy 110 83.5) (xy 116.5 83.5)
 			)
 		)
 		(filled_polygon

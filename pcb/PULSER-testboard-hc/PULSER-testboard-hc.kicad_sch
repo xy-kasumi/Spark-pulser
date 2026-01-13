@@ -11632,7 +11632,7 @@
 				(hide yes)
 			)
 		)
-		(property "Footprint" "SparkAll:HS-P23D1.6"
+		(property "Footprint" "SparkAll:HS-P23D1.6-30x30"
 			(at 259.3848 33.02 0)
 			(effects
 				(font
