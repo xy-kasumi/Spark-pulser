@@ -2,7 +2,7 @@
 	(version 20250114)
 	(generator "eeschema")
 	(generator_version "9.0")
-	(uuid "d2004e29-1041-49c9-ad1b-1a52474019bb")
+	(uuid "0d7eb0a6-3a69-4a7a-b8f4-664ca86df326")
 	(paper "A4")
 	(title_block
 		(title "Pulser V2 HV Test Board")
@@ -2199,7 +2199,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "0361c4f3-37ea-4c1b-a228-e516db7c943a")
-		(property "Reference" "#PWR029"
+		(property "Reference" "#PWR019"
 			(at 149.86 111.76 0)
 			(effects
 				(font
@@ -2249,7 +2249,7 @@
 		(instances
 			(project "PULSER-testboard-hv"
 				(path "/853931f0-9d2b-49ab-aae3-2a7153967e0f/bd7f0006-b363-44d9-a542-e4fe897a7941"
-					(reference "#PWR029")
+					(reference "#PWR019")
 					(unit 1)
 				)
 			)
@@ -2264,7 +2264,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "0a4023e5-8ef6-429e-915b-f0fee828c4ac")
-		(property "Reference" "C21"
+		(property "Reference" "C8"
 			(at 182.118 90.424 0)
 			(effects
 				(font
@@ -2370,7 +2370,7 @@
 		(instances
 			(project "PULSER-testboard-hv"
 				(path "/853931f0-9d2b-49ab-aae3-2a7153967e0f/bd7f0006-b363-44d9-a542-e4fe897a7941"
-					(reference "C21")
+					(reference "C8")
 					(unit 1)
 				)
 			)
@@ -2386,7 +2386,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "0ec2479c-a52d-4ef1-8781-01e6ff417158")
-		(property "Reference" "L2"
+		(property "Reference" "L1"
 			(at 147.32 53.34 90)
 			(effects
 				(font
@@ -2490,7 +2490,7 @@
 		(instances
 			(project "PULSER-testboard-hv"
 				(path "/853931f0-9d2b-49ab-aae3-2a7153967e0f/bd7f0006-b363-44d9-a542-e4fe897a7941"
-					(reference "L2")
+					(reference "L1")
 					(unit 1)
 				)
 			)
@@ -2506,7 +2506,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "52997ed7-2130-4fb8-93c9-0a9adc638729")
-		(property "Reference" "C17"
+		(property "Reference" "C5"
 			(at 90.17 74.9299 0)
 			(effects
 				(font
@@ -2612,7 +2612,7 @@
 		(instances
 			(project "PULSER-testboard-hv"
 				(path "/853931f0-9d2b-49ab-aae3-2a7153967e0f/bd7f0006-b363-44d9-a542-e4fe897a7941"
-					(reference "C17")
+					(reference "C5")
 					(unit 1)
 				)
 			)
@@ -2627,7 +2627,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "68048859-b6e5-4322-8be5-cb7fa28182ab")
-		(property "Reference" "U4"
+		(property "Reference" "U6"
 			(at 149.098 92.964 0)
 			(effects
 				(font
@@ -2766,7 +2766,7 @@
 		(instances
 			(project "PULSER-testboard-hv"
 				(path "/853931f0-9d2b-49ab-aae3-2a7153967e0f/bd7f0006-b363-44d9-a542-e4fe897a7941"
-					(reference "U4")
+					(reference "U6")
 					(unit 1)
 				)
 			)
@@ -2781,7 +2781,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "81554bbd-44a3-44ba-87b7-d2f4b5dcc181")
-		(property "Reference" "C20"
+		(property "Reference" "C7"
 			(at 104.648 86.36 0)
 			(effects
 				(font
@@ -2887,7 +2887,7 @@
 		(instances
 			(project "PULSER-testboard-hv"
 				(path "/853931f0-9d2b-49ab-aae3-2a7153967e0f/bd7f0006-b363-44d9-a542-e4fe897a7941"
-					(reference "C20")
+					(reference "C7")
 					(unit 1)
 				)
 			)
@@ -2902,7 +2902,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "8d42388a-1638-46ff-a6ae-1517c7c769a3")
-		(property "Reference" "R19"
+		(property "Reference" "R8"
 			(at 118.618 86.614 0)
 			(effects
 				(font
@@ -3006,7 +3006,7 @@
 		(instances
 			(project "PULSER-testboard-hv"
 				(path "/853931f0-9d2b-49ab-aae3-2a7153967e0f/bd7f0006-b363-44d9-a542-e4fe897a7941"
-					(reference "R19")
+					(reference "R8")
 					(unit 1)
 				)
 			)
@@ -3022,7 +3022,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "91b2196b-4673-40a6-9048-a2b145601759")
-		(property "Reference" "C22"
+		(property "Reference" "C9"
 			(at 119.38 95.2499 0)
 			(effects
 				(font
@@ -3128,7 +3128,7 @@
 		(instances
 			(project "PULSER-testboard-hv"
 				(path "/853931f0-9d2b-49ab-aae3-2a7153967e0f/bd7f0006-b363-44d9-a542-e4fe897a7941"
-					(reference "C22")
+					(reference "C9")
 					(unit 1)
 				)
 			)
@@ -3143,7 +3143,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "a1355a1d-fa89-4a27-b823-fb267a2197bb")
-		(property "Reference" "R22"
+		(property "Reference" "R10"
 			(at 173.228 92.202 0)
 			(effects
 				(font
@@ -3247,7 +3247,7 @@
 		(instances
 			(project "PULSER-testboard-hv"
 				(path "/853931f0-9d2b-49ab-aae3-2a7153967e0f/bd7f0006-b363-44d9-a542-e4fe897a7941"
-					(reference "R22")
+					(reference "R10")
 					(unit 1)
 				)
 			)
@@ -3262,7 +3262,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "b134d257-2ec2-4815-8ee3-a570f7001591")
-		(property "Reference" "C18"
+		(property "Reference" "C6"
 			(at 219.202 75.438 0)
 			(effects
 				(font
@@ -3368,7 +3368,7 @@
 		(instances
 			(project "PULSER-testboard-hv"
 				(path "/853931f0-9d2b-49ab-aae3-2a7153967e0f/bd7f0006-b363-44d9-a542-e4fe897a7941"
-					(reference "C18")
+					(reference "C6")
 					(unit 1)
 				)
 			)
@@ -3383,7 +3383,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "e32efcdc-bde6-4425-9772-b8d7240bcb24")
-		(property "Reference" "D7"
+		(property "Reference" "D2"
 			(at 192.0875 52.07 0)
 			(effects
 				(font
@@ -3391,8 +3391,8 @@
 				)
 			)
 		)
-		(property "Value" "150V 1A, Schottky bigger"
-			(at 197.1675 54.61 0)
+		(property "Value" "150V 2A"
+			(at 192.786 54.61 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3487,7 +3487,7 @@
 		(instances
 			(project "PULSER-testboard-hv"
 				(path "/853931f0-9d2b-49ab-aae3-2a7153967e0f/bd7f0006-b363-44d9-a542-e4fe897a7941"
-					(reference "D7")
+					(reference "D2")
 					(unit 1)
 				)
 			)
@@ -3502,7 +3502,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "f7ef6fc5-77c7-408e-a187-3aa7caaab25f")
-		(property "Reference" "R20"
+		(property "Reference" "R9"
 			(at 202.184 87.63 0)
 			(effects
 				(font
@@ -3606,7 +3606,7 @@
 		(instances
 			(project "PULSER-testboard-hv"
 				(path "/853931f0-9d2b-49ab-aae3-2a7153967e0f/bd7f0006-b363-44d9-a542-e4fe897a7941"
-					(reference "R20")
+					(reference "R9")
 					(unit 1)
 				)
 			)
@@ -3621,7 +3621,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "f91639d1-a477-438d-ba36-90a7091b54d4")
-		(property "Reference" "R18"
+		(property "Reference" "R7"
 			(at 198.882 72.644 0)
 			(effects
 				(font
@@ -3725,7 +3725,7 @@
 		(instances
 			(project "PULSER-testboard-hv"
 				(path "/853931f0-9d2b-49ab-aae3-2a7153967e0f/bd7f0006-b363-44d9-a542-e4fe897a7941"
-					(reference "R18")
+					(reference "R7")
 					(unit 1)
 				)
 			)
