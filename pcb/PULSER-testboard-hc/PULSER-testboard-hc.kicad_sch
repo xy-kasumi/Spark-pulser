@@ -11456,6 +11456,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C671328"
+			(at 138.43 54.61 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "c478e58b-b84b-499b-bf57-80b8bff02640")
 		)
@@ -12085,6 +12094,15 @@
 			)
 		)
 		(property "Description" "1.5A 35V Adjustable Linear Regulator, TO-252"
+			(at 62.23 154.94 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C68136"
 			(at 62.23 154.94 0)
 			(effects
 				(font

@@ -9329,6 +9329,19 @@
 				)
 			)
 		)
+		(property "LCSC" "C671328"
+			(at 0 0 0)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "d977a914-bfe3-4c89-b9bc-45c96c67fbc7")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
 		(path "/8e26c8f4-206d-47e3-b551-f51fb58606d6")
 		(sheetname "/")
 		(sheetfile "PULSER-testboard-hc.kicad_sch")
@@ -10570,6 +10583,19 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "LCSC" "C68136"
+			(at 0 0 270)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "f2b0a887-70e7-4c4c-b488-487235ca86ad")
+			(effects
+				(font
+					(size 1 1)
 					(thickness 0.15)
 				)
 			)
