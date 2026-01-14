@@ -11370,7 +11370,7 @@
 		(descr "Through hole straight pin header, 1x02, 2.54mm pitch, single row")
 		(tags "Through hole pin header THT 1x02 2.54mm single row")
 		(property "Reference" "J4"
-			(at 0 5.54 180)
+			(at 0 -2.955 180)
 			(layer "F.SilkS")
 			(uuid "84e31613-d28c-4b8a-a56e-1ce59599d248")
 			(effects
@@ -19294,7 +19294,7 @@
 		(descr "Through hole straight pin header, 1x02, 2.54mm pitch, single row")
 		(tags "Through hole pin header THT 1x02 2.54mm single row")
 		(property "Reference" "J3"
-			(at 0 5.54 180)
+			(at 0 -2.71 180)
 			(layer "F.SilkS")
 			(uuid "48189143-1caf-4305-8355-d5520279da00")
 			(effects
@@ -22521,6 +22521,18 @@
 			(justify left bottom)
 		)
 	)
+	(gr_text "IN digital\n3.3V - 5V"
+		(at 79.75 148.25 0)
+		(layer "F.SilkS")
+		(uuid "093474e7-499e-4727-8123-bd587d74ea0a")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.25)
+			)
+			(justify left bottom)
+		)
+	)
 	(gr_text "5"
 		(at 69 118.5 0)
 		(layer "F.SilkS")
@@ -22598,6 +22610,18 @@
 		(at 101.5 118.5 0)
 		(layer "F.SilkS")
 		(uuid "38400e73-3061-467d-8e2c-bdb08297349b")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.25)
+			)
+			(justify left bottom)
+		)
+	)
+	(gr_text "OUT digital\n5V"
+		(at 113.5 148.25 0)
+		(layer "F.SilkS")
+		(uuid "3f4c16f7-fccc-4cba-9b16-b0ec64713ce6")
 		(effects
 			(font
 				(size 1 1)
