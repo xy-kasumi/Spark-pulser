@@ -644,7 +644,7 @@
 			(uuid "92c8f902-93a2-4340-b9e8-710eb5942b17")
 		)
 		(embedded_fonts no)
-		(model "C:/Users/xyx/Documents/repos/Spark/pcb/kicad/footprints/PG-TDSON-8.step"
+		(model "${KIPRJMOD}/../kicad/footprints/PG-TDSON-8.step"
 			(offset
 				(xyz -0.5 0 0)
 			)
@@ -5838,7 +5838,7 @@
 			(uuid "f26a3ed9-ed8b-4b81-9695-5461cbefa8bf")
 		)
 		(embedded_fonts no)
-		(model "C:/Users/xyx/Documents/repos/Spark/pcb/kicad/footprints/PG-TDSON-8.step"
+		(model "${KIPRJMOD}/../kicad/footprints/PG-TDSON-8.step"
 			(offset
 				(xyz -0.5 0 0)
 			)
@@ -10038,7 +10038,7 @@
 			(uuid "906cac73-0f01-4131-85ab-4df022b20c2b")
 		)
 		(embedded_fonts no)
-		(model "C:/Users/xyx/Documents/repos/Spark/pcb/kicad/footprints/PG-TDSON-8.step"
+		(model "${KIPRJMOD}/../kicad/footprints/PG-TDSON-8.step"
 			(offset
 				(xyz -0.5 0 0)
 			)
@@ -12803,7 +12803,7 @@
 			(uuid "90a3cc6a-62d7-4a7b-a4d6-9eb4f865fd66")
 		)
 		(embedded_fonts no)
-		(model "C:/Users/xyx/Documents/repos/Spark/pcb/kicad/footprints/PQ2614B.step"
+		(model "${KIPRJMOD}/../kicad/footprints/PQ2614B.step"
 			(offset
 				(xyz 0 0 0)
 			)
@@ -17136,7 +17136,7 @@
 			(uuid "7d25a6a9-3fc6-4fd6-9e1a-b438525169d2")
 		)
 		(embedded_fonts no)
-		(model "C:/Users/xyx/Documents/repos/Spark/pcb/kicad/footprints/PG-TDSON-8.step"
+		(model "${KIPRJMOD}/../kicad/footprints/PG-TDSON-8.step"
 			(offset
 				(xyz -0.5 0 0)
 			)
@@ -17818,7 +17818,7 @@
 			(uuid "ffac1a02-0c69-4b57-b66e-5e9793157ef8")
 		)
 		(embedded_fonts no)
-		(model "C:/Users/xyx/Documents/repos/Spark/pcb/kicad/footprints/Wurth_TerminalBlock_2pin_P5mm_691137710002.stp"
+		(model "${KIPRJMOD}/../kicad/footprints/Wurth_TerminalBlock_2pin_P5mm_691137710002.stp"
 			(offset
 				(xyz -5 -4 0)
 			)
@@ -29952,7 +29952,7 @@
 			(uuid "577e001f-225f-4cde-b542-e77643b99d41")
 		)
 		(embedded_fonts no)
-		(model "C:/Users/xyx/Documents/repos/Spark/pcb/kicad/footprints/PG-TDSON-8.step"
+		(model "${KIPRJMOD}/../kicad/footprints/PG-TDSON-8.step"
 			(offset
 				(xyz -0.5 0 0)
 			)
@@ -31007,7 +31007,7 @@
 			(uuid "42d95fe3-b539-45d7-a16e-4785ea618ea1")
 		)
 		(embedded_fonts no)
-		(model "C:/Users/xyx/Documents/repos/Spark/pcb/kicad/footprints/Wurth_TerminalBlock_2pin_P5mm_691137710002.stp"
+		(model "${KIPRJMOD}/../kicad/footprints/Wurth_TerminalBlock_2pin_P5mm_691137710002.stp"
 			(offset
 				(xyz -5 -4 0)
 			)
@@ -33677,7 +33677,7 @@
 			(uuid "7df0c7bf-f263-4e48-a9f4-afa5821757f0")
 		)
 		(embedded_fonts no)
-		(model "C:/Users/xyx/Documents/repos/Spark/pcb/kicad/footprints/PG-TDSON-8.step"
+		(model "${KIPRJMOD}/../kicad/footprints/PG-TDSON-8.step"
 			(offset
 				(xyz -0.5 0 0)
 			)
@@ -34082,7 +34082,7 @@
 			(uuid "cfaa11ca-b75b-47ce-a0fa-1ca59252eac7")
 		)
 		(embedded_fonts no)
-		(model "C:/Users/xyx/Documents/repos/Spark/pcb/kicad/footprints/PG-TDSON-8.step"
+		(model "${KIPRJMOD}/../kicad/footprints/PG-TDSON-8.step"
 			(offset
 				(xyz -0.5 0 0)
 			)
@@ -35230,7 +35230,7 @@
 			(uuid "76c4a666-d041-4609-a2a4-671691032cde")
 		)
 		(embedded_fonts no)
-		(model "C:/Users/xyx/Documents/repos/Spark/pcb/kicad/footprints/Wurth_TerminalBlock_2pin_P5mm_691137710002.stp"
+		(model "${KIPRJMOD}/../kicad/footprints/Wurth_TerminalBlock_2pin_P5mm_691137710002.stp"
 			(offset
 				(xyz -5 -4 0)
 			)
@@ -37853,7 +37853,7 @@
 			(uuid "a3abff3a-d9c4-4d4a-8215-954d2fee7171")
 		)
 		(embedded_fonts no)
-		(model "C:/Users/xyx/Documents/repos/Spark/pcb/kicad/footprints/PG-TDSON-8.step"
+		(model "${KIPRJMOD}/../kicad/footprints/PG-TDSON-8.step"
 			(offset
 				(xyz -0.5 0 0)
 			)

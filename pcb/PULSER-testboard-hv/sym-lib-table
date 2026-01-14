@@ -1,4 +1,4 @@
 (sym_lib_table
   (version 7)
-  (lib (name "SparkAll")(type "KiCad")(uri "C:/Users/xyx/Documents/repos/Spark-pulser/pcb/kicad/SparkAll.kicad_sym")(options "")(descr ""))
+  (lib (name "SparkAll")(type "KiCad")(uri "${KIPRJMOD}/../kicad/SparkAll.kicad_sym")(options "")(descr ""))
 )

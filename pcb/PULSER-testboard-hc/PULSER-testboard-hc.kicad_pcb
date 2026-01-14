@@ -3532,7 +3532,7 @@
 			(uuid "8e71530a-2edb-48a9-b21a-e34ed26ebe2a")
 		)
 		(embedded_fonts no)
-		(model "C:/Users/xyx/Documents/repos/Spark/pcb/kicad/footprints/Wurth_TerminalBlock_2pin_P5mm_691137710002.stp"
+		(model "${KIPRJMOD}/../kicad/footprints/Wurth_TerminalBlock_2pin_P5mm_691137710002.stp"
 			(offset
 				(xyz -5 -4 0)
 			)
@@ -11987,7 +11987,7 @@
 			(uuid "d7d203e4-6c23-4b54-85a9-a742d80134e6")
 		)
 		(embedded_fonts no)
-		(model "C:/Users/xyx/Documents/repos/Spark/pcb/kicad/footprints/Wurth_TerminalBlock_2pin_P5mm_691137710002.stp"
+		(model "${KIPRJMOD}/../kicad/footprints/Wurth_TerminalBlock_2pin_P5mm_691137710002.stp"
 			(offset
 				(xyz -5 -4 0)
 			)
