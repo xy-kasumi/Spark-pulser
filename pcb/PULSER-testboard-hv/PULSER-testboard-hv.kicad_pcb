@@ -1557,7 +1557,7 @@
 			)
 		)
 		(property ki_fp_filters "DIP*W7.62mm* SO14*")
-		(path "/a58ab8a7-d919-4bb1-bcb6-a07722db020b/6997068c-5f97-4fd7-86dc-c22d8b054077")
+		(path "/a58ab8a7-d919-4bb1-bcb6-a07722db020b/a6dd4bec-357b-48e8-a8b6-bf82becb9cf0")
 		(sheetname "/Pulse Controller/")
 		(sheetfile "pulse.kicad_sch")
 		(attr smd)
@@ -15934,7 +15934,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C23234"
+		(property "LCSC" "C25344"
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "F.Fab")
