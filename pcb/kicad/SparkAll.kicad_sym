@@ -709,7 +709,7 @@
 				)
 			)
 		)
-		(property "Value" ""
+		(property "Value" "LT3763"
 			(at 0 0 0)
 			(effects
 				(font
