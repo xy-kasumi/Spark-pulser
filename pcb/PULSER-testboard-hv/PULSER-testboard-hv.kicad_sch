@@ -3081,6 +3081,17 @@
 			(embedded_fonts no)
 		)
 	)
+	(text "CURR (RED)"
+		(exclude_from_sim no)
+		(at 190.5 110.744 0)
+		(effects
+			(font
+				(size 1 1)
+			)
+			(justify left)
+		)
+		(uuid "2045328e-1bbd-4b47-b0e9-3f1331a7865f")
+	)
 	(text "\"2\": gain=50"
 		(exclude_from_sim no)
 		(at 165.862 68.072 0)

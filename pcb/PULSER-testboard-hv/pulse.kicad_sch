@@ -1681,6 +1681,17 @@
 		)
 		(uuid "929b41f5-60aa-40fa-9c88-c58a0bc46f5f")
 	)
+	(text "STAT (GREEN)"
+		(exclude_from_sim no)
+		(at 74.93 86.36 0)
+		(effects
+			(font
+				(size 1 1)
+			)
+			(justify left)
+		)
+		(uuid "d4ad5c77-00f0-4f7d-b19a-dc1f641548a2")
+	)
 	(text "PULSE\n00: 1us\n01: 2us\n10: 5us (default)\n11: 10us"
 		(exclude_from_sim no)
 		(at 145.796 72.898 0)
