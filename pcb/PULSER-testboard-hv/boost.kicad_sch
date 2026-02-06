@@ -6,8 +6,8 @@
 	(paper "A4")
 	(title_block
 		(title "Pulser V2 HV Test Board")
-		(date "2026-01-08")
-		(rev "1")
+		(date "2026-02-06")
+		(rev "2")
 		(company "Spark Project")
 		(comment 1 "夕月霞")
 	)

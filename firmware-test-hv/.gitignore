@@ -1,0 +1,8 @@
+.claude
+
+# Build artifacts
+*.elf
+*.hex
+
+# Microchip ATtiny DFP (downloaded via 'make setup')
+/dfp/
