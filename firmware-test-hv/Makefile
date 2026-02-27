@@ -6,22 +6,20 @@ MCU      = attiny1616
 F_CPU    = 20000000
 TARGET   = main
 
-# Serial port for UPDI programmer
-PORT     = /dev/ttyUSB0
-BAUD     = 230400
+# AVR writer (web API)
+WRITER   = http://ws-octopus.local:8081
 
 # ============ TOOLCHAIN ============
 CC       = avr-gcc
 OBJCOPY  = avr-objcopy
 SIZE     = avr-size
-AVRDUDE  = avrdude
 
 # ATtiny Device Family Pack (provides headers for tinyAVR 1-series)
 DFP      = ./dfp
 DFP_URL  = https://packs.download.microchip.com/Microchip.ATtiny_DFP.3.1.260.atpack
 
 CFLAGS   = -mmcu=$(MCU) -B $(DFP)/gcc/dev/$(MCU) -I $(DFP)/include \
-           -DF_CPU=$(F_CPU)UL -Os -Wall -std=gnu11
+           -DF_CPU=$(F_CPU)UL -O2 -Wall -std=gnu11
 LDFLAGS  = -mmcu=$(MCU) -B $(DFP)/gcc/dev/$(MCU)
 
 # ============ TARGETS ============
@@ -37,13 +35,7 @@ size: $(TARGET).elf
 	$(SIZE) --mcu=$(MCU) -C $<
 
 flash: $(TARGET).hex
-	$(AVRDUDE) -c serialupdi -p $(MCU) -P $(PORT) -b $(BAUD) -U flash:w:$<:i
-
-fuses:
-	$(AVRDUDE) -c serialupdi -p $(MCU) -P $(PORT) -b $(BAUD) -U fuse2:w:0x01:m
-
-info:
-	$(AVRDUDE) -c serialupdi -p $(MCU) -P $(PORT) -b $(BAUD) -v
+	curl -F part=$(MCU) -F file=@$< $(WRITER)/flash
 
 # ============ SETUP ============
 setup:
@@ -64,4 +56,4 @@ clean:
 distclean: clean
 	rm -rf $(DFP)
 
-.PHONY: all flash fuses info setup clean distclean size
+.PHONY: all flash setup clean distclean size
