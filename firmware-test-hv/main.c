@@ -111,6 +111,8 @@ int main() {
     pins_init();
     config_t cfg = config_read();
     dac_init(cfg.thresh_ma);
+    _delay_ms(10); // wait DAC & comparator stabilization
+
     stat_led(true);
 
     // At 20 MHz, _delay_loop_2 = 4 cycles/iter = 0.2 µs → ticks = µs × 5
