@@ -6,8 +6,8 @@
 	(paper "A4")
 	(title_block
 		(title "Pulser V2 HV Test Board")
-		(date "2026-02-06")
-		(rev "2")
+		(date "2026-04-15")
+		(rev "3")
 		(company "Spark Project")
 		(comment 1 "夕月霞")
 	)
@@ -2898,7 +2898,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC" "C2297"
+		(property "LCSC" "C126319"
 			(at 71.12 81.28 90)
 			(effects
 				(font
@@ -3223,7 +3223,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "10k"
+		(property "Value" "4.7k"
 			(at 73.66 92.7099 0)
 			(effects
 				(font
@@ -3259,7 +3259,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC" "C25804"
+		(property "LCSC" ""
 			(at 71.12 91.44 0)
 			(effects
 				(font
