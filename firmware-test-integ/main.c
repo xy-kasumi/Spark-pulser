@@ -7,9 +7,14 @@
 #define PIN_HV_EN 1    // output — HV gate enable, active H
 #define PIN_HC_EN 2    // output — HC gate enable, active H
 
-// Timing (microseconds).
+/* Timing (microseconds). */
 #define TOO_SMALL_US 5         // CURR rises faster than this -> short
-#define SHORT_COOLDOWN_US 100  // post-short cooldown
+
+// post-short cooldown.
+// must be bigger than HV internal cooldown.
+// Otherwise, CURR can delay and cause mis-classification of SHORT as NORMAL.
+#define SHORT_COOLDOWN_US 200  
+
 #define PULSE_COOLDOWN_US 20   // minimum dead time between pulses
 #define PULSE_HANDOVER_US 5
 #define PULSE_DUR_US 100       // HC on-time passed to single_pulse
