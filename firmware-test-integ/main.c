@@ -11,6 +11,7 @@
 #define TOO_SMALL_US 5         // CURR rises faster than this -> short
 #define SHORT_COOLDOWN_US 100  // post-short cooldown
 #define PULSE_COOLDOWN_US 20   // minimum dead time between pulses
+#define PULSE_HANDOVER_US 5
 #define PULSE_DUR_US 100       // HC on-time passed to single_pulse
 #define MAX_DUTY 0.5f          // upper bound on HC on-time / period
 
@@ -43,10 +44,16 @@ static void single_pulse(uint32_t pulse_duration_us, float duty) {
     gpio_put(PIN_HV_EN, 0);
     busy_wait_us(SHORT_COOLDOWN_US);
   } else {
-    // HV->HC handover must complete in <1us after CURR rise.
-    gpio_put(PIN_HV_EN, 0);
+    // keep HV.EN for PULSE_HANDOVER_US while HC warms up
+    // Actual HV pulse is determined by HV firmware.
     gpio_put(PIN_HC_EN, 1);
-    busy_wait_us(pulse_duration_us);
+    busy_wait_us(PULSE_HANDOVER_US);
+
+    // Switch to HC-only region (main pulse)
+    gpio_put(PIN_HV_EN, 0);
+    busy_wait_us(pulse_duration_us - PULSE_HANDOVER_US);
+
+    // cooldown
     gpio_put(PIN_HC_EN, 0);
     busy_wait_us(duty_limit_us);
   }
