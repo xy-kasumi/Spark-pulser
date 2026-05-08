@@ -15,10 +15,10 @@
 // Otherwise, CURR can delay and cause mis-classification of SHORT as NORMAL.
 #define SHORT_COOLDOWN_US 200  
 
-#define PULSE_COOLDOWN_US 20   // minimum dead time between pulses
+#define PULSE_COOLDOWN_US 15   // minimum dead time between pulses (limits effective max duty)
 #define PULSE_HANDOVER_US 5
 #define PULSE_DUR_US 100       // HC on-time passed to single_pulse
-#define MAX_DUTY 0.5f          // upper bound on HC on-time / period
+#define MAX_DUTY 0.9f          // upper bound on HC on-time / period
 
 static void error_mode() {
   gpio_put(PIN_HV_EN, 0);
