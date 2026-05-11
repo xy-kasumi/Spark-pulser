@@ -10,5 +10,10 @@ pico_sdk_init()
 
 add_executable(PULSER_test_integ main.c)
 target_compile_options(PULSER_test_integ PRIVATE -Wall -Wextra -Werror)
-target_link_libraries(PULSER_test_integ pico_stdlib)
+target_link_libraries(PULSER_test_integ
+    pico_stdlib
+    pico_i2c_slave
+    pico_multicore
+    hardware_i2c
+)
 # pico_add_extra_outputs intentionally omitted — ELF is the deliverable.
