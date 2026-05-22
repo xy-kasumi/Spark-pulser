@@ -1,4 +1,0 @@
-(fp_lib_table
-  (version 7)
-  (lib (name "SparkAll")(type "KiCad")(uri "${KIPRJMOD}/../kicad/footprints")(options "")(descr ""))
-)
