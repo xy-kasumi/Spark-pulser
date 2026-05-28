@@ -1,5 +1,6 @@
-
 # Operation Model
+Pulser operates in so-called "iso-pulse" mode (tries to keep pulse duration to configured value).
+This docdescribes detailed timings & categorization.
 
 When the device is running,
 device activates in consecutive "windows".
@@ -24,8 +25,8 @@ Cooldown will be `CD_SHORT`.
 
 ![open window](./wave_open.png)
 
-When current doesn't start flowing after wait time `Twin = T_IG_MAX`,
-it's considered as an "open".
+When current doesn't start flowing after `T_IG_MAX`,
+it's considered as "open".
 
 ## Good Window
 
