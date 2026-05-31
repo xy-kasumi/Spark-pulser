@@ -1,12 +1,16 @@
 // SPDX-License-Identifier: BSD-2-Clause
 /**
- * Core0: slow, complex (IRQ allowed) — I2C slave, host-facing register interface.
- * Core1: fast, simple (no IRQ) — pulse loop.
+ * Core0: slow, complex (IRQ allowed) — I2C slave, host-facing register
+ * interface. Core1: fast, simple (no IRQ) — pulse loop.
  *
- * Core0 writes to csec_pulse (set by host via I2C); Core1 reads it.
- * Core1 writes to csec_stat; Core0 reads & resets it on CKP_PS read.
- * Both cores can raise error_mode.
+ * Register map: docs/i2c-registers.md. Window model: docs/operation.md.
+ *
+ * Shared state lives in csec_cfg (config + run/WDT control, host<->core1) and
+ * csec_stat (cut-mode window counts, core1->core0). `fault` is a sticky atomic
+ * raised by either core; once set, the device can never run again.
  */
+#include <stdatomic.h>
+#include <stdint.h>
 #include "config.h"
 #include "hardware/gpio.h"
 #include "hardware/i2c.h"
@@ -14,180 +18,209 @@
 #include "pico/multicore.h"
 #include "pico/stdlib.h"
 #include "pico/sync.h"
-#include <stdatomic.h>
-#include <stdint.h>
 
-// core0, core1 shared. true is sticky.
-static _Atomic bool error_mode = false;
+static const uint8_t MODE_PROBE = 0;  // cut mode is the complementary value 1
 
-// Pulse config: written by core0 from I2C, read by core1 each iteration.
-static critical_section_t csec_pulse;
-static volatile absolute_time_t csec_pulse_last_ckp;
-static volatile uint8_t csec_pulse_pol;
-static volatile uint8_t csec_pulse_pcurr;     // stored only; no current control on this rig
-static volatile int csec_pulse_pdur;          // pulse duration [us]
-static volatile uint8_t csec_pulse_max_duty;  // [%]
-static volatile uint8_t csec_pulse_test;      // TEST register byte; stored, not honored
+// Permanent fault: core0 & core1 shared, sticky. Device cannot run while set,
+// and there is no way to clear it (FAULT.fault write is a no-op).
+static _Atomic bool fault = false;
 
-// Pulse statistics: written by core1, read & reset by core0 on CKP_PS read.
+// Config + run control: written by core0 (I2C), read by core1 each iteration.
+// `run` is bidirectional — host starts/stops it, the device clears it on probe
+// completion or WDT timeout.
+static critical_section_t csec_cfg;
+static bool cfg_run;  // device is running
+static bool cfg_wdt;  // WDT timeout latched; recoverable, host clears via FAULT
+static bool cfg_probe_detected;      // probe-mode conduction result
+static absolute_time_t cfg_wdt_ref;  // last RES0 read / run start, for WDT
+static uint8_t cfg_mode;
+static uint8_t cfg_curr;           // stored only; clamped to CURR_SUPPORTED
+static uint8_t cfg_dur_code;       // 0..15 -> pulse duration (code+1)*50us
+static uint8_t cfg_max_duty_code;  // 0..15 -> max duty (code+1)/16
+
+// Cut-mode window counts since last RES0 read: written by core1, read & reset
+// by core0 on RES0 read. The WDT caps the reset interval at ~51ms and the
+// fastest window is ~70us, so each count stays under ~730 — well within uint16.
 static critical_section_t csec_stat;
-static uint32_t csec_stat_dur = 0;
-static uint32_t csec_stat_dur_pulse = 0;
-static uint32_t csec_stat_dur_short = 0;
+static uint16_t stat_open = 0;
+static uint16_t stat_short = 0;
+static uint16_t stat_good = 0;
+
+static const uint8_t CURR_SUPPORTED = 10;  // only current this rig can pulse
+
+static const uint8_t MODE_ON_RESET = 0;     // probe
+static const uint8_t CURR_ON_RESET = 0x0a;  // 10
+static const uint8_t TIM_ON_RESET = 0x71;   // max_duty=7, dur=1
 
 ////////////////////////////////////////////////////////////////////////////////
-// Core0: Register read/write & I2C slave.
+// Core0: register read/write & I2C slave.
 
-static const uint8_t REG_POLARITY = 0x01;
-static const uint8_t REG_PULSE_CURRENT = 0x02;
-static const uint8_t REG_TEMPERATURE = 0x03;
-static const uint8_t REG_PULSE_DUR = 0x04;
-static const uint8_t REG_MAX_DUTY = 0x05;
-static const uint8_t CKP_PS = 0x10;
-static const uint8_t REG_TEST = 0x80;
+static const uint8_t REG_CTRL = 0x01;
+static const uint8_t REG_MODE = 0x02;
+static const uint8_t REG_CURR = 0x03;
+static const uint8_t REG_TIM = 0x04;
+static const uint8_t REG_RES0 = 0x08;
+static const uint8_t REG_RES1 = 0x09;
+static const uint8_t REG_FAULT = 0x10;
 
-static const uint8_t POL_OFF = 0;
-static const uint8_t POL_TPOS = 1;
-static const uint8_t POL_TNEG = 2;
-
-static const uint8_t PCURR_ON_RESET = 10;
-static const int PDUR_ON_RESET = 500;
-static const uint8_t MAX_DUTY_ON_RESET = 25;
-
-// Reported by REG_TEMPERATURE. No real sensor on this rig.
-static const uint8_t FAKE_TEMP_C = 25;
+// num_good captured at the last RES0 read, returned by the following RES1 read.
+// Lets the host fetch (RES0, RES1) atomically via a sequential read.
+static uint8_t res1_latch = 0;
 
 static bool i2c_ptr_written = false;
 static uint8_t i2c_reg_ptr = 0;
 
 void write_reg(uint8_t reg, uint8_t val) {
   switch (reg) {
-  case REG_POLARITY:
-    if (val != POL_OFF && val != POL_TPOS && val != POL_TNEG) {
-      val = POL_OFF;
+    case REG_CTRL: {
+      bool run_req = val & 0x01;
+      critical_section_enter_blocking(&csec_cfg);
+      if (!run_req) {
+        cfg_run = false;
+      } else if (!cfg_run && !atomic_load(&fault)) {
+        // Rising edge of run: arm WDT and clear last run's results. A latched
+        // wdt bit does not block restart — it is recoverable, unlike fault.
+        cfg_run = true;
+        cfg_wdt_ref = get_absolute_time();
+        cfg_probe_detected = false;
+        critical_section_enter_blocking(&csec_stat);
+        stat_open = stat_short = stat_good = 0;
+        critical_section_exit(&csec_stat);
+      }
+      critical_section_exit(&csec_cfg);
+      break;
     }
-    critical_section_enter_blocking(&csec_pulse);
-    csec_pulse_pol = val;
-    critical_section_exit(&csec_pulse);
-    break;
-  case REG_PULSE_CURRENT:
-    if (val < 1) {
-      val = 1;
-    } else if (val > 200) {
-      val = 200;
-    }
-    critical_section_enter_blocking(&csec_pulse);
-    csec_pulse_pcurr = val;
-    critical_section_exit(&csec_pulse);
-    break;
-  case REG_PULSE_DUR:
-    if (val < 5) {
-      val = 5;
-    } else if (val > 100) {
-      val = 100;
-    }
-    critical_section_enter_blocking(&csec_pulse);
-    csec_pulse_pdur = val * 10; // 10us units -> us
-    critical_section_exit(&csec_pulse);
-    break;
-  case REG_MAX_DUTY:
-    if (val < 1) {
-      val = 1;
-    } else if (val > 95) {
-      val = 95;
-    }
-    critical_section_enter_blocking(&csec_pulse);
-    csec_pulse_max_duty = val;
-    critical_section_exit(&csec_pulse);
-    break;
-  case REG_TEST:
-    critical_section_enter_blocking(&csec_pulse);
-    csec_pulse_test = val;
-    critical_section_exit(&csec_pulse);
-    break;
+    case REG_MODE:
+      critical_section_enter_blocking(&csec_cfg);
+      if (!cfg_run) {  // write fails while running
+        cfg_mode = val & 0x01;
+      }
+      critical_section_exit(&csec_cfg);
+      break;
+    case REG_CURR:
+      critical_section_enter_blocking(&csec_cfg);
+      if (!cfg_run) {
+        cfg_curr = CURR_SUPPORTED;  // clamp to the only supported value
+      }
+      critical_section_exit(&csec_cfg);
+      break;
+    case REG_TIM:
+      critical_section_enter_blocking(&csec_cfg);
+      if (!cfg_run) {
+        cfg_max_duty_code = (val >> 4) & 0x0f;
+        cfg_dur_code = val & 0x0f;
+      }
+      critical_section_exit(&csec_cfg);
+      break;
+    case REG_FAULT:
+      if (val & 0x02) {  // wdt bit: write 1 clears
+        critical_section_enter_blocking(&csec_cfg);
+        cfg_wdt = false;
+        critical_section_exit(&csec_cfg);
+      }
+      // fault bit write is a no-op.
+      break;
   }
 }
 
 uint8_t read_reg(uint8_t reg) {
   switch (reg) {
-  case REG_POLARITY: {
-    critical_section_enter_blocking(&csec_pulse);
-    uint8_t val = csec_pulse_pol;
-    critical_section_exit(&csec_pulse);
-    return val;
-  }
-  case REG_PULSE_CURRENT: {
-    critical_section_enter_blocking(&csec_pulse);
-    uint8_t val = csec_pulse_pcurr;
-    critical_section_exit(&csec_pulse);
-    return val;
-  }
-  case REG_TEMPERATURE:
-    return FAKE_TEMP_C;
-  case REG_PULSE_DUR: {
-    critical_section_enter_blocking(&csec_pulse);
-    uint8_t val = csec_pulse_pdur / 10;
-    critical_section_exit(&csec_pulse);
-    return val;
-  }
-  case REG_MAX_DUTY: {
-    critical_section_enter_blocking(&csec_pulse);
-    uint8_t val = csec_pulse_max_duty;
-    critical_section_exit(&csec_pulse);
-    return val;
-  }
-  case CKP_PS: {
-    absolute_time_t now = get_absolute_time();
-    critical_section_enter_blocking(&csec_pulse);
-    csec_pulse_last_ckp = now;
-    critical_section_exit(&csec_pulse);
-
-    critical_section_enter_blocking(&csec_stat);
-    uint32_t stat_dur = csec_stat_dur;
-    uint32_t stat_dur_pulse = csec_stat_dur_pulse;
-    uint32_t stat_dur_short = csec_stat_dur_short;
-    csec_stat_dur = 0;
-    csec_stat_dur_pulse = 0;
-    csec_stat_dur_short = 0;
-    critical_section_exit(&csec_stat);
-
-    if (stat_dur == 0) {
-      return 0;
+    case REG_CTRL: {
+      critical_section_enter_blocking(&csec_cfg);
+      bool run = cfg_run;
+      critical_section_exit(&csec_cfg);
+      return run ? 1 : 0;
     }
-    uint8_t visible_r_pulse = (uint64_t)stat_dur_pulse * 15 / stat_dur;
-    uint8_t visible_r_short = (uint64_t)stat_dur_short * 15 / stat_dur;
-    return (visible_r_pulse & 0xf) << 4 | (visible_r_short & 0xf);
-  }
-  case REG_TEST: {
-    critical_section_enter_blocking(&csec_pulse);
-    uint8_t val = csec_pulse_test;
-    critical_section_exit(&csec_pulse);
-    return val;
-  }
+    case REG_MODE: {
+      critical_section_enter_blocking(&csec_cfg);
+      uint8_t m = cfg_mode;
+      critical_section_exit(&csec_cfg);
+      return m;
+    }
+    case REG_CURR: {
+      critical_section_enter_blocking(&csec_cfg);
+      uint8_t c = cfg_curr;
+      critical_section_exit(&csec_cfg);
+      return c;
+    }
+    case REG_TIM: {
+      critical_section_enter_blocking(&csec_cfg);
+      uint8_t t = (cfg_max_duty_code << 4) | cfg_dur_code;
+      critical_section_exit(&csec_cfg);
+      return t;
+    }
+    case REG_RES0: {
+      // Reading RES0 resets the WDT and snapshots the result.
+      critical_section_enter_blocking(&csec_cfg);
+      cfg_wdt_ref = get_absolute_time();
+      uint8_t mode = cfg_mode;
+      bool detected = cfg_probe_detected;
+      critical_section_exit(&csec_cfg);
+
+      // RES0.fault mirrors only the permanent fault (cannot run). A WDT timeout
+      // is recoverable and surfaces via the FAULT register's wdt bit instead.
+      uint8_t fault_bit = atomic_load(&fault) ? 0x80 : 0x00;
+
+      if (mode == MODE_PROBE) {
+        // Result is not cleared by reading in probe mode.
+        res1_latch = 0;
+        return fault_bit | (detected ? 0x01 : 0x00);
+      }
+
+      // Cut mode: snapshot & reset window counts.
+      critical_section_enter_blocking(&csec_stat);
+      uint32_t n_open = stat_open;
+      uint32_t n_short = stat_short;
+      uint32_t n_good = stat_good;
+      stat_open = stat_short = stat_good = 0;
+      critical_section_exit(&csec_stat);
+
+      res1_latch = n_good > 255 ? 255 : (uint8_t)n_good;
+
+      uint32_t n_window = n_open + n_short + n_good;
+      uint8_t r_open, r_short;
+      if (n_window == 0) {
+        r_open = 7;  // no data yet: report fully open
+        r_short = 0;
+      } else {
+        // Floor division keeps r_open + r_short <= 7 (since n_good >= 0).
+        r_open = (uint8_t)(n_open * 7 / n_window);
+        r_short = (uint8_t)(n_short * 7 / n_window);
+      }
+      return fault_bit | (r_open << 3) | r_short;
+    }
+    case REG_RES1:
+      return res1_latch;
+    case REG_FAULT: {
+      critical_section_enter_blocking(&csec_cfg);
+      uint8_t wdt_bit = cfg_wdt ? 0x02 : 0x00;
+      critical_section_exit(&csec_cfg);
+      return wdt_bit | (atomic_load(&fault) ? 0x01 : 0x00);
+    }
   }
   return 0;
 }
 
 static void i2c_slave_handler(i2c_inst_t* i2c, i2c_slave_event_t event) {
   switch (event) {
-  case I2C_SLAVE_RECEIVE:
-    if (!i2c_ptr_written) {
-      i2c_reg_ptr = i2c_read_byte_raw(i2c);
-      i2c_ptr_written = true;
-    } else {
-      write_reg(i2c_reg_ptr, i2c_read_byte_raw(i2c));
+    case I2C_SLAVE_RECEIVE:
+      if (!i2c_ptr_written) {
+        i2c_reg_ptr = i2c_read_byte_raw(i2c);
+        i2c_ptr_written = true;
+      } else {
+        write_reg(i2c_reg_ptr, i2c_read_byte_raw(i2c));
+        i2c_reg_ptr++;
+      }
+      break;
+    case I2C_SLAVE_REQUEST:
+      i2c_write_byte_raw(i2c, read_reg(i2c_reg_ptr));
       i2c_reg_ptr++;
-    }
-    break;
-  case I2C_SLAVE_REQUEST:
-    i2c_write_byte_raw(i2c, read_reg(i2c_reg_ptr));
-    i2c_reg_ptr++;
-    break;
-  case I2C_SLAVE_FINISH:
-    i2c_ptr_written = false;
-    break;
-  default:
-    break;
+      break;
+    case I2C_SLAVE_FINISH:
+      i2c_ptr_written = false;
+      break;
+    default:
+      break;
   }
 }
 
@@ -201,55 +234,60 @@ static void init_reg_rw_i2c() {
 ////////////////////////////////////////////////////////////////////////////////
 // Core1: pulse loop.
 
-// Stop pulsing if host hasn't polled CKP_PS within this window.
-static const uint32_t CKP_TIMEOUT_US = 100000; // 100 ms
+typedef enum { WIN_OPEN, WIN_SHORT, WIN_GOOD } window_type_t;
 
-typedef struct {
-  uint32_t total_us;
-  uint32_t pulse_us; // pulse_duration_us on normal pulse, else 0
-  uint32_t short_us; // SHORT_COOLDOWN_US on short, else 0
-} pulse_result_t;
-
-// HV:EN==L && HC:EN==L on entry.
-static pulse_result_t single_pulse(uint32_t pulse_duration_us, float duty) {
-  uint32_t duty_cooldown_us = (uint32_t)(pulse_duration_us * (1.0f / duty - 1.0f));
-  uint32_t duty_limit_us = duty_cooldown_us > PULSE_COOLDOWN_US
-                               ? duty_cooldown_us
-                               : PULSE_COOLDOWN_US;
-
+// Energize and wait for ignition up to T_IG_MAX_US. Returns the ignition delay
+// in us, or -1 if open (no current). HV.EN is left on iff current was detected.
+static int64_t wait_ignition() {
   absolute_time_t t0 = get_absolute_time();
   gpio_put(PIN_HV_EN, 1);
   while (!gpio_get(PIN_HV_CURR)) {
-    tight_loop_contents();
+    if (absolute_time_diff_us(t0, get_absolute_time()) >= T_IG_MAX_US) {
+      gpio_put(PIN_HV_EN, 0);
+      return -1;
+    }
   }
-  int64_t wait_us = absolute_time_diff_us(t0, get_absolute_time());
+  return absolute_time_diff_us(t0, get_absolute_time());
+}
 
-  pulse_result_t r;
-  if (wait_us < TOO_SMALL_US) {
-    gpio_put(PIN_HV_EN, 0);
-    busy_wait_us(SHORT_COOLDOWN_US);
-    r.total_us = (uint32_t)wait_us + SHORT_COOLDOWN_US;
-    r.pulse_us = 0;
-    r.short_us = SHORT_COOLDOWN_US;
-  } else {
-    // keep HV.EN for PULSE_HANDOVER_US while HC warms up.
-    // Actual HV pulse is determined by HV firmware.
-    gpio_put(PIN_HC_EN, 1);
-    busy_wait_us(PULSE_HANDOVER_US);
-
-    // Switch to HC-only region (main pulse)
-    gpio_put(PIN_HV_EN, 0);
-    busy_wait_us(pulse_duration_us - PULSE_HANDOVER_US);
-
-    // cooldown
-    gpio_put(PIN_HC_EN, 0);
-    busy_wait_us(duty_limit_us);
-
-    r.total_us = (uint32_t)wait_us + pulse_duration_us + duty_limit_us;
-    r.pulse_us = pulse_duration_us;
-    r.short_us = 0;
+// One cut-mode window. HV.EN==L && HC.EN==L on entry and exit.
+static window_type_t cut_window(uint32_t pulse_dur_us, float max_duty) {
+  int64_t tig = wait_ignition();
+  if (tig < 0) {
+    busy_wait_us(CD_OPEN_US);
+    return WIN_OPEN;
   }
-  return r;
+  if (tig <= T_IG_SHORT_US) {
+    gpio_put(PIN_HV_EN, 0);
+    busy_wait_us(CD_SHORT_US);
+    return WIN_SHORT;
+  }
+
+  // Good pulse: keep HV.EN for PULSE_HANDOVER_US while HC warms up, then hand
+  // over to HC for the rest of the pulse. Actual HV pulse shape is set by HV
+  // firmware.
+  gpio_put(PIN_HC_EN, 1);
+  busy_wait_us(PULSE_HANDOVER_US);
+  gpio_put(PIN_HV_EN, 0);
+  busy_wait_us(pulse_dur_us - PULSE_HANDOVER_US);
+  gpio_put(PIN_HC_EN, 0);
+
+  uint32_t cool_duty = (uint32_t)(pulse_dur_us * (1.0f / max_duty - 1.0f));
+  busy_wait_us(cool_duty > CD_GOOD_US ? cool_duty : CD_GOOD_US);
+  return WIN_GOOD;
+}
+
+// One probe-mode window: minimal energize to detect conduction. Returns true
+// when current is detected (any ignition before T_IG_MAX_US).
+static bool probe_window() {
+  int64_t tig = wait_ignition();
+  if (tig < 0) {
+    busy_wait_us(CD_OPEN_US);
+    return false;
+  }
+  gpio_put(PIN_HV_EN, 0);
+  busy_wait_us(CD_SHORT_US);  // de-arc before stopping
+  return true;
 }
 
 static void error_mode_blink() {
@@ -265,35 +303,63 @@ static void error_mode_blink() {
 
 static void core1_main() {
   while (true) {
-    if (atomic_load(&error_mode)) {
+    if (atomic_load(&fault)) {
       goto fatal_error;
     }
 
-    critical_section_enter_blocking(&csec_pulse);
-    absolute_time_t last_ckp = csec_pulse_last_ckp;
-    uint8_t pol = csec_pulse_pol;
-    int pdur = csec_pulse_pdur;
-    uint8_t max_duty = csec_pulse_max_duty;
-    critical_section_exit(&csec_pulse);
+    critical_section_enter_blocking(&csec_cfg);
+    bool run = cfg_run;
+    uint8_t mode = cfg_mode;
+    uint8_t dur_code = cfg_dur_code;
+    uint8_t max_duty_code = cfg_max_duty_code;
+    absolute_time_t wdt_ref = cfg_wdt_ref;
+    critical_section_exit(&csec_cfg);
 
-    bool ckp_timeout =
-        absolute_time_diff_us(last_ckp, get_absolute_time()) >= CKP_TIMEOUT_US;
-    if (ckp_timeout || pol == POL_OFF) {
+    if (!run) {
       sleep_us(100);
       continue;
     }
 
-    pulse_result_t r = single_pulse((uint32_t)pdur, (float)max_duty / 100.0f);
+    // WDT: host must read RES0 within WDT_TIMEOUT_US. Timeout latches wdt and
+    // stops the device.
+    if (absolute_time_diff_us(wdt_ref, get_absolute_time()) >= WDT_TIMEOUT_US) {
+      critical_section_enter_blocking(&csec_cfg);
+      cfg_wdt = true;
+      cfg_run = false;
+      critical_section_exit(&csec_cfg);
+      continue;
+    }
 
-    critical_section_enter_blocking(&csec_stat);
-    csec_stat_dur += r.total_us;
-    csec_stat_dur_pulse += r.pulse_us;
-    csec_stat_dur_short += r.short_us;
-    critical_section_exit(&csec_stat);
+    if (mode == MODE_PROBE) {
+      if (probe_window()) {
+        critical_section_enter_blocking(&csec_cfg);
+        cfg_probe_detected = true;
+        cfg_run = false;  // probe stops on detection
+        critical_section_exit(&csec_cfg);
+      }
+    } else {
+      uint32_t pulse_dur_us = (uint32_t)(dur_code + 1) * 50;
+      float max_duty = (float)(max_duty_code + 1) / 16.0f;
+      window_type_t w = cut_window(pulse_dur_us, max_duty);
+
+      critical_section_enter_blocking(&csec_stat);
+      switch (w) {
+        case WIN_OPEN:
+          stat_open++;
+          break;
+        case WIN_SHORT:
+          stat_short++;
+          break;
+        case WIN_GOOD:
+          stat_good++;
+          break;
+      }
+      critical_section_exit(&csec_stat);
+    }
   }
 
 fatal_error:
-  atomic_store(&error_mode, true);
+  atomic_store(&fault, true);
   gpio_put(PIN_HV_EN, 0);
   gpio_put(PIN_HC_EN, 0);
   while (true) {
@@ -305,13 +371,15 @@ fatal_error:
 // Core0: main / I2C.
 
 int main() {
-  csec_pulse_last_ckp = nil_time;
-  csec_pulse_pol = POL_OFF;
-  csec_pulse_pcurr = PCURR_ON_RESET;
-  csec_pulse_pdur = PDUR_ON_RESET;
-  csec_pulse_max_duty = MAX_DUTY_ON_RESET;
-  csec_pulse_test = 0;
-  critical_section_init(&csec_pulse);
+  cfg_run = false;
+  cfg_wdt = false;
+  cfg_probe_detected = false;
+  cfg_wdt_ref = nil_time;
+  cfg_mode = MODE_ON_RESET;
+  cfg_curr = CURR_ON_RESET;
+  cfg_max_duty_code = (TIM_ON_RESET >> 4) & 0x0f;
+  cfg_dur_code = TIM_ON_RESET & 0x0f;
+  critical_section_init(&csec_cfg);
   critical_section_init(&csec_stat);
 
   gpio_init(PIN_HV_EN);
@@ -324,16 +392,16 @@ int main() {
   gpio_set_dir(PIN_HV_CURR, GPIO_IN);
   gpio_pull_up(PIN_HV_CURR);
 
-  sleep_ms(1); // pull-up + comparator settle
+  sleep_ms(1);  // pull-up + comparator settle
   if (gpio_get(PIN_HV_CURR)) {
-    error_mode_blink(); // expect L (testboard pulls down)
+    error_mode_blink();  // expect L (testboard pulls down)
   }
 
   init_reg_rw_i2c();
   multicore_launch_core1(core1_main);
 
   while (true) {
-    if (atomic_load(&error_mode)) {
+    if (atomic_load(&fault)) {
       error_mode_blink();
     }
     tight_loop_contents();

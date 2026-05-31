@@ -9,7 +9,7 @@
 #define LED_ERR_BLINK_OFF_MS 250
 #define LED_ERR_BLINK_ON_MS 250
 
-#define I2C_DEV_ADDR 0x3b
+#define I2C_DEV_ADDR 0x3c
 #define I2C_BAUD 400000
 
 /**
@@ -28,9 +28,17 @@
 #define HOST_I2C i2c0
 
 /**
- * Pulse timing (microseconds).
+ * Window timing. See docs/operation.md.
  */
-#define TOO_SMALL_US 5         // CURR rises faster than this -> short
-#define SHORT_COOLDOWN_US 200  // post-short cooldown; must exceed HV internal cooldown
-#define PULSE_COOLDOWN_US 15   // minimum dead time between pulses
-#define PULSE_HANDOVER_US 5    // HV+HC overlap during handover
+#define T_IG_SHORT_US 5      // ignition delay <= this -> short window
+#define T_IG_MAX_US 500      // no ignition within this -> open window
+#define CD_GOOD_US 15        // min cooldown after good window (de-arc)
+#define CD_SHORT_US 200      // cooldown after short window; must exceed HV internal cooldown
+#define CD_OPEN_US 500       // cooldown after open window
+#define PULSE_HANDOVER_US 5  // HV+HC overlap during handover
+
+/**
+ * Watchdog: while running, host must read RES0 within this window. Timeout
+ * is treated as a fault and stops the device.
+ */
+#define WDT_TIMEOUT_US 50000  // 50 ms
