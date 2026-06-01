@@ -277,17 +277,32 @@ static window_type_t cut_window(uint32_t pulse_dur_us, float max_duty) {
   return WIN_GOOD;
 }
 
-// One probe-mode window: minimal energize to detect conduction. Returns true
-// when current is detected (any ignition before T_IG_MAX_US).
+// Returns true if conducted. HV.EN will be OFF afterwards in all cases.
+// Probe cycle: 500us (100us check phase + 400 us wait, to reduce electrolysis)
 static bool probe_window() {
-  int64_t tig = wait_ignition();
-  if (tig < 0) {
-    busy_wait_us(CD_OPEN_US);
-    return false;
+  absolute_time_t t0 = get_absolute_time();
+  gpio_put(PIN_HV_EN, 1);
+
+  bool result = false;
+  while (true) {
+    int dt_us = absolute_time_diff_us(t0, get_absolute_time());
+    bool cond = gpio_get(PIN_HV_CURR);
+
+    if (dt_us <= T_IG_SHORT_US) {
+      // ignore first T_IG_SHORT_US (might be transient)
+    } else if (dt_us <= 100) {
+      // latch to true. Immediately turn off to minimize electrode damage.
+      if (cond) {
+        result = true;
+        gpio_put(PIN_HV_EN, 0);
+      }
+    } else if (dt_us < 500) {
+      gpio_put(PIN_HV_EN, 0);
+    } else {
+      break;
+    }
   }
-  gpio_put(PIN_HV_EN, 0);
-  busy_wait_us(CD_SHORT_US);  // de-arc before stopping
-  return true;
+  return result;
 }
 
 static void error_mode_blink() {
