@@ -236,28 +236,39 @@ static void init_reg_rw_i2c() {
 
 typedef enum { WIN_OPEN, WIN_SHORT, WIN_GOOD } window_type_t;
 
-// Energize and wait for ignition up to T_IG_MAX_US. Returns the ignition delay
-// in us, or -1 if open (no current). HV.EN is left on iff current was detected.
-static int64_t wait_ignition() {
-  absolute_time_t t0 = get_absolute_time();
-  gpio_put(PIN_HV_EN, 1);
-  while (!gpio_get(PIN_HV_CURR)) {
-    if (absolute_time_diff_us(t0, get_absolute_time()) >= T_IG_MAX_US) {
-      gpio_put(PIN_HV_EN, 0);
-      return -1;
-    }
-  }
-  return absolute_time_diff_us(t0, get_absolute_time());
-}
-
 // One cut-mode window. HV.EN==L && HC.EN==L on entry and exit.
 static window_type_t cut_window(uint32_t pulse_dur_us, float max_duty) {
-  int64_t tig = wait_ignition();
-  if (tig < 0) {
+  gpio_put(PIN_HV_EN, 1);
+
+  // Wait ignition
+  absolute_time_t t0 = get_absolute_time();
+  window_type_t wt;
+  while (true) {
+    int dt_us = absolute_time_diff_us(t0, get_absolute_time());
+    bool cond = gpio_get(PIN_HV_CURR);
+    if (dt_us <= T_TRAN_US) {
+      // ignore transient period data
+    } else if (dt_us <= T_IG_MAX_US) {
+      if (cond) {
+        if (dt_us <= T_IG_SHORT_US) {
+          wt = WIN_SHORT;
+          break;
+        } else {
+          wt = WIN_GOOD;
+          break;
+        }
+      }
+    } else {
+      wt = WIN_OPEN;
+      break;
+    }
+  }
+
+  if (wt == WIN_OPEN) {
+    gpio_put(PIN_HV_EN, 0);
     busy_wait_us(CD_OPEN_US);
     return WIN_OPEN;
-  }
-  if (tig <= T_IG_SHORT_US) {
+  } else if (wt == WIN_SHORT) {
     gpio_put(PIN_HV_EN, 0);
     busy_wait_us(CD_SHORT_US);
     return WIN_SHORT;
@@ -288,8 +299,8 @@ static bool probe_window() {
     int dt_us = absolute_time_diff_us(t0, get_absolute_time());
     bool cond = gpio_get(PIN_HV_CURR);
 
-    if (dt_us <= T_IG_SHORT_US) {
-      // ignore first T_IG_SHORT_US (might be transient)
+    if (dt_us <= T_TRAN_US) {
+      // ignore transient response
     } else if (dt_us <= 100) {
       // latch to true. Immediately turn off to minimize electrode damage.
       if (cond) {
