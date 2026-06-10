@@ -54,5 +54,5 @@ Ignition thresholds
 Cooldowns
 
 * `CD_GOOD = 15us`: experimentally determined min value to de-arc properly
-* `CD_SHORT = 200us`: has room to optimize. too short risks heatup due to de-arc failure
+* `CD_SHORT = 100us`: has room to optimize. too short risks heatup due to de-arc failure
 * `CD_OPEN = 500us`: big = less electrolysis but slower response

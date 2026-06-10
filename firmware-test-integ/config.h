@@ -34,7 +34,7 @@
 #define T_IG_SHORT_US 7      // ignition delay <= this -> short window
 #define T_IG_MAX_US 500      // no ignition within this -> open window
 #define CD_GOOD_US 15        // min cooldown after good window (de-arc)
-#define CD_SHORT_US 200      // cooldown after short window; must exceed HV internal cooldown
+#define CD_SHORT_US 100      // cooldown after short window; must exceed HV internal cooldown
 #define CD_OPEN_US 500       // cooldown after open window
 #define PULSE_HANDOVER_US 5  // HV+HC overlap during handover
 
