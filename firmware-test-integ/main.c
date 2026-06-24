@@ -34,23 +34,110 @@ static bool cfg_wdt;  // WDT timeout latched; recoverable, host clears via FAULT
 static bool cfg_probe_detected;      // probe-mode conduction result
 static absolute_time_t cfg_wdt_ref;  // last RES0 read / run start, for WDT
 static uint8_t cfg_mode;
-static uint8_t cfg_curr;           // stored only; clamped to CURR_SUPPORTED
-static uint8_t cfg_dur_code;       // 0..15 -> pulse duration (code+1)*50us
-static uint8_t cfg_max_duty_code;  // 0..15 -> max duty (code+1)/16
+// Register values, clamped to the active current's operating range at write
+// time and kept self-consistent across the CURR->DUR->DUTY dependency chain (see
+// reclamp_dur / reclamp_duty), so reads always return in-range values. See
+// docs/i2c-registers.md "operational range".
+static uint8_t cfg_curr;  // supported current (A): 1 or 10
+static uint8_t cfg_dur;   // DUR register byte: | reserved:1 | exp:2 | frac:5 |
+static uint8_t cfg_duty;  // DUTY register byte: max duty = (cfg_duty + 1)/256
 
 // Cut-mode window counts since last RES0 read: written by core1, read & reset
 // by core0 on RES0 read. The WDT caps the reset interval at ~51ms and the
-// fastest window is ~70us, so each count stays under ~730 — well within uint16.
+// fastest window is tens of microseconds, so each count stays well within uint16.
 static critical_section_t csec_stat;
 static uint16_t stat_open = 0;
 static uint16_t stat_short = 0;
 static uint16_t stat_good = 0;
 
-static const uint8_t CURR_SUPPORTED = 10;  // only current this rig can pulse
+// Supported pulse currents (A) and their operating ranges. See
+// docs/i2c-registers.md "operational range".
+static const uint8_t CURR_1A = 1;    // exercises HV module only
+static const uint8_t CURR_10A = 10;  // HV ignites, HC carries the pulse
 
-static const uint8_t MODE_ON_RESET = 0;     // probe
-static const uint8_t CURR_ON_RESET = 0x0a;  // 10
-static const uint8_t TIM_ON_RESET = 0x71;   // max_duty=7, dur=1
+// 10 A duration band (us). Pulses >= DUR_10A_LONG_US get the higher duty cap.
+static const uint32_t DUR_10A_MIN_US = 25;
+static const uint32_t DUR_10A_MAX_US = 950;
+static const uint32_t DUR_10A_LONG_US = 100;
+// 1 A duration is fixed by the HV firmware (HV-only pulse).
+static const uint32_t DUR_1A_US = 10;
+
+// Max duty as a DUTY register code (duty = (code + 1)/256), floored so the
+// effective duty never exceeds the rated percentage.
+static const uint8_t DUTY_MIN_CODE = 2;        // ~1%
+static const uint8_t DUTY_1A_MAX = 22;         // ~9%
+static const uint8_t DUTY_10A_SHORT_MAX = 47;  // ~19% (25..95us band)
+static const uint8_t DUTY_10A_LONG_MAX = 124;  // ~49% (100..950us band)
+
+static const uint8_t MODE_ON_RESET = 0x00;   // probe
+static const uint8_t CURR_ON_RESET = 0x0a;   // 10 A
+static const uint8_t DUR_ON_RESET = 0x42;    // 100 us
+static const uint8_t DUTY_ON_RESET = 0x7c;   // ~49% (10 A long-band max)
+
+// Clamp a current request to the nearest supported value (1 A or 10 A).
+static uint8_t clamp_curr(uint8_t req) {
+  return req <= (CURR_1A + CURR_10A) / 2 ? CURR_1A : CURR_10A;
+}
+
+// Decode a DUR register byte to pulse duration (us). exp==3 and frac 20..31 are
+// reserved; treat them as the largest in-range code so a stray write maps to the
+// longest scale rather than zero.
+static uint32_t dur_decode_us(uint8_t b) {
+  uint8_t exp = (b >> 5) & 0x03;
+  uint8_t frac = b & 0x1f;
+  if (exp > 2) exp = 2;
+  if (frac > 19) frac = 19;
+  uint32_t mul = exp == 0 ? 10u : (exp == 1 ? 100u : 1000u);
+  return mul * frac / 20u;
+}
+
+// Encode a pulse duration (us) back to a canonical DUR byte (smallest exp).
+static uint8_t dur_encode(uint32_t us) {
+  for (uint8_t exp = 0; exp <= 2; exp++) {
+    uint32_t mul = exp == 0 ? 10u : (exp == 1 ? 100u : 1000u);
+    uint32_t frac = us * 20u / mul;
+    if (frac >= 1 && frac <= 19 && mul * frac / 20u == us) {
+      return (uint8_t)((exp << 5) | frac);
+    }
+  }
+  return 0;  // unreachable: every clamped duration is representable
+}
+
+// Clamp pulse duration to the operating range of the active current.
+static uint32_t clamp_dur_us(uint8_t curr, uint32_t us) {
+  if (curr == CURR_1A) return DUR_1A_US;  // fixed by HV firmware
+  if (us < DUR_10A_MIN_US) return DUR_10A_MIN_US;
+  if (us > DUR_10A_MAX_US) return DUR_10A_MAX_US;
+  return us;
+}
+
+// Clamp a DUTY register code to the band allowed by the active current &
+// (already-clamped) duration.
+static uint8_t clamp_duty_code(uint8_t curr, uint32_t dur_us, uint8_t code) {
+  uint8_t hi;
+  if (curr == CURR_1A) {
+    hi = DUTY_1A_MAX;
+  } else {
+    hi = dur_us >= DUR_10A_LONG_US ? DUTY_10A_LONG_MAX : DUTY_10A_SHORT_MAX;
+  }
+  if (code < DUTY_MIN_CODE) return DUTY_MIN_CODE;
+  if (code > hi) return hi;
+  return code;
+}
+
+// Re-clamp the stored DUTY into the band allowed by the current CURR & DUR.
+// Caller must hold csec_cfg.
+static void reclamp_duty(void) {
+  cfg_duty = clamp_duty_code(cfg_curr, dur_decode_us(cfg_dur), cfg_duty);
+}
+
+// Re-clamp the stored DUR into the current CURR's range (canonicalizing the
+// byte), then re-clamp DUTY since its band depends on DUR. Caller must hold
+// csec_cfg.
+static void reclamp_dur(void) {
+  cfg_dur = dur_encode(clamp_dur_us(cfg_curr, dur_decode_us(cfg_dur)));
+  reclamp_duty();
+}
 
 ////////////////////////////////////////////////////////////////////////////////
 // Core0: register read/write & I2C slave.
@@ -58,7 +145,8 @@ static const uint8_t TIM_ON_RESET = 0x71;   // max_duty=7, dur=1
 static const uint8_t REG_CTRL = 0x01;
 static const uint8_t REG_MODE = 0x02;
 static const uint8_t REG_CURR = 0x03;
-static const uint8_t REG_TIM = 0x04;
+static const uint8_t REG_DUR = 0x04;
+static const uint8_t REG_DUTY = 0x05;
 static const uint8_t REG_RES0 = 0x08;
 static const uint8_t REG_RES1 = 0x09;
 static const uint8_t REG_FAULT = 0x10;
@@ -100,15 +188,24 @@ void write_reg(uint8_t reg, uint8_t val) {
     case REG_CURR:
       critical_section_enter_blocking(&csec_cfg);
       if (!cfg_run) {
-        cfg_curr = CURR_SUPPORTED;  // clamp to the only supported value
+        cfg_curr = clamp_curr(val);
+        reclamp_dur();  // DUR (and DUTY) band depends on CURR
       }
       critical_section_exit(&csec_cfg);
       break;
-    case REG_TIM:
+    case REG_DUR:
       critical_section_enter_blocking(&csec_cfg);
       if (!cfg_run) {
-        cfg_max_duty_code = (val >> 4) & 0x0f;
-        cfg_dur_code = val & 0x0f;
+        cfg_dur = val;
+        reclamp_dur();  // clamp/canonicalize DUR, then re-clamp DUTY
+      }
+      critical_section_exit(&csec_cfg);
+      break;
+    case REG_DUTY:
+      critical_section_enter_blocking(&csec_cfg);
+      if (!cfg_run) {
+        cfg_duty = val;
+        reclamp_duty();
       }
       critical_section_exit(&csec_cfg);
       break;
@@ -143,11 +240,17 @@ uint8_t read_reg(uint8_t reg) {
       critical_section_exit(&csec_cfg);
       return c;
     }
-    case REG_TIM: {
+    case REG_DUR: {
       critical_section_enter_blocking(&csec_cfg);
-      uint8_t t = (cfg_max_duty_code << 4) | cfg_dur_code;
+      uint8_t d = cfg_dur;
       critical_section_exit(&csec_cfg);
-      return t;
+      return d;
+    }
+    case REG_DUTY: {
+      critical_section_enter_blocking(&csec_cfg);
+      uint8_t d = cfg_duty;
+      critical_section_exit(&csec_cfg);
+      return d;
     }
     case REG_RES0: {
       // Reading RES0 resets the WDT and snapshots the result.
@@ -236,8 +339,10 @@ static void init_reg_rw_i2c() {
 
 typedef enum { WIN_OPEN, WIN_SHORT, WIN_GOOD } window_type_t;
 
-// One cut-mode window. HV.EN==L && HC.EN==L on entry and exit.
-static window_type_t cut_window(uint32_t pulse_dur_us, float max_duty) {
+// One cut-mode window. HV.EN==L && HC.EN==L on entry and exit. `use_hc` selects
+// the good-pulse path: 10 A hands HV over to HC; 1 A pulses HV alone.
+static window_type_t cut_window(uint32_t pulse_dur_us, float max_duty,
+                                bool use_hc) {
   gpio_put(PIN_HV_EN, 1);
 
   // Wait ignition
@@ -274,14 +379,22 @@ static window_type_t cut_window(uint32_t pulse_dur_us, float max_duty) {
     return WIN_SHORT;
   }
 
-  // Good pulse: keep HV.EN for PULSE_HANDOVER_US while HC warms up, then hand
-  // over to HC for the rest of the pulse. Actual HV pulse shape is set by HV
-  // firmware.
-  gpio_put(PIN_HC_EN, 1);
-  busy_wait_us(PULSE_HANDOVER_US);
-  gpio_put(PIN_HV_EN, 0);
-  busy_wait_us(pulse_dur_us - PULSE_HANDOVER_US);
-  gpio_put(PIN_HC_EN, 0);
+  // Good pulse.
+  if (use_hc) {
+    // 10 A: keep HV.EN for PULSE_HANDOVER_US while HC warms up, then hand over
+    // to HC for the rest of the pulse. Actual HV pulse shape is set by HV
+    // firmware.
+    gpio_put(PIN_HC_EN, 1);
+    busy_wait_us(PULSE_HANDOVER_US);
+    gpio_put(PIN_HV_EN, 0);
+    busy_wait_us(pulse_dur_us - PULSE_HANDOVER_US);
+    gpio_put(PIN_HC_EN, 0);
+  } else {
+    // 1 A: HV-only pulse; HC stays off. The HV firmware fixes the pulse width
+    // (~10 us), so we just hold HV.EN for the configured duration.
+    busy_wait_us(pulse_dur_us);
+    gpio_put(PIN_HV_EN, 0);
+  }
 
   uint32_t cool_duty = (uint32_t)(pulse_dur_us * (1.0f / max_duty - 1.0f));
   busy_wait_us(cool_duty > CD_GOOD_US ? cool_duty : CD_GOOD_US);
@@ -336,8 +449,9 @@ static void core1_main() {
     critical_section_enter_blocking(&csec_cfg);
     bool run = cfg_run;
     uint8_t mode = cfg_mode;
-    uint8_t dur_code = cfg_dur_code;
-    uint8_t max_duty_code = cfg_max_duty_code;
+    uint8_t curr = cfg_curr;
+    uint8_t dur_byte = cfg_dur;
+    uint8_t duty_byte = cfg_duty;
     absolute_time_t wdt_ref = cfg_wdt_ref;
     critical_section_exit(&csec_cfg);
 
@@ -364,9 +478,10 @@ static void core1_main() {
         critical_section_exit(&csec_cfg);
       }
     } else {
-      uint32_t pulse_dur_us = (uint32_t)(dur_code + 1) * 50;
-      float max_duty = (float)(max_duty_code + 1) / 16.0f;
-      window_type_t w = cut_window(pulse_dur_us, max_duty);
+      // DUR/DUTY are already clamped to the op-range at write time; just decode.
+      uint32_t pulse_dur_us = dur_decode_us(dur_byte);
+      float max_duty = (float)(duty_byte + 1) / 256.0f;
+      window_type_t w = cut_window(pulse_dur_us, max_duty, curr == CURR_10A);
 
       critical_section_enter_blocking(&csec_stat);
       switch (w) {
@@ -402,9 +517,10 @@ int main() {
   cfg_probe_detected = false;
   cfg_wdt_ref = nil_time;
   cfg_mode = MODE_ON_RESET;
-  cfg_curr = CURR_ON_RESET;
-  cfg_max_duty_code = (TIM_ON_RESET >> 4) & 0x0f;
-  cfg_dur_code = TIM_ON_RESET & 0x0f;
+  cfg_curr = clamp_curr(CURR_ON_RESET);
+  cfg_dur = DUR_ON_RESET;
+  cfg_duty = DUTY_ON_RESET;
+  reclamp_dur();  // guard the invariant: keep DUR/DUTY in the reset CURR's range
   critical_section_init(&csec_cfg);
   critical_section_init(&csec_stat);
 

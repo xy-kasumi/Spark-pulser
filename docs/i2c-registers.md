@@ -7,15 +7,23 @@
 | 0x01    | CTRL     | RW         |
 | 0x02    | MODE     | RW         |
 | 0x03    | CURR     | RW         |
-| 0x04    | TIM      | RW         |
+| 0x04    | DUR      | RW         |
+| 0x05    | DUTY     | RW         |
 | 0x08    | RES0     | R          |
 | 0x09    | RES1     | R          |
 | 0x10    | FAULT    | R + clear  |
 
-Supported pperational range
-* `CURR.curr`: 10
-* `TIM.max_duty`: all range
-* `TIM.dur`: 
+Supported operational range
+* current: 10A
+  * duration: 100us~950us / duty: 1%~49%
+  * duration: 25us~95us / duty: 1%~19%
+* current: 1A
+  * duration: 10us / duty: 1%~9%
+
+Auto-clamping works like:
+* CURR: calmps on its own
+* DUR: clamps based on current CURR
+* DUTY: clamps based on current CURR & DUR
 
 ## CTRL
 Controls device run status.
@@ -65,26 +73,29 @@ Pulse current configuration. Write fails when device is running.
 `curr` specifies pulse current in Amperes.
 Written value is clamped to closest device-supported value.
 
-Current pulser only supports: `curr==10`.
+## DUR
+**default: 0x42** (100us)
 
-## TIM
-**default: 0x71**
+`| reserved: 1 | exp: 2 | frac: 5 |`
 
-Pulse timing configuration. Write fails when device is running.
+Allowed `frac` is 0..19 (20..31 are reserved).
 
-`| max_duty: 4 | dur: 4 |`
+* exp==0: 10us
+* exp==1: 100us
+* exp==2: 1000us
+* exp==3: reserved
 
-`max_duty` limits the max duty by varying minimum pulse-pulse cooldown time, as `(max_duty + 1)/16`.
-* `max_duty==0`: 6%
-* `max_duty==1`: 12%
-* ...
-* `max_duty==15`: 100%
+`pulse duration = multiplier * (frac / 20)`
 
-`dur` configures good pulse duration `(dur + 1) * 50us`.
-* `dur==0`: `50us`
-* `dur==1`: `100us`
-* ...
-* `dur==15`: `800us`
+e.g. 0x01 (exp==0, frac==1): 10us x (1 / 20) = 0.5us (min positive value)
+e.g. 0x42 (exp==2, frac==2): 1000us x (2 / 20) = 100us
+e.g. 0x53 (exp==2, frac==19): 1000us x (19 / 20) = 950us (max value)
+
+
+## DUTY
+**default: 0x7c** (49%)
+
+Limits the max duty by varying minimum cooldown time between pulses, as `(DUTY + 1) / 256`.
 
 
 ## RES0..1
