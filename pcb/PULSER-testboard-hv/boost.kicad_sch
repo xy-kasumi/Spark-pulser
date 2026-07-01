@@ -6,8 +6,8 @@
 	(paper "A4")
 	(title_block
 		(title "Pulser V2 HV Test Board")
-		(date "2026-04-15")
-		(rev "3")
+		(date "2026-07-01")
+		(rev "4")
 		(company "Spark Project")
 		(comment 1 "夕月霞")
 	)
@@ -1073,9 +1073,9 @@
 		)
 		(uuid "43fdef64-66fd-4a59-9754-02537990858c")
 	)
-	(text "DMAX=64%\neta=50%\nILMAX=550mA\nΔISW = 0.6A (< 1.9A)\nL = 96uH"
+	(text "spec: Vo=95V, Iomax=0.4A\nDMAX=62%\neta=90%\nILMAX=1.2A\nΔISW = 0.6A\nL = 150uH"
 		(exclude_from_sim no)
-		(at 145.542 61.976 0)
+		(at 144.78 62.23 0)
 		(effects
 			(font
 				(size 0.6 0.6)
@@ -1084,7 +1084,7 @@
 		)
 		(uuid "6b4d97d4-c2e0-49e0-9653-e6e29e7015ba")
 	)
-	(text "FBX=1.6V\nresults in 102V"
+	(text "FBX=1.6V\nresults in 93V"
 		(exclude_from_sim no)
 		(at 205.74 104.394 0)
 		(effects
@@ -1094,9 +1094,9 @@
 		)
 		(uuid "85762268-8c56-40b6-b53f-e9e328fc841c")
 	)
-	(text "100V"
+	(text "95V"
 		(exclude_from_sim no)
-		(at 228.854 56.134 0)
+		(at 229.616 56.134 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -2361,6 +2361,15 @@
 				)
 			)
 		)
+		(property "Sim.Params" ""
+			(at 181.61 92.71 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "ceee217d-ded0-48bd-99e3-215d22d5ce4c")
 		)
@@ -2384,18 +2393,17 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "0ec2479c-a52d-4ef1-8781-01e6ff417158")
 		(property "Reference" "L1"
-			(at 147.32 53.34 90)
+			(at 144.78 51.562 90)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Value" "100uH, Isat=2.7A"
-			(at 147.32 55.88 90)
+		(property "Value" "150uH"
+			(at 146.558 53.848 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2456,7 +2464,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC" "C2453104"
+		(property "LCSC" "C338769"
 			(at 147.32 58.42 90)
 			(effects
 				(font
@@ -2479,6 +2487,23 @@
 				(font
 					(size 1.27 1.27)
 				)
+			)
+		)
+		(property "Rating" "Isat=1.8A"
+			(at 148.082 56.134 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Sim.Params" ""
+			(at 147.32 58.42 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
 			)
 		)
 		(pin "1"
@@ -2603,6 +2628,15 @@
 				)
 			)
 		)
+		(property "Sim.Params" ""
+			(at 86.36 76.2 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "d35c35fc-b2ee-4338-bab2-c59731629c60")
 		)
@@ -2722,6 +2756,15 @@
 				(font
 					(size 1.27 1.27)
 				)
+			)
+		)
+		(property "Sim.Params" ""
+			(at 119.38 71.12 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
 			)
 		)
 		(pin "12"
@@ -2878,6 +2921,15 @@
 				)
 			)
 		)
+		(property "Sim.Params" ""
+			(at 101.6 87.63 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "a58fe95b-ad09-4ade-8dfc-7f2ef8960972")
 		)
@@ -2995,6 +3047,15 @@
 				(font
 					(size 1.27 1.27)
 				)
+			)
+		)
+		(property "Sim.Params" ""
+			(at 115.57 87.63 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
 			)
 		)
 		(pin "1"
@@ -3119,6 +3180,15 @@
 				)
 			)
 		)
+		(property "Sim.Params" ""
+			(at 115.57 96.52 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "bdab0ca2-0af4-4461-b2dd-336f3fa280f6")
 		)
@@ -3236,6 +3306,15 @@
 				(font
 					(size 1.27 1.27)
 				)
+			)
+		)
+		(property "Sim.Params" ""
+			(at 176.53 92.71 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
 			)
 		)
 		(pin "1"
@@ -3359,6 +3438,15 @@
 				)
 			)
 		)
+		(property "Sim.Params" ""
+			(at 218.44 77.47 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "02efd15c-8928-4025-b51c-25dbef6b3dbb")
 		)
@@ -3476,6 +3564,15 @@
 				(font
 					(size 1.27 1.27)
 				)
+			)
+		)
+		(property "Sim.Params" ""
+			(at 191.77 58.42 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
 			)
 		)
 		(pin "2"
@@ -3597,6 +3694,23 @@
 				)
 			)
 		)
+		(property "Rating" "1%"
+			(at 202.946 91.948 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Sim.Params" ""
+			(at 205.74 88.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "2025b55f-9425-4e62-9e03-67b0084ef404")
 		)
@@ -3622,15 +3736,15 @@
 		(dnp no)
 		(uuid "f91639d1-a477-438d-ba36-90a7091b54d4")
 		(property "Reference" "R16"
-			(at 198.882 72.644 0)
+			(at 201.93 72.644 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Value" "470k 150V"
-			(at 198.882 74.676 0)
+		(property "Value" "430k"
+			(at 201.93 74.676 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3664,7 +3778,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC" "C17997"
+		(property "LCSC" ""
 			(at 205.74 73.66 0)
 			(effects
 				(font
@@ -3714,6 +3828,23 @@
 				(font
 					(size 1.27 1.27)
 				)
+			)
+		)
+		(property "Rating" "1% 150V"
+			(at 200.152 76.708 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Sim.Params" ""
+			(at 205.74 73.66 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
 			)
 		)
 		(pin "1"

@@ -6,8 +6,8 @@
 	(paper "A4")
 	(title_block
 		(title "Pulser V2 HV Test Board")
-		(date "2026-04-15")
-		(rev "3")
+		(date "2026-07-01")
+		(rev "4")
 		(company "Spark Project")
 		(comment 1 "夕月霞")
 	)
@@ -1194,234 +1194,6 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "Switch:SW_DIP_x02"
-			(pin_names
-				(offset 0)
-				(hide yes)
-			)
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(property "Reference" "SW"
-				(at 0 6.35 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Value" "SW_DIP_x02"
-				(at 0 -3.81 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Footprint" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" "~"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Description" "2x DIP Switch, Single Pole Single Throw (SPST) switch, small symbol"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "ki_keywords" "dip switch"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "ki_fp_filters" "SW?DIP?x2*"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(symbol "SW_DIP_x02_0_0"
-				(circle
-					(center -2.032 2.54)
-					(radius 0.508)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(circle
-					(center -2.032 0)
-					(radius 0.508)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy -1.524 2.667) (xy 2.3622 3.7084)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy -1.524 0.127) (xy 2.3622 1.1684)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(circle
-					(center 2.032 2.54)
-					(radius 0.508)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(circle
-					(center 2.032 0)
-					(radius 0.508)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-			)
-			(symbol "SW_DIP_x02_0_1"
-				(rectangle
-					(start -3.81 5.08)
-					(end 3.81 -2.54)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type background)
-					)
-				)
-			)
-			(symbol "SW_DIP_x02_1_1"
-				(pin passive line
-					(at -7.62 2.54 0)
-					(length 5.08)
-					(name "~"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at -7.62 0 0)
-					(length 5.08)
-					(name "~"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 7.62 2.54 180)
-					(length 5.08)
-					(name "~"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "4"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 7.62 0 180)
-					(length 5.08)
-					(name "~"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "3"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(embedded_fonts no)
-		)
 		(symbol "power:GND"
 			(power)
 			(pin_numbers
@@ -1649,41 +1421,20 @@
 			(embedded_fonts no)
 		)
 	)
-	(text "THRESH\n00: 50mA\n01: 100mA (default)\n10: 200mA\n11: 500mA"
+	(text "FLT"
 		(exclude_from_sim no)
-		(at 146.05 103.378 0)
+		(at 63.754 79.502 0)
 		(effects
 			(font
 				(size 1 1)
 			)
 			(justify left)
 		)
-		(uuid "00d0e3f6-8a51-4a5e-869f-304519deea3b")
+		(uuid "1009b9e7-bccf-407f-9cca-b5ac6b6b482f")
 	)
-	(text "Vth = Ith * Rsense (100m) * gain (50)"
+	(text "STAT"
 		(exclude_from_sim no)
-		(at 161.29 108.458 0)
-		(effects
-			(font
-				(size 1 1)
-			)
-		)
-		(uuid "5e8c996e-18ac-4463-b2be-52fd92f2ebbe")
-	)
-	(text "COOLDOWN\n00: 100us (default)\n01: 1ms\n1x: unused"
-		(exclude_from_sim no)
-		(at 146.304 87.884 0)
-		(effects
-			(font
-				(size 1 1)
-			)
-			(justify left)
-		)
-		(uuid "929b41f5-60aa-40fa-9c88-c58a0bc46f5f")
-	)
-	(text "STAT (GREEN)"
-		(exclude_from_sim no)
-		(at 74.93 86.36 0)
+		(at 75.184 79.502 0)
 		(effects
 			(font
 				(size 1 1)
@@ -1692,35 +1443,6 @@
 		)
 		(uuid "d4ad5c77-00f0-4f7d-b19a-dc1f641548a2")
 	)
-	(text "PULSE\n00: 1us\n01: 2us\n10: 5us (default)\n11: 10us"
-		(exclude_from_sim no)
-		(at 145.796 72.898 0)
-		(effects
-			(font
-				(size 1 1)
-			)
-			(justify left)
-		)
-		(uuid "e1cb6b14-114f-4220-94b5-13f0c6b611dd")
-	)
-	(junction
-		(at 144.78 73.66)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "38d7fbcd-1192-41b6-af72-23d8531d663c")
-	)
-	(junction
-		(at 144.78 101.6)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "5eb7e7bc-5501-4a59-8ed9-f9d7edf70160")
-	)
-	(junction
-		(at 50.8 50.8)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "7e1f0a9a-e939-47b3-ab2f-8a370920ba9f")
-	)
 	(junction
 		(at 123.19 48.26)
 		(diameter 0)
@@ -1728,48 +1450,10 @@
 		(uuid "98da9680-e446-4a83-ac0c-a8714dee2bca")
 	)
 	(junction
-		(at 144.78 86.36)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "a26f1b7a-24b0-4d79-b13b-218095a63d03")
-	)
-	(junction
-		(at 144.78 104.14)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "b0b069b7-6633-4765-91fe-00adc8eadef8")
-	)
-	(junction
-		(at 144.78 88.9)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "de3d8004-cc15-4963-9f0d-c6fe836b9234")
-	)
-	(junction
 		(at 45.72 50.8)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "f8b41ca1-fbe1-4a6b-a94b-d85db7094ae0")
-	)
-	(wire
-		(pts
-			(xy 109.22 71.12) (xy 113.03 71.12)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "0010b314-443c-43c2-bfa1-838e15a2602f")
-	)
-	(wire
-		(pts
-			(xy 118.11 71.12) (xy 125.73 71.12)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "00fca797-d934-45cc-aae8-e4f1ddb853fc")
 	)
 	(wire
 		(pts
@@ -1793,73 +1477,13 @@
 	)
 	(wire
 		(pts
-			(xy 144.78 71.12) (xy 140.97 71.12)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "08e7622c-21b3-4764-a45c-520c1e43d784")
-	)
-	(wire
-		(pts
-			(xy 111.76 73.66) (xy 111.76 104.14)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "09b29b10-7763-44bd-afd9-c855b67e4f5d")
-	)
-	(wire
-		(pts
-			(xy 114.3 68.58) (xy 114.3 88.9)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "0d5c805b-f3e9-4c0c-ae50-ce29f270a15d")
-	)
-	(wire
-		(pts
-			(xy 109.22 73.66) (xy 111.76 73.66)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "14203be7-5b4b-4203-85bb-8d9bb5e0ad55")
-	)
-	(wire
-		(pts
-			(xy 144.78 86.36) (xy 144.78 88.9)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "17c24ee1-6e5a-4b5e-a044-12524a6e0878")
-	)
-	(wire
-		(pts
-			(xy 93.98 78.74) (xy 93.98 116.84)
+			(xy 93.98 78.74) (xy 93.98 101.6)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
 		(uuid "1b7becf3-75bc-4e70-b162-3c8db90e41d9")
-	)
-	(wire
-		(pts
-			(xy 116.84 73.66) (xy 125.73 73.66)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "1d939dca-d895-4938-a153-6da3db116fb0")
 	)
 	(wire
 		(pts
@@ -1873,6 +1497,16 @@
 	)
 	(wire
 		(pts
+			(xy 78.74 66.04) (xy 59.69 66.04)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2785f5a1-887d-48d4-8b85-ec8238291ad5")
+	)
+	(wire
+		(pts
 			(xy 71.12 85.09) (xy 71.12 87.63)
 		)
 		(stroke
@@ -1880,36 +1514,6 @@
 			(type default)
 		)
 		(uuid "27ac53aa-501d-465a-a5f6-eef9a3e981c8")
-	)
-	(wire
-		(pts
-			(xy 115.57 66.04) (xy 115.57 86.36)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "292ef1a9-6818-4b59-b010-d4d8fb2444e9")
-	)
-	(wire
-		(pts
-			(xy 144.78 88.9) (xy 144.78 101.6)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "37046492-5a2e-4b85-ba71-ebab39803e01")
-	)
-	(wire
-		(pts
-			(xy 115.57 86.36) (xy 125.73 86.36)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "3784704c-4da0-4ff4-9267-1cfcae1d85c5")
 	)
 	(wire
 		(pts
@@ -1923,7 +1527,7 @@
 	)
 	(wire
 		(pts
-			(xy 71.12 95.25) (xy 71.12 116.84)
+			(xy 71.12 95.25) (xy 71.12 101.6)
 		)
 		(stroke
 			(width 0)
@@ -1940,6 +1544,16 @@
 			(type default)
 		)
 		(uuid "406873a5-eb8e-4073-b78f-bc6cdc140c37")
+	)
+	(wire
+		(pts
+			(xy 59.69 95.25) (xy 59.69 101.6)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4260cc00-ae13-4bde-8283-7fc5599d39fc")
 	)
 	(wire
 		(pts
@@ -1963,16 +1577,6 @@
 	)
 	(wire
 		(pts
-			(xy 109.22 68.58) (xy 114.3 68.58)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "555cfd29-269c-4392-97a8-79064a5bf98d")
-	)
-	(wire
-		(pts
 			(xy 123.19 48.26) (xy 147.32 48.26)
 		)
 		(stroke
@@ -1980,36 +1584,6 @@
 			(type default)
 		)
 		(uuid "5757fdeb-e53c-431a-826c-7fd14795325c")
-	)
-	(wire
-		(pts
-			(xy 144.78 116.84) (xy 144.78 104.14)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "57bd8232-ea1d-44cd-a52b-b62a4b29e7ef")
-	)
-	(wire
-		(pts
-			(xy 113.03 71.12) (xy 113.03 101.6)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "5d9391bd-4c1e-477e-b628-fd3e0280d07f")
-	)
-	(wire
-		(pts
-			(xy 109.22 66.04) (xy 115.57 66.04)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "6a332f89-650a-48dc-b11d-b6f7a4093f21")
 	)
 	(wire
 		(pts
@@ -2033,13 +1607,23 @@
 	)
 	(wire
 		(pts
-			(xy 140.97 104.14) (xy 144.78 104.14)
+			(xy 109.22 60.96) (xy 113.03 60.96)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "712bec29-7fe9-4313-a199-b8ad6218f2ef")
+		(uuid "70d387b2-f848-4dcf-8280-a959263c10a0")
+	)
+	(wire
+		(pts
+			(xy 59.69 85.09) (xy 59.69 87.63)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "852bbeaa-2b53-4ee9-9e85-ed2fec65d9ee")
 	)
 	(wire
 		(pts
@@ -2053,16 +1637,6 @@
 	)
 	(wire
 		(pts
-			(xy 111.76 104.14) (xy 125.73 104.14)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "87134f02-7da2-4adb-8a10-f0ab0e1ca3b2")
-	)
-	(wire
-		(pts
 			(xy 45.72 40.64) (xy 45.72 43.18)
 		)
 		(stroke
@@ -2073,63 +1647,13 @@
 	)
 	(wire
 		(pts
-			(xy 140.97 101.6) (xy 144.78 101.6)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "8797af63-2bca-4300-b3ba-b9dfc734967d")
-	)
-	(wire
-		(pts
-			(xy 45.72 50.8) (xy 50.8 50.8)
+			(xy 45.72 50.8) (xy 59.69 50.8)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
 		(uuid "8cb6d4d1-2955-4ebe-a108-87f299614513")
-	)
-	(wire
-		(pts
-			(xy 140.97 86.36) (xy 144.78 86.36)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "8d82901b-d343-4b66-b21c-075c06651350")
-	)
-	(wire
-		(pts
-			(xy 140.97 88.9) (xy 144.78 88.9)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "8f17e30d-8c6d-4c14-9d4e-e9abba71b962")
-	)
-	(wire
-		(pts
-			(xy 114.3 88.9) (xy 125.73 88.9)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "9a1e6a15-69a8-49f3-b5e2-7d4c70bcb641")
-	)
-	(wire
-		(pts
-			(xy 144.78 73.66) (xy 144.78 71.12)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "9fe2c8f2-62ec-427f-bb9e-5e8eb88a11f4")
 	)
 	(wire
 		(pts
@@ -2140,16 +1664,6 @@
 			(type default)
 		)
 		(uuid "a0cd5b21-f4e1-4720-8c6b-71fa0e6b65fd")
-	)
-	(wire
-		(pts
-			(xy 116.84 73.66) (xy 116.84 63.5)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "a3d7ad13-a7ae-4b68-86ff-cc835a1a74a3")
 	)
 	(wire
 		(pts
@@ -2173,16 +1687,6 @@
 	)
 	(wire
 		(pts
-			(xy 113.03 101.6) (xy 125.73 101.6)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "ad475198-fb8d-4d1b-9ac2-bb06f46eba96")
-	)
-	(wire
-		(pts
 			(xy 45.72 50.8) (xy 41.91 50.8)
 		)
 		(stroke
@@ -2203,16 +1707,6 @@
 	)
 	(wire
 		(pts
-			(xy 116.84 63.5) (xy 109.22 63.5)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "c02f60db-3f7a-491a-b118-ffabc085e228")
-	)
-	(wire
-		(pts
 			(xy 109.22 38.1) (xy 118.11 38.1)
 		)
 		(stroke
@@ -2223,63 +1717,13 @@
 	)
 	(wire
 		(pts
-			(xy 144.78 73.66) (xy 144.78 86.36)
+			(xy 59.69 66.04) (xy 59.69 77.47)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "ccaaf565-9f14-4893-aa84-19639ee8bbe6")
-	)
-	(wire
-		(pts
-			(xy 118.11 71.12) (xy 118.11 60.96)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "cd43a506-47bf-45a3-9c62-d4e528634740")
-	)
-	(wire
-		(pts
-			(xy 144.78 104.14) (xy 144.78 101.6)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "cfdde818-c42b-4983-bb29-023c23b213fb")
-	)
-	(wire
-		(pts
-			(xy 140.97 73.66) (xy 144.78 73.66)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "d3cca480-2959-4ab3-ad6e-22b1364a744c")
-	)
-	(wire
-		(pts
-			(xy 118.11 60.96) (xy 109.22 60.96)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "d8e002e9-6e4d-49f9-a073-56c9d0c2e371")
-	)
-	(wire
-		(pts
-			(xy 50.8 50.8) (xy 59.69 50.8)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "dbde199a-e6a6-429d-a802-1a226f4be852")
+		(uuid "da609ab9-6b52-4ee4-a295-5b2d6efc51a9")
 	)
 	(wire
 		(pts
@@ -2755,6 +2199,17 @@
 		)
 		(uuid "9792e617-5585-4a30-84ec-ea904a6a0efb")
 	)
+	(hierarchical_label "~{FAULT}"
+		(shape output)
+		(at 113.03 60.96 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "9d733be7-1b85-463e-8d0b-e76cfda58258")
+	)
 	(symbol
 		(lib_id "Device:R")
 		(at 123.19 53.34 0)
@@ -2819,6 +2274,15 @@
 				(hide yes)
 			)
 		)
+		(property "Sim.Params" ""
+			(at 123.19 53.34 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "4f74fc0c-4944-4843-9037-b82a4e02a9ca")
 		)
@@ -2842,7 +2306,6 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "0b5e48b3-5c80-4ffe-806e-3f86e2e5dfd1")
 		(property "Reference" "D4"
 			(at 74.93 81.5974 90)
@@ -2907,6 +2370,23 @@
 				(hide yes)
 			)
 		)
+		(property "Rating" "Green"
+			(at 77.724 86.106 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Sim.Params" ""
+			(at 71.12 81.28 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "fb86efed-a071-4c30-af8a-83ac20a89afa")
 		)
@@ -2917,73 +2397,6 @@
 			(project "PULSER-testboard-hv"
 				(path "/853931f0-9d2b-49ab-aae3-2a7153967e0f/a58ab8a7-d919-4bb1-bcb6-a07722db020b"
 					(reference "D4")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Connector:TestPoint_Small")
-		(at 113.03 43.18 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom no)
-		(on_board yes)
-		(dnp no)
-		(uuid "0f67030e-14a3-4a16-a808-b799848489c1")
-		(property "Reference" "TP12"
-			(at 114.046 44.704 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "TestPoint_Small"
-			(at 114.3 44.4499 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Footprint" "TestPoint:TestPoint_Pad_D1.5mm"
-			(at 118.11 43.18 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 118.11 43.18 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "test point"
-			(at 113.03 43.18 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "dea31786-6a0d-45cc-92df-0e4a7b33afd3")
-		)
-		(instances
-			(project "PULSER-testboard-hv"
-				(path "/853931f0-9d2b-49ab-aae3-2a7153967e0f/a58ab8a7-d919-4bb1-bcb6-a07722db020b"
-					(reference "TP12")
 					(unit 1)
 				)
 			)
@@ -3110,6 +2523,15 @@
 				(hide yes)
 			)
 		)
+		(property "Sim.Params" ""
+			(at 113.03 40.64 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "c6ef585b-5d0f-4d6a-a396-f51e517241b4")
 		)
@@ -3117,88 +2539,6 @@
 			(project "PULSER-testboard-hv"
 				(path "/853931f0-9d2b-49ab-aae3-2a7153967e0f/a58ab8a7-d919-4bb1-bcb6-a07722db020b"
 					(reference "TP11")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Switch:SW_DIP_x02")
-		(at 133.35 104.14 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "29d4f5b4-e325-4ba9-8512-ae22322a324d")
-		(property "Reference" "SW2"
-			(at 133.35 97.79 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "SW_DIP_x02"
-			(at 133.35 108.204 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "Button_Switch_SMD:SW_DIP_SPSTx02_Slide_9.78x7.26mm_W8.61mm_P2.54mm"
-			(at 133.35 104.14 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 133.35 104.14 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "2x DIP Switch, Single Pole Single Throw (SPST) switch, small symbol"
-			(at 133.35 104.14 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "LCSC" "C3293152"
-			(at 133.35 104.14 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "4"
-			(uuid "3d80887c-e7c6-44c5-8d0e-f1a106944e17")
-		)
-		(pin "2"
-			(uuid "57501966-54a7-4054-bb88-8e001306f212")
-		)
-		(pin "3"
-			(uuid "03741fb7-ad6a-4d46-98fb-821a4e1ea102")
-		)
-		(pin "1"
-			(uuid "b90fc240-a993-4bf6-9b02-eb09e3c7afc7")
-		)
-		(instances
-			(project "PULSER-testboard-hv"
-				(path "/853931f0-9d2b-49ab-aae3-2a7153967e0f/a58ab8a7-d919-4bb1-bcb6-a07722db020b"
-					(reference "SW2")
 					(unit 1)
 				)
 			)
@@ -3260,6 +2600,15 @@
 			)
 		)
 		(property "LCSC" "C23162"
+			(at 71.12 91.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Params" ""
 			(at 71.12 91.44 0)
 			(effects
 				(font
@@ -3414,6 +2763,15 @@
 				(hide yes)
 			)
 		)
+		(property "Sim.Params" ""
+			(at 36.83 50.8 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "ebc138ae-1c46-4f87-ba15-464a3a487a94")
 		)
@@ -3431,7 +2789,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 71.12 116.84 0)
+		(at 71.12 101.6 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -3440,7 +2798,7 @@
 		(fields_autoplaced yes)
 		(uuid "56507c2e-c144-43d5-9242-96f26c11f2fa")
 		(property "Reference" "#PWR019"
-			(at 71.12 123.19 0)
+			(at 71.12 107.95 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3449,7 +2807,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 71.12 121.92 0)
+			(at 71.12 106.68 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3457,7 +2815,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 71.12 116.84 0)
+			(at 71.12 101.6 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3466,7 +2824,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 71.12 116.84 0)
+			(at 71.12 101.6 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3475,7 +2833,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 71.12 116.84 0)
+			(at 71.12 101.6 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3490,73 +2848,6 @@
 			(project "PULSER-testboard-hv"
 				(path "/853931f0-9d2b-49ab-aae3-2a7153967e0f/a58ab8a7-d919-4bb1-bcb6-a07722db020b"
 					(reference "#PWR019")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Connector:TestPoint_Small")
-		(at 113.03 45.72 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom no)
-		(on_board yes)
-		(dnp no)
-		(uuid "57fbadd1-fdd5-4a36-b7d3-c371f76995fd")
-		(property "Reference" "TP13"
-			(at 114.046 47.244 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "TestPoint_Small"
-			(at 114.3 46.9899 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Footprint" "TestPoint:TestPoint_Pad_D1.5mm"
-			(at 118.11 45.72 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 118.11 45.72 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "test point"
-			(at 113.03 45.72 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "849370b0-aa3f-4b9b-8be3-b2d4e924b6c2")
-		)
-		(instances
-			(project "PULSER-testboard-hv"
-				(path "/853931f0-9d2b-49ab-aae3-2a7153967e0f/a58ab8a7-d919-4bb1-bcb6-a07722db020b"
-					(reference "TP13")
 					(unit 1)
 				)
 			)
@@ -3624,73 +2915,6 @@
 			(project "PULSER-testboard-hv"
 				(path "/853931f0-9d2b-49ab-aae3-2a7153967e0f/a58ab8a7-d919-4bb1-bcb6-a07722db020b"
 					(reference "#PWR031")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Connector:TestPoint_Small")
-		(at 50.8 50.8 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom no)
-		(on_board yes)
-		(dnp no)
-		(uuid "6c8cc672-e5f1-4996-880f-c089bd4db45e")
-		(property "Reference" "TP14"
-			(at 51.816 52.324 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "TestPoint_Small"
-			(at 52.07 52.0699 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Footprint" "TestPoint:TestPoint_Pad_D1.5mm"
-			(at 55.88 50.8 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 55.88 50.8 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "test point"
-			(at 50.8 50.8 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "2b546701-85e1-4625-af0c-0df06b008611")
-		)
-		(instances
-			(project "PULSER-testboard-hv"
-				(path "/853931f0-9d2b-49ab-aae3-2a7153967e0f/a58ab8a7-d919-4bb1-bcb6-a07722db020b"
-					(reference "TP14")
 					(unit 1)
 				)
 			)
@@ -3933,6 +3157,15 @@
 				)
 			)
 		)
+		(property "Sim.Params" ""
+			(at 167.64 58.42 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "e6e93cb6-d4cd-4f41-978d-068b8d24a700")
 		)
@@ -3943,6 +3176,72 @@
 			(project "PULSER-testboard-hv"
 				(path "/853931f0-9d2b-49ab-aae3-2a7153967e0f/a58ab8a7-d919-4bb1-bcb6-a07722db020b"
 					(reference "C21")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 59.69 101.6 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "a547b7cd-4b3f-4a93-b0bb-8d66723790eb")
+		(property "Reference" "#PWR033"
+			(at 59.69 107.95 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 59.69 106.68 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 59.69 101.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 59.69 101.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 59.69 101.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "13330322-6c86-4f90-87eb-b8a1e7d6b4fd")
+		)
+		(instances
+			(project "PULSER-testboard-hv"
+				(path "/853931f0-9d2b-49ab-aae3-2a7153967e0f/a58ab8a7-d919-4bb1-bcb6-a07722db020b"
+					(reference "#PWR033")
 					(unit 1)
 				)
 			)
@@ -4005,6 +3304,15 @@
 			)
 		)
 		(property "LCSC" "C507118"
+			(at 93.98 55.88 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Params" ""
 			(at 93.98 55.88 0)
 			(effects
 				(font
@@ -4080,72 +3388,6 @@
 			(project ""
 				(path "/853931f0-9d2b-49ab-aae3-2a7153967e0f/a58ab8a7-d919-4bb1-bcb6-a07722db020b"
 					(reference "U11")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "power:GND")
-		(at 144.78 116.84 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "bc0abb39-94ef-4aeb-930c-6d1e0f5b1272")
-		(property "Reference" "#PWR033"
-			(at 144.78 123.19 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "GND"
-			(at 144.78 121.92 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 144.78 116.84 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 144.78 116.84 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 144.78 116.84 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "507db194-f9c5-47b1-8e69-29ece6a74d9b")
-		)
-		(instances
-			(project "PULSER-testboard-hv"
-				(path "/853931f0-9d2b-49ab-aae3-2a7153967e0f/a58ab8a7-d919-4bb1-bcb6-a07722db020b"
-					(reference "#PWR033")
 					(unit 1)
 				)
 			)
@@ -4281,6 +3523,15 @@
 				(hide yes)
 			)
 		)
+		(property "Sim.Params" ""
+			(at 45.72 46.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "45f42b7b-fe33-46b7-a854-55fc98c4ec58")
 		)
@@ -4297,32 +3548,34 @@
 		)
 	)
 	(symbol
-		(lib_id "Switch:SW_DIP_x02")
-		(at 133.35 88.9 0)
+		(lib_id "Device:LED")
+		(at 59.69 81.28 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "cb3a02ed-e761-4834-a9bc-4d78b3bc3802")
-		(property "Reference" "SW1"
-			(at 133.35 82.55 0)
+		(uuid "c89ba73e-9d47-4b0f-96a3-a95efd1fd570")
+		(property "Reference" "D7"
+			(at 63.5 81.5974 90)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify right)
 			)
 		)
-		(property "Value" "SW_DIP_x02"
-			(at 133.604 93.218 0)
+		(property "Value" "LED"
+			(at 63.5 84.1374 90)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify right)
 			)
 		)
-		(property "Footprint" "Button_Switch_SMD:SW_DIP_SPSTx02_Slide_9.78x7.26mm_W8.61mm_P2.54mm"
-			(at 133.35 88.9 0)
+		(property "Footprint" "LED_SMD:LED_0603_1608Metric"
+			(at 59.69 81.28 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4331,7 +3584,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 133.35 88.9 0)
+			(at 59.69 81.28 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4339,8 +3592,8 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "2x DIP Switch, Single Pole Single Throw (SPST) switch, small symbol"
-			(at 133.35 88.9 0)
+		(property "Description" "Light emitting diode"
+			(at 59.69 81.28 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4348,8 +3601,8 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC" "C3293152"
-			(at 133.35 88.9 0)
+		(property "Sim.Pins" "1=K 2=A"
+			(at 59.69 81.28 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4357,22 +3610,130 @@
 				(hide yes)
 			)
 		)
-		(pin "4"
-			(uuid "771487e1-7b06-4b93-9eed-273e8ec0fab2")
+		(property "LCSC" ""
+			(at 59.69 81.28 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
 		)
-		(pin "2"
-			(uuid "6419a054-942f-4f32-a43c-7b72d74136a2")
+		(property "Rating" "Red"
+			(at 65.278 86.36 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
 		)
-		(pin "3"
-			(uuid "a659e0d4-cec2-4e07-80ee-0f36bd5ae188")
+		(property "Sim.Params" ""
+			(at 59.69 81.28 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
 		)
 		(pin "1"
-			(uuid "614ad1a5-c2b6-48c9-9033-496605424ad2")
+			(uuid "871d37b6-2888-4962-a510-eaa05f497c7e")
+		)
+		(pin "2"
+			(uuid "b9d449b7-4c16-4d5b-b734-40970f713151")
 		)
 		(instances
 			(project "PULSER-testboard-hv"
 				(path "/853931f0-9d2b-49ab-aae3-2a7153967e0f/a58ab8a7-d919-4bb1-bcb6-a07722db020b"
-					(reference "SW1")
+					(reference "D7")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 59.69 91.44 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "dc3f6a87-8e28-4494-95e1-382c9c391689")
+		(property "Reference" "R2"
+			(at 62.23 90.1699 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "4.7k"
+			(at 62.23 92.7099 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+			(at 57.912 91.44 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 59.69 91.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Resistor"
+			(at 59.69 91.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C23162"
+			(at 59.69 91.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Params" ""
+			(at 59.69 91.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "25e20c8b-c7e1-4f80-89b3-5a2273e8833d")
+		)
+		(pin "2"
+			(uuid "42926862-077a-49ff-bae5-1221ba724bf5")
+		)
+		(instances
+			(project "PULSER-testboard-hv"
+				(path "/853931f0-9d2b-49ab-aae3-2a7153967e0f/a58ab8a7-d919-4bb1-bcb6-a07722db020b"
+					(reference "R2")
 					(unit 1)
 				)
 			)
@@ -4380,7 +3741,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 93.98 116.84 0)
+		(at 93.98 101.6 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -4389,7 +3750,7 @@
 		(fields_autoplaced yes)
 		(uuid "e25ec21d-e85a-4d7e-a8bc-7f9ad71dcb2f")
 		(property "Reference" "#PWR030"
-			(at 93.98 123.19 0)
+			(at 93.98 107.95 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4398,7 +3759,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 93.98 121.92 0)
+			(at 93.98 106.68 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4406,7 +3767,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 93.98 116.84 0)
+			(at 93.98 101.6 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4415,7 +3776,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 93.98 116.84 0)
+			(at 93.98 101.6 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4424,7 +3785,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 93.98 116.84 0)
+			(at 93.98 101.6 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4439,88 +3800,6 @@
 			(project "PULSER-testboard-hv"
 				(path "/853931f0-9d2b-49ab-aae3-2a7153967e0f/a58ab8a7-d919-4bb1-bcb6-a07722db020b"
 					(reference "#PWR030")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Switch:SW_DIP_x02")
-		(at 133.35 73.66 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "e9676400-dcbe-464b-b513-ab470ceb33ed")
-		(property "Reference" "SW3"
-			(at 133.35 67.31 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "SW_DIP_x02"
-			(at 133.35 77.47 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "Button_Switch_SMD:SW_DIP_SPSTx02_Slide_9.78x7.26mm_W8.61mm_P2.54mm"
-			(at 133.35 73.66 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 133.35 73.66 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "2x DIP Switch, Single Pole Single Throw (SPST) switch, small symbol"
-			(at 133.35 73.66 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "LCSC" "C3293152"
-			(at 133.35 73.66 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "4"
-			(uuid "2cb373c7-ad1f-408f-a484-0644e03ada2c")
-		)
-		(pin "2"
-			(uuid "b1534a24-efd9-49a1-8411-bae3a9442878")
-		)
-		(pin "3"
-			(uuid "d28475fd-ec94-49ad-8d9b-02e78a2c1f2d")
-		)
-		(pin "1"
-			(uuid "f86faed4-1552-4636-a82e-d34ed54af6bd")
-		)
-		(instances
-			(project "PULSER-testboard-hv"
-				(path "/853931f0-9d2b-49ab-aae3-2a7153967e0f/a58ab8a7-d919-4bb1-bcb6-a07722db020b"
-					(reference "SW3")
 					(unit 1)
 				)
 			)

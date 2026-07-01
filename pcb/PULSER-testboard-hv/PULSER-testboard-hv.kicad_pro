@@ -37,9 +37,9 @@
         "other_text_thickness": 0.15,
         "other_text_upright": false,
         "pads": {
-          "drill": 0.8,
-          "height": 1.27,
-          "width": 2.54
+          "drill": 0.0,
+          "height": 6.9,
+          "width": 8.26
         },
         "silk_line_width": 0.1,
         "silk_text_italic": false,
@@ -58,16 +58,7 @@
           "width": 0.0
         }
       ],
-      "drc_exclusions": [
-        [
-          "silk_over_copper|107600000|79420000|6ceb2b9f-4e6e-4b6f-bf06-a43d723a34ff|00000000-0000-0000-0000-000000000000",
-          ""
-        ],
-        [
-          "silk_over_copper|107600000|82640000|8260f3c8-3fa4-42c1-8daa-782eb0bc8457|00000000-0000-0000-0000-000000000000",
-          ""
-        ]
-      ],
+      "drc_exclusions": [],
       "meta": {
         "version": 2
       },
@@ -565,6 +556,12 @@
         },
         {
           "group_by": false,
+          "label": "Rating",
+          "name": "Rating",
+          "show": true
+        },
+        {
+          "group_by": false,
           "label": "LCSC",
           "name": "LCSC",
           "show": true
@@ -639,6 +636,12 @@
           "group_by": false,
           "label": "#",
           "name": "${ITEM_NUMBER}",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "Sim.Params",
+          "name": "Sim.Params",
           "show": false
         }
       ],
