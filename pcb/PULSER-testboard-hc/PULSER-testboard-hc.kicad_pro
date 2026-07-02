@@ -553,6 +553,12 @@
         },
         {
           "group_by": false,
+          "label": "Rating",
+          "name": "Rating",
+          "show": true
+        },
+        {
+          "group_by": false,
           "label": "LCSC",
           "name": "LCSC",
           "show": true
@@ -628,6 +634,12 @@
           "label": "#",
           "name": "${ITEM_NUMBER}",
           "show": false
+        },
+        {
+          "group_by": false,
+          "label": "Sim.Params",
+          "name": "Sim.Params",
+          "show": false
         }
       ],
       "filter_string": "",
@@ -681,6 +693,14 @@
     [
       "5d11a05d-bf43-4696-ad3f-8cbacb82ef15",
       "Root"
+    ],
+    [
+      "1e2f3082-060c-42f7-aaad-1e6fabb46be3",
+      "highcurrent"
+    ],
+    [
+      "0f77a975-6c69-4cae-96f9-021241b237fe",
+      "powersupply"
     ]
   ],
   "text_variables": {}
