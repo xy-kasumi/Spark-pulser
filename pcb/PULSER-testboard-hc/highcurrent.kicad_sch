@@ -2701,12 +2701,6 @@
 		(uuid "cb83d843-eded-42d4-b557-7952a64b985a")
 	)
 	(junction
-		(at 140.97 138.43)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "d362c367-24c9-49ce-9368-62a9d912e573")
-	)
-	(junction
 		(at 148.59 71.12)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -6164,73 +6158,6 @@
 		)
 	)
 	(symbol
-		(lib_id "Connector:TestPoint_Small")
-		(at 194.31 64.77 270)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom no)
-		(on_board yes)
-		(dnp no)
-		(uuid "32e3bdae-14e7-4e2c-b7c7-7865134467b6")
-		(property "Reference" "TP6"
-			(at 195.072 64.77 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "TestPoint"
-			(at 196.3421 67.31 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Footprint" "TestPoint:TestPoint_Pad_D1.5mm"
-			(at 194.31 69.85 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 194.31 69.85 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "test point"
-			(at 194.31 64.77 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "67808284-e2ba-4a74-a50e-86c0184fdcfd")
-		)
-		(instances
-			(project "PULSER-testboard-hc"
-				(path "/5d11a05d-bf43-4696-ad3f-8cbacb82ef15/1e2f3082-060c-42f7-aaad-1e6fabb46be3"
-					(reference "TP6")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "power:VCC")
 		(at 241.3 113.03 0)
 		(unit 1)
@@ -8657,73 +8584,6 @@
 			(project "PULSER-testboard-hc"
 				(path "/5d11a05d-bf43-4696-ad3f-8cbacb82ef15/1e2f3082-060c-42f7-aaad-1e6fabb46be3"
 					(reference "C11")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Connector:TestPoint_Small")
-		(at 140.97 138.43 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom no)
-		(on_board yes)
-		(dnp no)
-		(uuid "c180fd6b-35a7-4799-85d8-6e75eb189497")
-		(property "Reference" "TP14"
-			(at 140.97 137.16 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "TestPoint"
-			(at 143.51 136.3979 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Footprint" "TestPoint:TestPoint_Pad_D1.5mm"
-			(at 146.05 138.43 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 146.05 138.43 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "test point"
-			(at 140.97 138.43 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "2d11ac58-0f4a-44b2-b9b0-8d8521ec26f2")
-		)
-		(instances
-			(project "PULSER-testboard-hc"
-				(path "/5d11a05d-bf43-4696-ad3f-8cbacb82ef15/1e2f3082-060c-42f7-aaad-1e6fabb46be3"
-					(reference "TP14")
 					(unit 1)
 				)
 			)
