@@ -2,7 +2,7 @@
 	(version 20250114)
 	(generator "eeschema")
 	(generator_version "9.0")
-	(uuid "d39002eb-6693-4523-9003-1be90f4eb6fe")
+	(uuid "f71934b8-cbef-4cc2-8c6b-90a20c1af43a")
 	(paper "A4")
 	(title_block
 		(title "Pulser V2 HC Board")
@@ -1751,7 +1751,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
 			(at 92.71 111.76 0)
 			(effects
 				(font
@@ -1778,7 +1778,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC" "C14663"
+		(property "LCSC" "C307331"
 			(at 92.71 111.76 0)
 			(effects
 				(font
@@ -1838,7 +1838,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
 			(at 73.152 116.84 90)
 			(effects
 				(font
@@ -1865,7 +1865,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC" "C23151"
+		(property "LCSC" "C137997"
 			(at 74.93 116.84 0)
 			(effects
 				(font
@@ -2283,7 +2283,7 @@
 				)
 			)
 		)
-		(property "LCSC" ""
+		(property "LCSC" "C96446"
 			(at 132.08 62.23 0)
 			(effects
 				(font
@@ -2332,7 +2332,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
 			(at 40.64 110.49 0)
 			(effects
 				(font
@@ -2359,7 +2359,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC" "C14663"
+		(property "LCSC" "C307331"
 			(at 40.64 110.49 0)
 			(effects
 				(font
@@ -2505,7 +2505,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
 			(at 73.152 106.68 90)
 			(effects
 				(font
@@ -2532,7 +2532,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC" "C23350"
+		(property "LCSC" "C852660"
 			(at 74.93 106.68 0)
 			(effects
 				(font
@@ -2708,7 +2708,7 @@
 				)
 			)
 		)
-		(property "LCSC" ""
+		(property "LCSC" "C138065"
 			(at 120.65 55.88 0)
 			(effects
 				(font
@@ -3144,7 +3144,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C25744"
+		(property "LCSC" "C513708"
 			(at 120.65 66.04 0)
 			(effects
 				(font

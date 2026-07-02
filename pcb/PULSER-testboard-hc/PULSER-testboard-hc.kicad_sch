@@ -1596,6 +1596,189 @@
 			)
 			(embedded_fonts no)
 		)
+		(symbol "Device:LED"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 1.016)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "D"
+				(at 0 2.54 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "LED"
+				(at 0 -2.54 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Light emitting diode"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Sim.Pins" "1=K 2=A"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "LED diode"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "LED* LED_SMD:* LED_THT:*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "LED_0_1"
+				(polyline
+					(pts
+						(xy -3.048 -0.762) (xy -4.572 -2.286) (xy -3.81 -2.286) (xy -4.572 -2.286) (xy -4.572 -1.524)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.778 -0.762) (xy -3.302 -2.286) (xy -2.54 -2.286) (xy -3.302 -2.286) (xy -3.302 -1.524)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.27 0) (xy 1.27 0)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.27 -1.27) (xy -1.27 1.27)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.27 -1.27) (xy 1.27 1.27) (xy -1.27 0) (xy 1.27 -1.27)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "LED_1_1"
+				(pin passive line
+					(at -3.81 0 0)
+					(length 2.54)
+					(name "K"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 3.81 0 180)
+					(length 2.54)
+					(name "A"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 		(symbol "Device:R"
 			(pin_numbers
 				(hide yes)
@@ -2309,6 +2492,19 @@
 		)
 		(uuid 103e9dff-b1b6-4baf-a44e-d8044dd7aa2a)
 	)
+	(rectangle
+		(start 198.12 48.26)
+		(end 212.09 57.15)
+		(stroke
+			(width 0)
+			(type dash)
+			(color 221 133 0 1)
+		)
+		(fill
+			(type none)
+		)
+		(uuid 9f5039d9-7b00-49fc-8558-ead6afce9033)
+	)
 	(text "stray inductance\nflywheel"
 		(exclude_from_sim no)
 		(at 178.816 52.832 0)
@@ -2329,17 +2525,6 @@
 			)
 		)
 		(uuid "10217e39-415a-4ead-81dc-8e5e38373a12")
-	)
-	(text "6W"
-		(exclude_from_sim no)
-		(at 141.986 31.75 0)
-		(effects
-			(font
-				(size 1 1)
-				(color 221 133 0 1)
-			)
-		)
-		(uuid "48c75d47-9717-46b3-b50d-3ff2c2d4d109")
 	)
 	(text "VCCS=3.3V or 5V\ncurrent draw: <5mA"
 		(exclude_from_sim no)
@@ -2385,6 +2570,30 @@
 		)
 		(uuid "60bd94f4-b109-4dfb-acdf-c0d057455713")
 	)
+	(text "Thermal environment\n* via: 300K/W\n* backside-air: 1.7K/W (only where heatsink exists)\n* Tair=30C\n\n"
+		(exclude_from_sim no)
+		(at 177.292 155.956 0)
+		(effects
+			(font
+				(size 1 1)
+				(color 221 133 0 1)
+			)
+			(justify left top)
+		)
+		(uuid "6ee97fbc-c461-4bc9-a7c3-05086e2c84e0")
+	)
+	(text "6W\ntarget: Tj<100C\n50 vias"
+		(exclude_from_sim no)
+		(at 136.144 44.196 0)
+		(effects
+			(font
+				(size 1 1)
+				(color 221 133 0 1)
+			)
+			(justify left top)
+		)
+		(uuid "71bcc300-0897-44b2-bace-d944be8c3710")
+	)
 	(text "min pulse width: 1us"
 		(exclude_from_sim no)
 		(at 54.864 88.138 0)
@@ -2407,16 +2616,39 @@
 		)
 		(uuid "7c1f03a8-c324-4038-99dd-e8dad881af4c")
 	)
-	(text "1.6W (at 8kHz pulse)"
+	(text "PWR"
 		(exclude_from_sim no)
-		(at 214.376 53.086 0)
+		(at 180.594 99.314 0)
+		(effects
+			(font
+				(size 1 1)
+			)
+			(justify left)
+		)
+		(uuid "ada1f29a-3cf0-44e1-b444-0f699b547fd9")
+	)
+	(text "1.6W (at 8kHz pulse)\ntarget: Tj<100C\n22 vias (assuming Tjc=20K/W)\n"
+		(exclude_from_sim no)
+		(at 203.708 58.42 0)
 		(effects
 			(font
 				(size 1 1)
 				(color 221 133 0 1)
 			)
+			(justify left top)
 		)
 		(uuid "d3751b42-a472-405e-9680-3dcde60f7ce1")
+	)
+	(text "EN"
+		(exclude_from_sim no)
+		(at 189.738 99.314 0)
+		(effects
+			(font
+				(size 1 1)
+			)
+			(justify left)
+		)
+		(uuid "eb861cf6-d9b8-4f30-b3a4-342bb9eb9343")
 	)
 	(text "12V fan (max 200mA)"
 		(exclude_from_sim no)
@@ -2458,6 +2690,12 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "b18555f3-3e13-4202-aed6-cb993884a154")
+	)
+	(junction
+		(at 177.8 116.84)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "c6bb6bb7-9293-48c5-9047-8a65354358e3")
 	)
 	(junction
 		(at 200.66 39.37)
@@ -2510,6 +2748,16 @@
 			(type default)
 		)
 		(uuid "1c3b8b13-5759-4a82-a4d9-61b8dfd5a9b3")
+	)
+	(wire
+		(pts
+			(xy 186.69 116.84) (xy 177.8 116.84)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "1f217058-9704-4b88-882b-840cd0ff4d14")
 	)
 	(wire
 		(pts
@@ -2583,6 +2831,16 @@
 	)
 	(wire
 		(pts
+			(xy 186.69 93.98) (xy 186.69 97.79)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "36877778-4f08-4365-80f0-ce891366bf75")
+	)
+	(wire
+		(pts
 			(xy 39.37 102.87) (xy 31.75 102.87)
 		)
 		(stroke
@@ -2600,6 +2858,16 @@
 			(type default)
 		)
 		(uuid "4625a0db-dd91-432c-a4aa-e64861c5c0ef")
+	)
+	(wire
+		(pts
+			(xy 186.69 105.41) (xy 186.69 107.95)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "46fdeb22-7324-4649-8ddf-54ab8fe8910e")
 	)
 	(wire
 		(pts
@@ -2640,6 +2908,16 @@
 			(type default)
 		)
 		(uuid "53f67179-cf24-4221-aa8e-228e33aa2db2")
+	)
+	(wire
+		(pts
+			(xy 177.8 105.41) (xy 177.8 107.95)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5aeff5af-dcf2-465f-8af3-ea9ca35ead00")
 	)
 	(wire
 		(pts
@@ -2710,6 +2988,16 @@
 			(type default)
 		)
 		(uuid "65243635-d653-4f0c-8ccc-94b247a5ff64")
+	)
+	(wire
+		(pts
+			(xy 177.8 116.84) (xy 177.8 119.38)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6a920900-c21f-4a33-ab4b-8ec7116c6f3b")
 	)
 	(wire
 		(pts
@@ -2903,6 +3191,16 @@
 	)
 	(wire
 		(pts
+			(xy 177.8 115.57) (xy 177.8 116.84)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c567ed6f-c8a2-436e-bea3-c4a0e48c31cc")
+	)
+	(wire
+		(pts
 			(xy 153.67 39.37) (xy 176.53 39.37)
 		)
 		(stroke
@@ -2910,6 +3208,16 @@
 			(type default)
 		)
 		(uuid "cbac2c29-d561-43f6-a2d8-9c9c2126a63f")
+	)
+	(wire
+		(pts
+			(xy 177.8 93.98) (xy 177.8 97.79)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ce53a967-2d50-4655-9079-de0937d9cf11")
 	)
 	(wire
 		(pts
@@ -2950,6 +3258,16 @@
 			(type default)
 		)
 		(uuid "d5a071f0-20c1-4933-836d-18803e4a3bf3")
+	)
+	(wire
+		(pts
+			(xy 186.69 115.57) (xy 186.69 116.84)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d8226e6a-58ad-4d85-a452-af0b54393f6c")
 	)
 	(wire
 		(pts
@@ -3522,6 +3840,16 @@
 		(uuid "687faf75-6059-47b3-8963-36ff4d978ef0")
 	)
 	(label "EN"
+		(at 186.69 93.98 270)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "908d4cb2-9749-4a5a-8513-88dfa8cda777")
+	)
+	(label "EN"
 		(at 83.82 100.33 180)
 		(effects
 			(font
@@ -3540,6 +3868,101 @@
 			(justify left bottom)
 		)
 		(uuid "a3ea5883-319a-4568-be94-0e3ebe94348a")
+	)
+	(symbol
+		(lib_id "Device:LED")
+		(at 177.8 101.6 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "05752878-99e0-46b4-be5f-ae94a98092dc")
+		(property "Reference" "D7"
+			(at 180.594 101.092 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "LED"
+			(at 180.594 103.632 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "LED_SMD:LED_0805_2012Metric"
+			(at 177.8 101.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 177.8 101.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Light emitting diode"
+			(at 177.8 101.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Pins" "1=K 2=A"
+			(at 177.8 101.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Rating" "Green"
+			(at 183.388 105.918 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C2297"
+			(at 177.8 101.6 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "e101fbb4-196b-4cdd-94f7-42c9cf2fa621")
+		)
+		(pin "2"
+			(uuid "69d67c34-f8ab-4121-94c1-0b7aeae9bac1")
+		)
+		(instances
+			(project ""
+				(path "/5d11a05d-bf43-4696-ad3f-8cbacb82ef15"
+					(reference "D7")
+					(unit 1)
+				)
+			)
+		)
 	)
 	(symbol
 		(lib_id "power:VCC")
@@ -3602,6 +4025,72 @@
 			(project "PULSER-testboard-hc"
 				(path "/5d11a05d-bf43-4696-ad3f-8cbacb82ef15"
 					(reference "#PWR042")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 177.8 119.38 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "0bf682bc-0beb-46b1-ae57-add60fe7fce3")
+		(property "Reference" "#PWR051"
+			(at 177.8 125.73 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 177.8 124.46 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 177.8 119.38 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 177.8 119.38 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 177.8 119.38 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "b08b2ca7-ad90-4773-9059-c7fa1dd17453")
+		)
+		(instances
+			(project "PULSER-testboard-hc"
+				(path "/5d11a05d-bf43-4696-ad3f-8cbacb82ef15"
+					(reference "#PWR051")
 					(unit 1)
 				)
 			)
@@ -3910,7 +4399,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC" ""
+		(property "LCSC" "C21120"
 			(at 101.6 110.49 0)
 			(effects
 				(font
@@ -4011,6 +4500,157 @@
 	)
 	(symbol
 		(lib_id "Device:R")
+		(at 186.69 111.76 180)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "2459c673-7a96-450d-b60a-b9dd8f6b9a95")
+		(property "Reference" "R19"
+			(at 181.102 111.76 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "1k"
+			(at 183.642 111.76 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
+			(at 188.468 111.76 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 186.69 111.76 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Resistor"
+			(at 186.69 111.76 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C11702"
+			(at 186.69 111.76 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Rating" "10V"
+			(at 186.69 111.76 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "1bf6d40e-e870-480f-aea2-8bf03c092400")
+		)
+		(pin "2"
+			(uuid "b244f288-29b2-4615-98a7-70973d688f24")
+		)
+		(instances
+			(project "PULSER-testboard-hc"
+				(path "/5d11a05d-bf43-4696-ad3f-8cbacb82ef15"
+					(reference "R19")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:VCC")
+		(at 177.8 93.98 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "2afb0b1c-5535-4247-b8dd-4c61a544ecb3")
+		(property "Reference" "#PWR052"
+			(at 177.8 97.79 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+3V3"
+			(at 177.8 88.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 177.8 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 177.8 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"VCC\""
+			(at 177.8 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "cad5e7bc-bdbe-4eeb-ba34-525017017b76")
+		)
+		(instances
+			(project "PULSER-testboard-hc"
+				(path "/5d11a05d-bf43-4696-ad3f-8cbacb82ef15"
+					(reference "#PWR052")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R")
 		(at 200.66 52.07 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -4036,7 +4676,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_2512_6332Metric"
 			(at 198.882 52.07 90)
 			(effects
 				(font
@@ -4063,7 +4703,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC" ""
+		(property "LCSC" "C2960811"
 			(at 200.66 52.07 0)
 			(effects
 				(font
@@ -4369,7 +5009,7 @@
 		(dnp no)
 		(uuid "39eec050-4c8f-4746-9b80-6e027e53fa13")
 		(property "Reference" "D1"
-			(at 138.43 35.306 0)
+			(at 138.176 35.052 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4377,16 +5017,17 @@
 				(justify right)
 			)
 		)
-		(property "Value" "120V 10A"
+		(property "Value" "~"
 			(at 138.43 36.83 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify right)
+				(hide yes)
 			)
 		)
-		(property "Footprint" "Package_TO_SOT_THT:TO-220-2_Vertical"
+		(property "Footprint" "SparkAll:VISHAY-SMPC"
 			(at 139.7 39.37 0)
 			(effects
 				(font
@@ -4413,7 +5054,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC" "C10623"
+		(property "LCSC" "C968542"
 			(at 139.7 39.37 0)
 			(effects
 				(font
@@ -4432,6 +5073,14 @@
 		)
 		(property "Sim.Pins" ""
 			(at 139.7 39.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Rating" "120V 10A"
+			(at 142.748 37.084 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4662,6 +5311,91 @@
 		)
 	)
 	(symbol
+		(lib_id "Device:R")
+		(at 177.8 111.76 180)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "5c036461-04b1-4fd6-a185-4b79ecf6657b")
+		(property "Reference" "R16"
+			(at 172.212 111.76 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "1k"
+			(at 174.752 111.76 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
+			(at 179.578 111.76 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 177.8 111.76 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Resistor"
+			(at 177.8 111.76 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C11702"
+			(at 177.8 111.76 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Rating" "10V"
+			(at 177.8 111.76 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "6c1416fd-d161-4cc1-a049-1b5cf40c5f85")
+		)
+		(pin "2"
+			(uuid "67c8be7c-961d-4cf8-bddf-232ac812b453")
+		)
+		(instances
+			(project "PULSER-testboard-hc"
+				(path "/5d11a05d-bf43-4696-ad3f-8cbacb82ef15"
+					(reference "R16")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Connector:Conn_01x02_Pin")
 		(at 237.49 80.01 0)
 		(mirror y)
@@ -4690,7 +5424,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Connector_JST:JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical"
 			(at 237.49 80.01 0)
 			(effects
 				(font
@@ -4965,7 +5699,7 @@
 				(hide yes)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "SparkAll:TO-227A-2P"
 			(at 176.53 46.99 0)
 			(effects
 				(font
@@ -4998,6 +5732,15 @@
 				(font
 					(size 1.27 1.27)
 				)
+			)
+		)
+		(property "LCSC" "C2927414"
+			(at 176.53 46.99 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
 			)
 		)
 		(pin "1"
@@ -5204,7 +5947,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
 			(at 55.5752 137.16 0)
 			(effects
 				(font
@@ -5231,7 +5974,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC" ""
+		(property "LCSC" "C307331"
 			(at 54.61 133.35 0)
 			(effects
 				(font
@@ -5444,6 +6187,101 @@
 			(project "PULSER-testboard-hc"
 				(path "/5d11a05d-bf43-4696-ad3f-8cbacb82ef15"
 					(reference "#PWR037")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:LED")
+		(at 186.69 101.6 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "7c108b65-6e63-461a-b3c8-c0ed93a37a3e")
+		(property "Reference" "D8"
+			(at 189.484 100.838 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "LED"
+			(at 189.484 103.378 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "LED_SMD:LED_0805_2012Metric"
+			(at 186.69 101.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 186.69 101.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Light emitting diode"
+			(at 186.69 101.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Pins" "1=K 2=A"
+			(at 186.69 101.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Rating" "Amber"
+			(at 192.532 105.918 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C5123498"
+			(at 186.69 101.6 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "0a0edadc-0713-4b9c-9bcf-226f6f9b66c0")
+		)
+		(pin "2"
+			(uuid "dd702df4-5287-469a-9b3d-59b79389068d")
+		)
+		(instances
+			(project "PULSER-testboard-hc"
+				(path "/5d11a05d-bf43-4696-ad3f-8cbacb82ef15"
+					(reference "D8")
 					(unit 1)
 				)
 			)
@@ -6059,7 +6897,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
 			(at 200.66 44.45 0)
 			(effects
 				(font
@@ -6086,7 +6924,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC" ""
+		(property "LCSC" "C5128361"
 			(at 200.66 44.45 0)
 			(effects
 				(font
@@ -6095,7 +6933,7 @@
 				(hide yes)
 			)
 		)
-		(property "Rating" "250V"
+		(property "Rating" "200V"
 			(at 204.724 47.498 0)
 			(effects
 				(font
@@ -6211,7 +7049,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
 			(at 68.2752 137.16 0)
 			(effects
 				(font
@@ -6238,7 +7076,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC" ""
+		(property "LCSC" "C307331"
 			(at 67.31 133.35 0)
 			(effects
 				(font
@@ -6480,7 +7318,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
 			(at 93.98 107.188 90)
 			(effects
 				(font
@@ -6507,7 +7345,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC" "C25804"
+		(property "LCSC" "C25744"
 			(at 93.98 105.41 90)
 			(effects
 				(font
@@ -6633,7 +7471,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Diode_SMD:D_SMB"
 			(at 153.67 46.99 0)
 			(effects
 				(font
@@ -6660,12 +7498,21 @@
 				(hide yes)
 			)
 		)
-		(property "Rating" "5W"
+		(property "Rating" "3W"
 			(at 157.734 50.8 90)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+			)
+		)
+		(property "LCSC" "C150045"
+			(at 153.67 46.99 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
 			)
 		)
 		(pin "2"
