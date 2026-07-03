@@ -5,7 +5,7 @@
 	(uuid "44c1e56c-4d4f-4792-9d40-8dfd192d55f5")
 	(paper "A4")
 	(title_block
-		(title "Pulser V2 HV Test Board")
+		(title "Pulser V2 HV Board")
 		(date "2026-07-01")
 		(rev "4")
 		(company "Spark Project")
@@ -2394,7 +2394,7 @@
 			(uuid "6b248ed5-395d-431c-8353-d9461c64a18e")
 		)
 		(instances
-			(project "PULSER-testboard-hv"
+			(project "pulser-hv"
 				(path "/853931f0-9d2b-49ab-aae3-2a7153967e0f/a58ab8a7-d919-4bb1-bcb6-a07722db020b"
 					(reference "D4")
 					(unit 1)
@@ -2460,7 +2460,7 @@
 			(uuid "bb520292-d1dc-4d28-b5e1-5296a064e04b")
 		)
 		(instances
-			(project "PULSER-testboard-hv"
+			(project "pulser-hv"
 				(path "/853931f0-9d2b-49ab-aae3-2a7153967e0f/a58ab8a7-d919-4bb1-bcb6-a07722db020b"
 					(reference "#PWR054")
 					(unit 1)
@@ -2536,7 +2536,7 @@
 			(uuid "c6ef585b-5d0f-4d6a-a396-f51e517241b4")
 		)
 		(instances
-			(project "PULSER-testboard-hv"
+			(project "pulser-hv"
 				(path "/853931f0-9d2b-49ab-aae3-2a7153967e0f/a58ab8a7-d919-4bb1-bcb6-a07722db020b"
 					(reference "TP11")
 					(unit 1)
@@ -2624,7 +2624,7 @@
 			(uuid "c463212b-62bf-4e54-99db-141d2f550466")
 		)
 		(instances
-			(project "PULSER-testboard-hv"
+			(project "pulser-hv"
 				(path "/853931f0-9d2b-49ab-aae3-2a7153967e0f/a58ab8a7-d919-4bb1-bcb6-a07722db020b"
 					(reference "R7")
 					(unit 1)
@@ -2690,7 +2690,7 @@
 			(uuid "0f29aeb8-69b9-460f-ba0d-2f0a7768bcd3")
 		)
 		(instances
-			(project "PULSER-testboard-hv"
+			(project "pulser-hv"
 				(path "/853931f0-9d2b-49ab-aae3-2a7153967e0f/a58ab8a7-d919-4bb1-bcb6-a07722db020b"
 					(reference "#PWR032")
 					(unit 1)
@@ -2845,7 +2845,7 @@
 			(uuid "5366fa61-b5d4-4378-a46e-aa11c78984f6")
 		)
 		(instances
-			(project "PULSER-testboard-hv"
+			(project "pulser-hv"
 				(path "/853931f0-9d2b-49ab-aae3-2a7153967e0f/a58ab8a7-d919-4bb1-bcb6-a07722db020b"
 					(reference "#PWR019")
 					(unit 1)
@@ -2912,7 +2912,7 @@
 			(uuid "0dcdeb3d-cc5f-4329-b77b-ab8fa134ca77")
 		)
 		(instances
-			(project "PULSER-testboard-hv"
+			(project "pulser-hv"
 				(path "/853931f0-9d2b-49ab-aae3-2a7153967e0f/a58ab8a7-d919-4bb1-bcb6-a07722db020b"
 					(reference "#PWR031")
 					(unit 1)
@@ -2978,7 +2978,7 @@
 			(uuid "0953d58b-17d8-4e05-96b5-260f18b57ca5")
 		)
 		(instances
-			(project "PULSER-testboard-hv"
+			(project "pulser-hv"
 				(path "/853931f0-9d2b-49ab-aae3-2a7153967e0f/a58ab8a7-d919-4bb1-bcb6-a07722db020b"
 					(reference "#PWR048")
 					(unit 1)
@@ -3043,7 +3043,7 @@
 			(uuid "22d94c06-b271-480b-ba43-098c0f06a71d")
 		)
 		(instances
-			(project "PULSER-testboard-hv"
+			(project "pulser-hv"
 				(path "/853931f0-9d2b-49ab-aae3-2a7153967e0f/a58ab8a7-d919-4bb1-bcb6-a07722db020b"
 					(reference "#PWR034")
 					(unit 1)
@@ -3173,7 +3173,7 @@
 			(uuid "9c77b54b-1d90-4380-9405-1c527311ba18")
 		)
 		(instances
-			(project "PULSER-testboard-hv"
+			(project "pulser-hv"
 				(path "/853931f0-9d2b-49ab-aae3-2a7153967e0f/a58ab8a7-d919-4bb1-bcb6-a07722db020b"
 					(reference "C21")
 					(unit 1)
@@ -3239,7 +3239,7 @@
 			(uuid "13330322-6c86-4f90-87eb-b8a1e7d6b4fd")
 		)
 		(instances
-			(project "PULSER-testboard-hv"
+			(project "pulser-hv"
 				(path "/853931f0-9d2b-49ab-aae3-2a7153967e0f/a58ab8a7-d919-4bb1-bcb6-a07722db020b"
 					(reference "#PWR033")
 					(unit 1)
@@ -3451,7 +3451,7 @@
 			(uuid "fd948ed4-c25e-45d0-ad14-a2773fccfd51")
 		)
 		(instances
-			(project "PULSER-testboard-hv"
+			(project "pulser-hv"
 				(path "/853931f0-9d2b-49ab-aae3-2a7153967e0f/a58ab8a7-d919-4bb1-bcb6-a07722db020b"
 					(reference "#PWR035")
 					(unit 1)
@@ -3539,7 +3539,7 @@
 			(uuid "c20224e3-d6ce-482c-af23-405761b19dc6")
 		)
 		(instances
-			(project "PULSER-testboard-hv"
+			(project "pulser-hv"
 				(path "/853931f0-9d2b-49ab-aae3-2a7153967e0f/a58ab8a7-d919-4bb1-bcb6-a07722db020b"
 					(reference "R21")
 					(unit 1)
@@ -3643,7 +3643,7 @@
 			(uuid "b9d449b7-4c16-4d5b-b734-40970f713151")
 		)
 		(instances
-			(project "PULSER-testboard-hv"
+			(project "pulser-hv"
 				(path "/853931f0-9d2b-49ab-aae3-2a7153967e0f/a58ab8a7-d919-4bb1-bcb6-a07722db020b"
 					(reference "D7")
 					(unit 1)
@@ -3731,7 +3731,7 @@
 			(uuid "42926862-077a-49ff-bae5-1221ba724bf5")
 		)
 		(instances
-			(project "PULSER-testboard-hv"
+			(project "pulser-hv"
 				(path "/853931f0-9d2b-49ab-aae3-2a7153967e0f/a58ab8a7-d919-4bb1-bcb6-a07722db020b"
 					(reference "R2")
 					(unit 1)
@@ -3797,7 +3797,7 @@
 			(uuid "ae1cf032-4f25-40f0-bed7-bb289faa9c7b")
 		)
 		(instances
-			(project "PULSER-testboard-hv"
+			(project "pulser-hv"
 				(path "/853931f0-9d2b-49ab-aae3-2a7153967e0f/a58ab8a7-d919-4bb1-bcb6-a07722db020b"
 					(reference "#PWR030")
 					(unit 1)

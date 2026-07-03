@@ -8,8 +8,11 @@
 	)
 	(paper "A4")
 	(title_block
+		(title "Pulser V2 Controller")
 		(date "2026-07-01")
 		(rev "2")
+		(company "Spark Project")
+		(comment 1 "夕月霞")
 	)
 	(layers
 		(0 "F.Cu" signal)
@@ -256,7 +259,7 @@
 		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/610d177f-9e38-4461-b3f2-6304cc59dff9")
 		(sheetname "/")
-		(sheetfile "PULSER-testboard-ctrl.kicad_sch")
+		(sheetfile "pulser-ctrl.kicad_sch")
 		(attr through_hole)
 		(fp_line
 			(start 1.25 2.75)
@@ -559,7 +562,7 @@
 		(property ki_fp_filters "C_*")
 		(path "/64e79ca7-0692-45f9-96e4-07124e148835")
 		(sheetname "/")
-		(sheetfile "PULSER-testboard-ctrl.kicad_sch")
+		(sheetfile "pulser-ctrl.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.14058 -0.51)
@@ -700,7 +703,7 @@
 		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/9182f337-d95e-44a0-8a30-31e50e73473a")
 		(sheetname "/")
-		(sheetfile "PULSER-testboard-ctrl.kicad_sch")
+		(sheetfile "pulser-ctrl.kicad_sch")
 		(attr through_hole)
 		(fp_line
 			(start -1.33 1.27)
@@ -979,7 +982,7 @@
 		(property ki_fp_filters "R_*")
 		(path "/520c8787-7d93-4803-90da-36892d209240")
 		(sheetname "/")
-		(sheetfile "PULSER-testboard-ctrl.kicad_sch")
+		(sheetfile "pulser-ctrl.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.153641 0.38)
@@ -1133,7 +1136,7 @@
 		(property ki_fp_filters "VQFN*1EP*3x3mm*P0.4mm*")
 		(path "/3781ba50-e2ea-4841-b48f-e2f09757c25c")
 		(sheetname "/")
-		(sheetfile "PULSER-testboard-ctrl.kicad_sch")
+		(sheetfile "pulser-ctrl.kicad_sch")
 		(clearance 0.1)
 		(attr smd)
 		(fp_line
@@ -1880,7 +1883,7 @@
 		(property ki_fp_filters "R_*")
 		(path "/d2c52cdc-8476-419e-8961-58d32b363328")
 		(sheetname "/")
-		(sheetfile "PULSER-testboard-ctrl.kicad_sch")
+		(sheetfile "pulser-ctrl.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.153641 -0.38)
@@ -2035,7 +2038,7 @@
 		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/b724ecd6-17cc-49cd-aa83-45e5fdafdbca")
 		(sheetname "/")
-		(sheetfile "PULSER-testboard-ctrl.kicad_sch")
+		(sheetfile "pulser-ctrl.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -7.299985 -2.250001)
@@ -2499,7 +2502,7 @@
 		(property ki_fp_filters "R_*")
 		(path "/74bbc3e3-fc3a-4a8c-9127-e9c27be0ad3e")
 		(sheetname "/")
-		(sheetfile "PULSER-testboard-ctrl.kicad_sch")
+		(sheetfile "pulser-ctrl.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.153641 -0.38)
@@ -2642,7 +2645,7 @@
 		(property ki_fp_filters "Pin* Test*")
 		(path "/0c0a7ece-bb7d-4988-828a-29df10a57cda")
 		(sheetname "/")
-		(sheetfile "PULSER-testboard-ctrl.kicad_sch")
+		(sheetfile "pulser-ctrl.kicad_sch")
 		(attr exclude_from_pos_files exclude_from_bom)
 		(fp_circle
 			(center 0 0)
@@ -2758,7 +2761,7 @@
 		(property ki_fp_filters "Converter*DCDC*Murata*MEE1SxxxxSC*THT*")
 		(path "/13477b2c-1c55-471b-8f2c-69aa7142af12")
 		(sheetname "/")
-		(sheetfile "PULSER-testboard-ctrl.kicad_sch")
+		(sheetfile "pulser-ctrl.kicad_sch")
 		(attr through_hole)
 		(fp_line
 			(start -1.5 -2.45)
@@ -3059,7 +3062,7 @@
 		(property ki_fp_filters "C_*")
 		(path "/8b83022b-1402-498e-8af7-3b42d4664d41")
 		(sheetname "/")
-		(sheetfile "PULSER-testboard-ctrl.kicad_sch")
+		(sheetfile "pulser-ctrl.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.14058 0.51)
@@ -3214,7 +3217,7 @@
 		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/8c244565-2e03-4d57-bcb0-a52cd79bb78d")
 		(sheetname "/")
-		(sheetfile "PULSER-testboard-ctrl.kicad_sch")
+		(sheetfile "pulser-ctrl.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -7.299985 -2.250001)
@@ -3666,7 +3669,7 @@
 		(property ki_fp_filters "RDN0011A-MFG")
 		(path "/5772151a-2ca8-4ae1-adc8-a8c6fbadfa64")
 		(sheetname "/")
-		(sheetfile "PULSER-testboard-ctrl.kicad_sch")
+		(sheetfile "pulser-ctrl.kicad_sch")
 		(clearance 0.1)
 		(attr through_hole)
 		(fp_poly
@@ -4450,7 +4453,7 @@
 		(property ki_fp_filters "C_*")
 		(path "/aa4e713e-9944-4c24-aeae-80cd22bb755c")
 		(sheetname "/")
-		(sheetfile "PULSER-testboard-ctrl.kicad_sch")
+		(sheetfile "pulser-ctrl.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.107836 -0.36)
@@ -4790,7 +4793,7 @@
 		(property ki_fp_filters "C_*")
 		(path "/5835dc35-1f43-473a-8e31-fead7b372fbd")
 		(sheetname "/")
-		(sheetfile "PULSER-testboard-ctrl.kicad_sch")
+		(sheetfile "pulser-ctrl.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.14058 0.51)
@@ -4957,7 +4960,7 @@
 		(property ki_fp_filters "R_*")
 		(path "/3dae151d-b44b-43f5-911b-dbe97675407f")
 		(sheetname "/")
-		(sheetfile "PULSER-testboard-ctrl.kicad_sch")
+		(sheetfile "pulser-ctrl.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.153641 -0.38)
@@ -5124,7 +5127,7 @@
 		(property ki_fp_filters "R_*")
 		(path "/ea2be43c-1533-47d6-8141-e416f6b22d8a")
 		(sheetname "/")
-		(sheetfile "PULSER-testboard-ctrl.kicad_sch")
+		(sheetfile "pulser-ctrl.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.153641 -0.38)
@@ -5304,7 +5307,7 @@
 		(property ki_fp_filters "LED* LED_SMD:* LED_THT:*")
 		(path "/3ab8e5c6-b3a2-46c0-8b5d-7841aa7c600b")
 		(sheetname "/")
-		(sheetfile "PULSER-testboard-ctrl.kicad_sch")
+		(sheetfile "pulser-ctrl.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start 0.8 -0.735)
@@ -5535,7 +5538,7 @@
 		(property ki_fp_filters "LED* LED_SMD:* LED_THT:*")
 		(path "/8aed9912-bb1d-48f8-b2f5-8a1c575fab33")
 		(sheetname "/")
-		(sheetfile "PULSER-testboard-ctrl.kicad_sch")
+		(sheetfile "pulser-ctrl.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start 0.8 -0.735)
@@ -5729,7 +5732,7 @@
 		(property ki_fp_filters "Pin* Test*")
 		(path "/36b8955d-a9ad-4df2-b1a8-808559fb5123")
 		(sheetname "/")
-		(sheetfile "PULSER-testboard-ctrl.kicad_sch")
+		(sheetfile "pulser-ctrl.kicad_sch")
 		(attr exclude_from_pos_files exclude_from_bom)
 		(fp_circle
 			(center 0 0)
@@ -5856,7 +5859,7 @@
 		(property ki_fp_filters "C_*")
 		(path "/b0ffd180-76ea-4e42-9913-55f719bcd70b")
 		(sheetname "/")
-		(sheetfile "PULSER-testboard-ctrl.kicad_sch")
+		(sheetfile "pulser-ctrl.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.14058 0.51)
@@ -6010,7 +6013,7 @@
 		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/536265b0-badd-44c4-8892-f33dddcdfa6c")
 		(sheetname "/")
-		(sheetfile "PULSER-testboard-ctrl.kicad_sch")
+		(sheetfile "pulser-ctrl.kicad_sch")
 		(attr through_hole)
 		(fp_line
 			(start -2.56 -2.41)
@@ -6458,7 +6461,7 @@
 		(property ki_fp_filters "LED* LED_SMD:* LED_THT:*")
 		(path "/b84346a9-754a-4123-8a27-810a42e26ec9")
 		(sheetname "/")
-		(sheetfile "PULSER-testboard-ctrl.kicad_sch")
+		(sheetfile "pulser-ctrl.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start 0.8 -0.735)
@@ -6653,7 +6656,7 @@
 		(property ki_fp_filters "Pin* Test*")
 		(path "/2d432e3e-ec69-4800-850f-572156814170")
 		(sheetname "/")
-		(sheetfile "PULSER-testboard-ctrl.kicad_sch")
+		(sheetfile "pulser-ctrl.kicad_sch")
 		(attr exclude_from_pos_files exclude_from_bom)
 		(fp_circle
 			(center 0 0)
@@ -6756,7 +6759,7 @@
 		(property ki_fp_filters "Pin* Test*")
 		(path "/20cc247e-59fb-4a66-8216-8d61a51855d7")
 		(sheetname "/")
-		(sheetfile "PULSER-testboard-ctrl.kicad_sch")
+		(sheetfile "pulser-ctrl.kicad_sch")
 		(attr exclude_from_pos_files exclude_from_bom)
 		(fp_circle
 			(center 0 0)
@@ -6883,7 +6886,7 @@
 		(property ki_fp_filters "R_*")
 		(path "/e7eb58b2-5e3e-409e-b490-7e1c53131e55")
 		(sheetname "/")
-		(sheetfile "PULSER-testboard-ctrl.kicad_sch")
+		(sheetfile "pulser-ctrl.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.153641 -0.38)
@@ -7050,7 +7053,7 @@
 		(property ki_fp_filters "R_*")
 		(path "/babac03b-9e6e-4345-b988-904a4abd82ca")
 		(sheetname "/")
-		(sheetfile "PULSER-testboard-ctrl.kicad_sch")
+		(sheetfile "pulser-ctrl.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.153641 -0.38)
@@ -7193,7 +7196,7 @@
 		(property ki_fp_filters "Pin* Test*")
 		(path "/9b443233-ff98-4878-a09c-bdbc8f53d003")
 		(sheetname "/")
-		(sheetfile "PULSER-testboard-ctrl.kicad_sch")
+		(sheetfile "pulser-ctrl.kicad_sch")
 		(attr exclude_from_pos_files exclude_from_bom)
 		(fp_circle
 			(center 0 0)
@@ -7320,7 +7323,7 @@
 		(property ki_fp_filters "C_*")
 		(path "/28cd7ea6-188c-4936-9615-e6b86f084232")
 		(sheetname "/")
-		(sheetfile "PULSER-testboard-ctrl.kicad_sch")
+		(sheetfile "pulser-ctrl.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.14058 0.51)
@@ -7464,7 +7467,7 @@
 		(property ki_fp_filters "Pin* Test*")
 		(path "/14c12e63-7b45-4fea-a209-46e1deca0af3")
 		(sheetname "/")
-		(sheetfile "PULSER-testboard-ctrl.kicad_sch")
+		(sheetfile "pulser-ctrl.kicad_sch")
 		(attr exclude_from_pos_files exclude_from_bom)
 		(fp_circle
 			(center 0 0)
@@ -7591,7 +7594,7 @@
 		(property ki_fp_filters "C_*")
 		(path "/835089cf-78b1-434a-b2a8-065085a7c490")
 		(sheetname "/")
-		(sheetfile "PULSER-testboard-ctrl.kicad_sch")
+		(sheetfile "pulser-ctrl.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.107836 0.36)

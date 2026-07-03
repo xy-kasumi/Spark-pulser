@@ -628,7 +628,7 @@
 		(property ki_fp_filters "C_*")
 		(path "/d8526c0c-8798-4f70-9760-e1d960ad4ddf")
 		(sheetname "/")
-		(sheetfile "PULSER-testboard-hc.kicad_sch")
+		(sheetfile "pulser-hc.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.107836 -0.36)
@@ -772,7 +772,7 @@
 		(property ki_fp_filters "Pin* Test*")
 		(path "/7246ae10-a7ab-4d60-928b-2bd8bfcb93db")
 		(sheetname "/")
-		(sheetfile "PULSER-testboard-hc.kicad_sch")
+		(sheetfile "pulser-hc.kicad_sch")
 		(attr exclude_from_pos_files exclude_from_bom)
 		(fp_circle
 			(center 0 0)
@@ -1068,7 +1068,7 @@
 		(property ki_fp_filters "TO-???* *_Diode_* *SingleDiode* D_*")
 		(path "/62b2eb4e-618c-4258-a79a-1cbdad9505ff")
 		(sheetname "/")
-		(sheetfile "PULSER-testboard-hc.kicad_sch")
+		(sheetfile "pulser-hc.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start 2.26 -0.66)
@@ -1491,7 +1491,7 @@
 		(property ki_fp_filters "R_*")
 		(path "/5c036461-04b1-4fd6-a185-4b79ecf6657b")
 		(sheetname "/")
-		(sheetfile "PULSER-testboard-hc.kicad_sch")
+		(sheetfile "pulser-hc.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.153641 -0.38)
@@ -1645,7 +1645,7 @@
 		(property ki_fp_filters "SOIC*3.9x4.9mm*P1.27mm*")
 		(path "/688ff27a-0149-4316-a3db-b4f29978aad0")
 		(sheetname "/")
-		(sheetfile "PULSER-testboard-hc.kicad_sch")
+		(sheetfile "pulser-hc.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -2.06 2.56)
@@ -2203,7 +2203,7 @@
 		(property ki_fp_filters "R_*")
 		(path "/2be82231-157a-437a-bb2c-2d82e52244f4")
 		(sheetname "/")
-		(sheetfile "PULSER-testboard-hc.kicad_sch")
+		(sheetfile "pulser-hc.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -2.177064 -1.71)
@@ -2372,7 +2372,7 @@
 		(property ki_fp_filters "TO-???* *_Diode_* *SingleDiode* D_*")
 		(path "/f84da6de-6fcf-4d60-817c-1f65f906f340")
 		(sheetname "/")
-		(sheetfile "PULSER-testboard-hc.kicad_sch")
+		(sheetfile "pulser-hc.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -3.66 2.15)
@@ -3509,7 +3509,7 @@
 		(property ki_fp_filters "TerminalBlock*:*")
 		(path "/0c801a79-2494-419d-b76e-0abe92f89666")
 		(sheetname "/")
-		(sheetfile "PULSER-testboard-hc.kicad_sch")
+		(sheetfile "pulser-hc.kicad_sch")
 		(attr through_hole)
 		(fp_line
 			(start -5.1 4.1)
@@ -4516,7 +4516,7 @@
 		(property ki_fp_filters "LED* LED_SMD:* LED_THT:*")
 		(path "/05752878-99e0-46b4-be5f-ae94a98092dc")
 		(sheetname "/")
-		(sheetfile "PULSER-testboard-hc.kicad_sch")
+		(sheetfile "pulser-hc.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start 1 -0.96)
@@ -5552,7 +5552,7 @@
 		(property ki_fp_filters "R_*")
 		(path "/d9e7dda8-6b32-462d-8285-41459896b22c")
 		(sheetname "/")
-		(sheetfile "PULSER-testboard-hc.kicad_sch")
+		(sheetfile "pulser-hc.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.153641 0.38)
@@ -7056,7 +7056,7 @@
 		(property ki_fp_filters "C_*")
 		(path "/a46a9f87-a792-4279-9280-87111e15776a")
 		(sheetname "/")
-		(sheetfile "PULSER-testboard-hc.kicad_sch")
+		(sheetfile "pulser-hc.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.261252 0.735)
@@ -7301,7 +7301,7 @@
 		(property ki_fp_filters "C_*")
 		(path "/6c12cb3c-286e-4744-8474-e1395b56cd8d")
 		(sheetname "/")
-		(sheetfile "PULSER-testboard-hc.kicad_sch")
+		(sheetfile "pulser-hc.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.107836 -0.36)
@@ -7609,7 +7609,7 @@
 		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/5da22e51-8360-4c27-96b5-20f5f44d786c")
 		(sheetname "/")
-		(sheetfile "PULSER-testboard-hc.kicad_sch")
+		(sheetfile "pulser-hc.kicad_sch")
 		(attr through_hole)
 		(fp_line
 			(start -2.85 -2.75)
@@ -8972,7 +8972,7 @@
 		(property ki_fp_filters "LED* LED_SMD:* LED_THT:*")
 		(path "/7c108b65-6e63-461a-b3c8-c0ed93a37a3e")
 		(sheetname "/")
-		(sheetfile "PULSER-testboard-hc.kicad_sch")
+		(sheetfile "pulser-hc.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start 1 -0.96)
@@ -9692,7 +9692,7 @@
 		(property ki_fp_filters "R_*")
 		(path "/2459c673-7a96-450d-b60a-b9dd8f6b9a95")
 		(sheetname "/")
-		(sheetfile "PULSER-testboard-hc.kicad_sch")
+		(sheetfile "pulser-hc.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.153641 -0.38)
@@ -9850,7 +9850,7 @@
 		(property ki_fp_filters "*Fuse*")
 		(path "/50840be4-ba51-4063-90d0-bb7957554d3e")
 		(sheetname "/")
-		(sheetfile "PULSER-testboard-hc.kicad_sch")
+		(sheetfile "pulser-hc.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -1.215 -1.455)
@@ -10240,7 +10240,7 @@
 		(property ki_fp_filters "C_*")
 		(path "/938ee914-67fd-4341-b0a7-f896d3eb063e")
 		(sheetname "/")
-		(sheetfile "PULSER-testboard-hc.kicad_sch")
+		(sheetfile "pulser-hc.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.261252 -0.735)
@@ -10510,7 +10510,7 @@
 		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/85cc020a-09be-4f59-be3a-2582ce19a6d4")
 		(sheetname "/")
-		(sheetfile "PULSER-testboard-hc.kicad_sch")
+		(sheetfile "pulser-hc.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start 6.71 3)
@@ -14706,7 +14706,7 @@
 		(property ki_fp_filters "TerminalBlock*:*")
 		(path "/5e5590e3-a15c-4a35-bd03-da3dd16e7382")
 		(sheetname "/")
-		(sheetfile "PULSER-testboard-hc.kicad_sch")
+		(sheetfile "pulser-hc.kicad_sch")
 		(attr through_hole)
 		(fp_line
 			(start -5.1 4.1)
@@ -15096,7 +15096,7 @@
 		(property ki_fp_filters "C_*")
 		(path "/12fb141f-bbe9-4eab-85f3-4efed1e3fcb2")
 		(sheetname "/")
-		(sheetfile "PULSER-testboard-hc.kicad_sch")
+		(sheetfile "pulser-hc.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.14058 0.51)
@@ -16086,7 +16086,6 @@
 			)
 			(fill yes)
 			(layer "F.SilkS")
-			(net 5439564)
 			(uuid "7edcb83e-4bf1-4cdd-ade6-26dcfcaba2a3")
 		)
 		(fp_poly
@@ -16110,7 +16109,6 @@
 			)
 			(fill yes)
 			(layer "F.SilkS")
-			(net 5439564)
 			(uuid "5bb2505a-acc0-4ef8-ac4e-c357aacd610d")
 		)
 		(fp_poly
@@ -16134,7 +16132,6 @@
 			)
 			(fill yes)
 			(layer "F.SilkS")
-			(net 5439564)
 			(uuid "bf56b95f-0e7e-4d14-a5c6-1c24e5f4cbd4")
 		)
 		(fp_poly
@@ -16158,7 +16155,6 @@
 			)
 			(fill yes)
 			(layer "F.SilkS")
-			(net 5439564)
 			(uuid "7c1c8fdc-3d87-49fd-b989-3044ac0caccb")
 		)
 		(fp_poly
@@ -16184,7 +16180,6 @@
 			)
 			(fill yes)
 			(layer "F.SilkS")
-			(net 5439564)
 			(uuid "9a5f1fb9-5f10-4b7c-8a16-068a85b0ac41")
 		)
 		(fp_poly
@@ -16211,7 +16206,6 @@
 			)
 			(fill yes)
 			(layer "F.SilkS")
-			(net 5439564)
 			(uuid "61c4bbb0-40e3-4c8e-be04-1ec5f51b896c")
 		)
 		(fp_poly
@@ -16238,7 +16232,6 @@
 			)
 			(fill yes)
 			(layer "F.SilkS")
-			(net 5439564)
 			(uuid "304de073-c951-4e7b-9b62-f9df1f1a181d")
 		)
 		(fp_poly
@@ -16265,7 +16258,6 @@
 			)
 			(fill yes)
 			(layer "F.SilkS")
-			(net 5439564)
 			(uuid "b893f51e-db1d-4901-a119-8d714776cea2")
 		)
 		(fp_poly
@@ -16293,7 +16285,6 @@
 			)
 			(fill yes)
 			(layer "F.SilkS")
-			(net 5439564)
 			(uuid "21df949d-77f2-45cd-9993-67c31721fcdd")
 		)
 		(fp_poly
@@ -16321,7 +16312,6 @@
 			)
 			(fill yes)
 			(layer "F.SilkS")
-			(net 5439564)
 			(uuid "a2314806-80c8-4e06-a77d-bdb7f6842f57")
 		)
 		(embedded_fonts no)
@@ -16769,7 +16759,7 @@
 		(property ki_fp_filters "TO-???* *_Diode_* *SingleDiode* D_*")
 		(path "/39eec050-4c8f-4746-9b80-6e027e53fa13")
 		(sheetname "/")
-		(sheetfile "PULSER-testboard-hc.kicad_sch")
+		(sheetfile "pulser-hc.kicad_sch")
 		(attr through_hole)
 		(fp_line
 			(start -2.26 -1.605)
@@ -17005,7 +16995,7 @@
 			(net 20 "/highcurrent/VOUT")
 			(pinfunction "A")
 			(pintype "passive")
-			(uuid "3186791e-ba28-44fe-b956-4dda2f8d4582")
+			(uuid "8a4a2dbc-f74c-4bd1-98d6-b1560750d88d")
 		)
 		(embedded_fonts no)
 	)
@@ -18131,7 +18121,7 @@
 		(property ki_fp_filters "R_*")
 		(path "/61198f3f-a823-4203-9f55-56eb582f32a3")
 		(sheetname "/")
-		(sheetfile "PULSER-testboard-hc.kicad_sch")
+		(sheetfile "pulser-hc.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -2.177064 -1.71)

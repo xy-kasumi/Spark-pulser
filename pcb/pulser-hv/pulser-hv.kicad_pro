@@ -58,48 +58,7 @@
           "width": 0.0
         }
       ],
-      "drc_exclusions": [
-        [
-          "net_conflict|71000000|85900000|48d4153a-f637-49a1-86b6-51a958bc8bc1|00000000-0000-0000-0000-000000000000",
-          "Connect resistor heat shield to GND"
-        ],
-        [
-          "silk_over_copper|110319249|53829597|287b94fe-5d89-443b-bb26-2a570923e480|00000000-0000-0000-0000-000000000000",
-          ""
-        ],
-        [
-          "silk_over_copper|130357083|84658778|9425be1c-b6e0-4a8d-b12a-2e0821758d0c|00000000-0000-0000-0000-000000000000",
-          ""
-        ],
-        [
-          "silk_over_copper|147500000|87500000|0910e2dd-076c-486e-b03a-29423d792f9e|00000000-0000-0000-0000-000000000000",
-          ""
-        ],
-        [
-          "silk_over_copper|54125000|74237876|c83cdb0e-05ec-4bda-bc4d-62bf03e0aa1a|00000000-0000-0000-0000-000000000000",
-          ""
-        ],
-        [
-          "silk_overlap|117054819|57376190|07474591-0c28-4a21-b5bd-17ab8f7adf61|31451235-c7b7-4adc-8c35-1e25250a0937",
-          ""
-        ],
-        [
-          "silk_overlap|118054819|58614285|07474591-0c28-4a21-b5bd-17ab8f7adf61|ae82d577-2c05-477d-969c-67980fd4877e",
-          ""
-        ],
-        [
-          "silk_overlap|93642857|94054819|44089936-7790-4aee-b483-2e5457359b71|8179e094-895f-48e9-b9db-8a63d3c64701",
-          ""
-        ],
-        [
-          "silk_overlap|96642857|94054819|4c534e28-cd59-488b-bbc5-ac39c0e5656d|c8822dfb-e27d-48a4-81c1-dd614d3a376a",
-          ""
-        ],
-        [
-          "silk_overlap|99742857|94054819|bdc06138-1501-48b2-86e9-c9bbddd6debb|f2bcb639-e69c-4fde-ab95-8d074d1e0778",
-          ""
-        ]
-      ],
+      "drc_exclusions": [],
       "meta": {
         "version": 2
       },
@@ -513,7 +472,7 @@
     "pinned_symbol_libs": []
   },
   "meta": {
-    "filename": "PULSER-testboard-hv.kicad_pro",
+    "filename": "pulser-hv.kicad_pro",
     "version": 3
   },
   "net_settings": {

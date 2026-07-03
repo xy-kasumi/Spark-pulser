@@ -5,7 +5,7 @@
 	(uuid "0d7eb0a6-3a69-4a7a-b8f4-664ca86df326")
 	(paper "A4")
 	(title_block
-		(title "Pulser V2 HV Test Board")
+		(title "Pulser V2 HV Board")
 		(date "2026-07-01")
 		(rev "4")
 		(company "Spark Project")
@@ -2247,7 +2247,7 @@
 			(uuid "6ef6b0dd-02c8-4507-8bb4-9b56e88745a8")
 		)
 		(instances
-			(project "PULSER-testboard-hv"
+			(project "pulser-hv"
 				(path "/853931f0-9d2b-49ab-aae3-2a7153967e0f/bd7f0006-b363-44d9-a542-e4fe897a7941"
 					(reference "#PWR029")
 					(unit 1)
@@ -2377,7 +2377,7 @@
 			(uuid "9a48de47-e9dc-4535-be3d-7d12ba9b3957")
 		)
 		(instances
-			(project "PULSER-testboard-hv"
+			(project "pulser-hv"
 				(path "/853931f0-9d2b-49ab-aae3-2a7153967e0f/bd7f0006-b363-44d9-a542-e4fe897a7941"
 					(reference "C12")
 					(unit 1)
@@ -2513,7 +2513,7 @@
 			(uuid "5229fb5c-1d0a-4743-89d9-f409c6ca82d4")
 		)
 		(instances
-			(project "PULSER-testboard-hv"
+			(project "pulser-hv"
 				(path "/853931f0-9d2b-49ab-aae3-2a7153967e0f/bd7f0006-b363-44d9-a542-e4fe897a7941"
 					(reference "L1")
 					(unit 1)
@@ -2644,7 +2644,7 @@
 			(uuid "c86aa697-67d6-487f-ad51-139d974b1fce")
 		)
 		(instances
-			(project "PULSER-testboard-hv"
+			(project "pulser-hv"
 				(path "/853931f0-9d2b-49ab-aae3-2a7153967e0f/bd7f0006-b363-44d9-a542-e4fe897a7941"
 					(reference "C9")
 					(unit 1)
@@ -2807,7 +2807,7 @@
 			(uuid "7fe1c0c4-7aae-4c45-a287-d8d2af59b6af")
 		)
 		(instances
-			(project "PULSER-testboard-hv"
+			(project "pulser-hv"
 				(path "/853931f0-9d2b-49ab-aae3-2a7153967e0f/bd7f0006-b363-44d9-a542-e4fe897a7941"
 					(reference "U6")
 					(unit 1)
@@ -2937,7 +2937,7 @@
 			(uuid "daa9460f-da85-412c-adfd-6feab7e422e7")
 		)
 		(instances
-			(project "PULSER-testboard-hv"
+			(project "pulser-hv"
 				(path "/853931f0-9d2b-49ab-aae3-2a7153967e0f/bd7f0006-b363-44d9-a542-e4fe897a7941"
 					(reference "C11")
 					(unit 1)
@@ -3065,7 +3065,7 @@
 			(uuid "51469ee5-48a7-4e08-b251-5fdbe60afe79")
 		)
 		(instances
-			(project "PULSER-testboard-hv"
+			(project "pulser-hv"
 				(path "/853931f0-9d2b-49ab-aae3-2a7153967e0f/bd7f0006-b363-44d9-a542-e4fe897a7941"
 					(reference "R17")
 					(unit 1)
@@ -3196,7 +3196,7 @@
 			(uuid "6fc3807b-9c60-4938-b9fb-133a3d741764")
 		)
 		(instances
-			(project "PULSER-testboard-hv"
+			(project "pulser-hv"
 				(path "/853931f0-9d2b-49ab-aae3-2a7153967e0f/bd7f0006-b363-44d9-a542-e4fe897a7941"
 					(reference "C13")
 					(unit 1)
@@ -3324,7 +3324,7 @@
 			(uuid "b474ddce-043d-4973-a3a4-bf152bc4725d")
 		)
 		(instances
-			(project "PULSER-testboard-hv"
+			(project "pulser-hv"
 				(path "/853931f0-9d2b-49ab-aae3-2a7153967e0f/bd7f0006-b363-44d9-a542-e4fe897a7941"
 					(reference "R19")
 					(unit 1)
@@ -3454,7 +3454,7 @@
 			(uuid "3adf5601-142b-462c-9ae9-b1c2e339e0ca")
 		)
 		(instances
-			(project "PULSER-testboard-hv"
+			(project "pulser-hv"
 				(path "/853931f0-9d2b-49ab-aae3-2a7153967e0f/bd7f0006-b363-44d9-a542-e4fe897a7941"
 					(reference "C10")
 					(unit 1)
@@ -3582,7 +3582,7 @@
 			(uuid "ec71522a-9b0a-47b7-b4f6-255cdb88ea1d")
 		)
 		(instances
-			(project "PULSER-testboard-hv"
+			(project "pulser-hv"
 				(path "/853931f0-9d2b-49ab-aae3-2a7153967e0f/bd7f0006-b363-44d9-a542-e4fe897a7941"
 					(reference "D2")
 					(unit 1)
@@ -3718,7 +3718,7 @@
 			(uuid "fb44d12c-82ad-4279-b475-6023ac2d87d8")
 		)
 		(instances
-			(project "PULSER-testboard-hv"
+			(project "pulser-hv"
 				(path "/853931f0-9d2b-49ab-aae3-2a7153967e0f/bd7f0006-b363-44d9-a542-e4fe897a7941"
 					(reference "R18")
 					(unit 1)
@@ -3854,7 +3854,7 @@
 			(uuid "8088659f-76f5-4bbb-be93-fa62ea54c9fa")
 		)
 		(instances
-			(project "PULSER-testboard-hv"
+			(project "pulser-hv"
 				(path "/853931f0-9d2b-49ab-aae3-2a7153967e0f/bd7f0006-b363-44d9-a542-e4fe897a7941"
 					(reference "R16")
 					(unit 1)
