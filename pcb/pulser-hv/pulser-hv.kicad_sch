@@ -10799,7 +10799,7 @@
 				)
 			)
 		)
-		(property "Footprint" "SparkAll:Bourns-TO508P1229X317-3N"
+		(property "Footprint" "SparkAll:RESI-TO263"
 			(at 214.63 37.592 90)
 			(effects
 				(font

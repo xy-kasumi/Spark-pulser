@@ -38,8 +38,8 @@
         "other_text_upright": false,
         "pads": {
           "drill": 0.0,
-          "height": 6.9,
-          "width": 8.26
+          "height": 11.0,
+          "width": 11.5
         },
         "silk_line_width": 0.1,
         "silk_text_italic": false,
@@ -60,15 +60,11 @@
       ],
       "drc_exclusions": [
         [
+          "net_conflict|73950000|84400000|48d4153a-f637-49a1-86b6-51a958bc8bc1|00000000-0000-0000-0000-000000000000",
+          "Assume GND for resistor backpanel"
+        ],
+        [
           "silk_over_copper|130357083|84658778|9425be1c-b6e0-4a8d-b12a-2e0821758d0c|00000000-0000-0000-0000-000000000000",
-          ""
-        ],
-        [
-          "silk_over_copper|147500000|87500000|0910e2dd-076c-486e-b03a-29423d792f9e|00000000-0000-0000-0000-000000000000",
-          ""
-        ],
-        [
-          "silk_over_copper|54125000|74237876|c83cdb0e-05ec-4bda-bc4d-62bf03e0aa1a|00000000-0000-0000-0000-000000000000",
           ""
         ]
       ],
