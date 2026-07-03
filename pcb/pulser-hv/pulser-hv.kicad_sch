@@ -8154,7 +8154,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC" ""
+		(property "LCSC" "C165983"
 			(at 223.52 80.01 90)
 			(effects
 				(font
@@ -11130,6 +11130,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C15219"
+			(at 54.61 140.97 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "3"
 			(uuid "b00c8226-c3d6-4514-81dd-58dcc73a5291")
 		)
@@ -11218,6 +11227,15 @@
 			)
 		)
 		(property "Sim.Params" ""
+			(at 54.61 107.95 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C15219"
 			(at 54.61 107.95 0)
 			(effects
 				(font

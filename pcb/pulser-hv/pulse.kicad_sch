@@ -3610,7 +3610,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC" ""
+		(property "LCSC" "C2286"
 			(at 59.69 81.28 90)
 			(effects
 				(font
