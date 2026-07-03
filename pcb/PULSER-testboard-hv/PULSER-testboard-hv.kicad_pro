@@ -48,7 +48,7 @@
         "silk_text_thickness": 0.1,
         "silk_text_upright": false,
         "zones": {
-          "min_clearance": 0.3
+          "min_clearance": 0.0
         }
       },
       "diff_pair_dimensions": [
@@ -61,7 +61,11 @@
       "drc_exclusions": [
         [
           "net_conflict|71000000|85900000|48d4153a-f637-49a1-86b6-51a958bc8bc1|00000000-0000-0000-0000-000000000000",
-          "Assume GND"
+          "Connect resistor heat shield to GND"
+        ],
+        [
+          "silk_over_copper|110319249|53829597|287b94fe-5d89-443b-bb26-2a570923e480|00000000-0000-0000-0000-000000000000",
+          ""
         ],
         [
           "silk_over_copper|130357083|84658778|9425be1c-b6e0-4a8d-b12a-2e0821758d0c|00000000-0000-0000-0000-000000000000",
@@ -73,6 +77,14 @@
         ],
         [
           "silk_over_copper|54125000|74237876|c83cdb0e-05ec-4bda-bc4d-62bf03e0aa1a|00000000-0000-0000-0000-000000000000",
+          ""
+        ],
+        [
+          "silk_overlap|117054819|57376190|07474591-0c28-4a21-b5bd-17ab8f7adf61|31451235-c7b7-4adc-8c35-1e25250a0937",
+          ""
+        ],
+        [
+          "silk_overlap|118054819|58614285|07474591-0c28-4a21-b5bd-17ab8f7adf61|ae82d577-2c05-477d-969c-67980fd4877e",
           ""
         ],
         [
@@ -733,6 +745,10 @@
     [
       "a58ab8a7-d919-4bb1-bcb6-a07722db020b",
       "Pulse Controller"
+    ],
+    [
+      "7f73fb65-b4b1-4842-9b44-17fd81b53006",
+      "powersupply"
     ]
   ],
   "text_variables": {}
