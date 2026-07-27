@@ -3,9 +3,17 @@
 
 ## Interfaces
 
+### Mechanical
+
+Terminals
+* I+/I-: 36V DC, max draw 10A
+* O+/O-: pulse output
+
 FFC P=1mm
 * 1:VCC 2:GND 3:EN 4:CURR 5:GND 6,7,8:NC
 
+
+### Electric
 Isolated digital
 * VCC: 5V or 3.3V (digital I/O voltage), <5mA
 * EN: input
