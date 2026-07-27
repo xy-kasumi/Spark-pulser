@@ -18,9 +18,9 @@ Isolated digital
 * !FAULT: output
 
 Indicators
-* PWR (green):
-* CURR (amber):
-* ERR (red):
+* PWR/STAT (green): uC is running
+* CURR (amber): output current is detected
+* ERR/FLT (red): uC has detected hardware/firmware fault
 
 
 ## Characteristics

@@ -18,8 +18,8 @@ CURR specifies output current.
   * Above 45%: internally clamped to 10A
 
 Indicators
-* PWR (green):
-* EN (amber):
+* PWR (green): board is powered
+* EN (amber): EN is active
 
 
 ## Characteristics
