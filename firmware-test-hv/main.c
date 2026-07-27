@@ -12,21 +12,18 @@
 #define EN_bm           PIN0_bm   // PC0
 #define CURR_bm         PIN1_bm   // PC1
 
+/* ── Pulse configuration ──────────────────────────────────────────── */
+
+#define PULSE_DUR_US       10
+#define COOLDOWN_DUR_US    100
+#define THRESH_MA          200
+
 /* ── Pin initialization ───────────────────────────────────────────── */
 
 static void pins_init() {
     // STAT LED PC3: output, initially off
     VPORTC.DIR |= LED_STAT_bm;
     VPORTC.OUT &= ~LED_STAT_bm;
-
-    // DIP switches PB0–PB5: input with pull-ups (open = high, closed = GND)
-    VPORTB.DIR &= ~(PIN0_bm | PIN1_bm | PIN2_bm | PIN3_bm | PIN4_bm | PIN5_bm);
-    PORTB.PIN0CTRL = PORT_PULLUPEN_bm;
-    PORTB.PIN1CTRL = PORT_PULLUPEN_bm;
-    PORTB.PIN2CTRL = PORT_PULLUPEN_bm;
-    PORTB.PIN3CTRL = PORT_PULLUPEN_bm;
-    PORTB.PIN4CTRL = PORT_PULLUPEN_bm;
-    PORTB.PIN5CTRL = PORT_PULLUPEN_bm;
 
     // GATE PA4: output, initially low
     VPORTA.DIR |= GATE_bm;
@@ -39,18 +36,6 @@ static void pins_init() {
     // CURR PC1: input, no pull (driven by external comparator)
     VPORTC.DIR &= ~CURR_bm;
 }
-
-/* ── Config types & lookup tables ─────────────────────────────────── */
-
-typedef struct {
-    uint16_t pulse_dur_us;
-    uint16_t cooldown_dur_us;
-    uint16_t thresh_ma;
-} config_t;
-
-static const uint16_t LUT_PULSE_US[4]    = {  1,    2,    5,   10 };
-static const uint16_t LUT_COOLDOWN_US[4]  = { 100, 1000,  100,  100 };
-static const uint16_t LUT_THRESH_MA[4]    = {  50,  100,  200,  500 };
 
 /* ── STAT LED ─────────────────────────────────────────────────────── */
 
@@ -74,31 +59,10 @@ static void error_mode() {
 
 /* ── DAC initialization (VTH output) ─────────────────────────────── */
 
-static void dac_init(uint16_t thresh_ma) {
-    uint8_t dac_val = (uint16_t)thresh_ma * 128 / 434;
-
+static void dac_init() {
     VREF.CTRLA = VREF_DAC0REFSEL_4V34_gc;
-    DAC0.DATA  = dac_val;
+    DAC0.DATA  = (uint16_t)THRESH_MA * 128 / 434;
     DAC0.CTRLA = DAC_ENABLE_bm | DAC_OUTEN_bm;
-}
-
-/* ── Config read ──────────────────────────────────────────────────── */
-
-static bool dip(uint8_t pin_bm) {
-    return !(VPORTB.IN & pin_bm);   // ON = GND = reads 0 → true
-}
-
-static config_t config_read() {
-    // Each pair: lower pin is MSB, upper pin is LSB
-    uint8_t pulse_idx    = (dip(PIN0_bm) << 1) | dip(PIN1_bm);
-    uint8_t cooldown_idx = (dip(PIN2_bm) << 1) | dip(PIN3_bm);
-    uint8_t thresh_idx   = (dip(PIN4_bm) << 1) | dip(PIN5_bm);
-
-    return (config_t){
-        .pulse_dur_us    = LUT_PULSE_US   [pulse_idx],
-        .cooldown_dur_us = LUT_COOLDOWN_US[cooldown_idx],
-        .thresh_ma       = LUT_THRESH_MA  [thresh_idx],
-    };
 }
 
 /* ── Main ─────────────────────────────────────────────────────────── */
@@ -109,15 +73,14 @@ int main() {
     CLKCTRL.MCLKCTRLB = 0;
 
     pins_init();
-    config_t cfg = config_read();
-    dac_init(cfg.thresh_ma);
+    dac_init();
     _delay_ms(10); // wait DAC & comparator stabilization
 
     stat_led(true);
 
     // At 20 MHz, _delay_loop_2 = 4 cycles/iter = 0.2 µs → ticks = µs × 5
-    uint16_t pulse_ticks    = cfg.pulse_dur_us * 5;
-    uint16_t cooldown_ticks = cfg.cooldown_dur_us * 5;
+    const uint16_t pulse_ticks    = PULSE_DUR_US * 5;
+    const uint16_t cooldown_ticks = COOLDOWN_DUR_US * 5;
 
     while (1) {
         // Pre-pulse safety: CURR high without GATE means hardware fault
