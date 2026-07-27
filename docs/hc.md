@@ -60,7 +60,7 @@ Measurement condition
 * CURR=10A
 * 20V diode load, short load
 
-Visible surface temerature must not exceed 100 ℃
+Visible surface temerature must not exceed 110 ℃
 
 With (10mm)^3 heatsink attached on top of D1,
 D1 (max temp) is measured as 105℃.

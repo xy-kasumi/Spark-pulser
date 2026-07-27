@@ -103,9 +103,7 @@ int main() {
 
     stat_led(true);
 
-    // The gate-off test samples CNT every ~12 cycles, so the pulse always ends
-    // slightly late; aim half a sample early to center the width on the target.
-    const uint16_t pulse_ticks    = PULSE_DUR_US * TICKS_PER_US - 6;
+    const uint16_t pulse_ticks    = PULSE_DUR_US * TICKS_PER_US;
     const uint16_t cooldown_ticks = COOLDOWN_DUR_US * TICKS_PER_US;
 
     while (1) {

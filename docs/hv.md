@@ -48,14 +48,23 @@ Host is recommended to wait 110us or more before raising EN again after CURR det
 ## Characteristics
 
 ### T_detect
-Time between output current & CURR rise.
+Time between output current & CURR rise (crossses 200mA).
 
 Measurement condition
 * 20V diode load
 * Measure EN rise - CURR rise (provides upper bound, b/c current output rise time is also included)
 
 Reference data
-* xxx us
+* < 0.5us
+
+### T_delay
+Time between EN rise & CURR rise.
+
+Measurement condition
+* 20V diode load
+
+Reference data
+* 2us
 
 
 ## Stress Test
@@ -64,9 +73,11 @@ Reference data
 Measurement condition
 * fan & duct assembled
 * short load
-* EN: max density pulse (on:10us, off:90us)
+* EN: max density pulse (on:10us, off:100us)
 
 Visible surface temperature must not exceed 100℃
+
+Measured: 82℃
 
 ### Voltage Overshoot
 Measurement condition
