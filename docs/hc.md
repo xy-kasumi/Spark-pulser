@@ -32,8 +32,15 @@ Measurement condition:
 * EN L->H
 
 Reference data
-* CURR=5A, T_rise=?us
-* CURR=10A, T_rise=?us
+* CURR=5A, T_rise=11.7us
+* CURR=10A, T_rise=8.8us
+
+### T_fall
+Time between: EN fall (in input) & output current crossing 0.5A.
+
+Reference data
+* CURR=5A, T_fall=33us
+* CURR=10A, T_fall=42us
 
 
 ## Stress Tests
@@ -47,7 +54,8 @@ Measurement condition
 
 Visible surface temerature must not exceed 100 ℃
 
-but... D1 120C
+With (10mm)^3 heatsink attached on top of D1,
+D1 (max temp) is measured as 105℃.
 
 
 ### Voltage Overshoot
