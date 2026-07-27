@@ -17,13 +17,13 @@ V2
 * Designed for reliablity and modular testability (especially stress testing)
 
 * firmware: Pico2 & AVR
-  * `firmware-test-hv/`: AVR (ATtiny1616)
+  * `firmware-hv/`: AVR (ATtiny1616)
   * `firmware-test-integ/`: Pico2 (CLI build. `./setup.sh` & `./build.sh` in the folder)
 * pcb: JLCPCB friendly KiCad files
 
 testboard (30hr+ successful op in real settings)
 * ctrl: r1 (breadboard, pico2), w/ `firmware-test-integ/`
-* hv: r1-r3 (ATtiny1616), w/ `firmware-test-hv/`
+* hv: r1-r3 (ATtiny1616), w/ `firmware-hv/`
 * hc: r1-r2
 
 prod (not tested yet)
