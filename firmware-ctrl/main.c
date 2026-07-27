@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: BSD-2-Clause
+// SPDX-License-Identifier: AGPL-3.0-or-later
 /**
  * ATtiny1616 port of the Pico 2 controller (firmware-test-integ). Same device
  * spec: register map docs/i2c-registers.md, window model docs/operation.md.

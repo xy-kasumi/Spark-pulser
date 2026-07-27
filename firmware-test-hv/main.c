@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
 #define F_CPU 20000000UL
 
 #include <avr/io.h>
