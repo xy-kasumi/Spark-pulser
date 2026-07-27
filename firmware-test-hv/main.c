@@ -11,6 +11,7 @@
 #define GATE_bm         PIN4_bm   // PA4
 #define EN_bm           PIN0_bm   // PC0
 #define CURR_bm         PIN1_bm   // PC1
+#define FAULT_bm        PIN0_bm   // PB0, active-low
 
 /* ── Pulse configuration ──────────────────────────────────────────── */
 
@@ -24,6 +25,10 @@ static void pins_init() {
     // STAT LED PC3: output, initially off
     VPORTC.DIR |= LED_STAT_bm;
     VPORTC.OUT &= ~LED_STAT_bm;
+
+    // !FAULT PB0: output, initially de-asserted (high)
+    VPORTB.OUT |= FAULT_bm;
+    VPORTB.DIR |= FAULT_bm;
 
     // GATE PA4: output, initially low
     VPORTA.DIR |= GATE_bm;
@@ -46,14 +51,13 @@ static void stat_led(bool on) {
         VPORTC.OUT &= ~LED_STAT_bm;
 }
 
-/* ── Error mode ──────────────────────────────────────────────────── */
+/* ── Fault mode ──────────────────────────────────────────────────── */
 
-static void error_mode() __attribute__((noreturn));
-static void error_mode() {
+static void fault_mode() __attribute__((noreturn));
+static void fault_mode() {
     VPORTA.OUT &= ~GATE_bm;
+    VPORTB.OUT &= ~FAULT_bm;
     while (1) {
-        VPORTC.OUT ^= LED_STAT_bm;
-        _delay_ms(100);
     }
 }
 
@@ -85,7 +89,7 @@ int main() {
     while (1) {
         // Pre-pulse safety: CURR high without GATE means hardware fault
         if (VPORTC.IN & CURR_bm) {
-            error_mode();
+            fault_mode();
         }
 
         // Wait for EN to go high
