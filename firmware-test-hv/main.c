@@ -4,7 +4,6 @@
 #include <avr/io.h>
 #include <stdbool.h>
 #include <util/delay.h>
-#include <util/delay_basic.h>
 
 /* ── Pin definitions ──────────────────────────────────────────────── */
 
@@ -62,6 +61,26 @@ static void fault_mode() {
     }
 }
 
+/* ── Elapsed-time timer (pulse & duty timing) ────────────────────── */
+
+// Free-running 16-bit counter at CLK_PER (20 MHz) → 20 ticks/µs.
+#define TICKS_PER_US    (F_CPU / 1000000UL)
+
+static void timer_init() {
+    TCB0.CCMP  = 0xFFFF;
+    TCB0.CTRLB = TCB_CNTMODE_INT_gc;
+    TCB0.CTRLA = TCB_CLKSEL_CLKDIV1_gc | TCB_ENABLE_bm;
+}
+
+static void timer_reset() {
+    TCB0.CNT = 0;
+}
+
+// Warning: wraps 3276 µs after timer_reset().
+static uint16_t timer_elapsed_ticks() {
+    return TCB0.CNT;
+}
+
 /* ── DAC initialization (VTH output) ─────────────────────────────── */
 
 static void dac_init() {
@@ -79,13 +98,15 @@ int main() {
 
     pins_init();
     dac_init();
+    timer_init();
     _delay_ms(10); // wait DAC & comparator stabilization
 
     stat_led(true);
 
-    // At 20 MHz, _delay_loop_2 = 4 cycles/iter = 0.2 µs → ticks = µs × 5
-    const uint16_t pulse_ticks    = PULSE_DUR_US * 5;
-    const uint16_t cooldown_ticks = COOLDOWN_DUR_US * 5;
+    // The gate-off test samples CNT every ~12 cycles, so the pulse always ends
+    // slightly late; aim half a sample early to center the width on the target.
+    const uint16_t pulse_ticks    = PULSE_DUR_US * TICKS_PER_US - 6;
+    const uint16_t cooldown_ticks = COOLDOWN_DUR_US * TICKS_PER_US;
 
     while (1) {
         // Pre-pulse safety: CURR high without GATE means hardware fault
@@ -93,26 +114,34 @@ int main() {
             fault_mode();
         }
 
-        // Wait for EN to go high
+        // Wait for EN rise & activate output
         while (!(VPORTC.IN & EN_bm)) {
         }
-
         VPORTA.OUT |= GATE_bm;
 
         // Wait for current to appear, abort if EN drops
         while (!(VPORTC.IN & CURR_bm)) {
             if (!(VPORTC.IN & EN_bm)) {
                 VPORTA.OUT &= ~GATE_bm;
-                goto cooldown;
+                goto wait_en_low;
             }
         }
+        timer_reset(); // CURR rise is the reference for both durations
 
-        // Current flowing — hard-timed pulse
-        _delay_loop_2(pulse_ticks);
-
+        // Current flowing — hold gate until the pulse elapses or EN drops
+        while (timer_elapsed_ticks() < pulse_ticks) {
+            if (!(VPORTC.IN & EN_bm)) {
+                break;
+            }
+        }
         VPORTA.OUT &= ~GATE_bm;
 
-    cooldown:
-        _delay_loop_2(cooldown_ticks);
+        // Thermal duty limit: output stays off for the rest of the window
+        while (timer_elapsed_ticks() < cooldown_ticks) {
+        }
+
+    wait_en_low:
+        while (VPORTC.IN & EN_bm) {
+        }
     }
 }

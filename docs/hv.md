@@ -8,8 +8,16 @@ Features
 
 ## Interfaces
 
+### Mechanical
+Terminals
+* I+/I-: 36V DC, max draw 2A
+* O+/O-: pulse output
+
 FFC P=1mm
 * 1:VCC 2:GND 3:EN 4:CURR 5:GND 6:!FAULT 7,8:NC
+
+### Electric
+I-/O- shares power ground. All pins in FFC connector is isolated from I/O power rails.
 
 Isolated digital
 * VCC: 5V or 3.3V (digital I/O voltage), <5mA
@@ -20,7 +28,21 @@ Isolated digital
 Indicators
 * PWR/STAT (green): uC is running
 * CURR (amber): output current is detected
-* ERR/FLT (red): uC has detected hardware/firmware fault
+* ERR/FLT (red): uC has detected hardware/firmware fault (latches until power cycle)
+
+When EN is H, voltage is applied to output.
+CURR indicates current is flowing through output.
+
+Output is disabled, and kept disabled when
+* 10us passed since CURR rise
+* EN is lowered
+
+To start next cycle, EN must be lowered and risen again.
+
+For thermal protection, HV board limits duty to 10%.
+When CURR rises, internal cooldown counting of 100us starts.
+EN rise is ignored until 100us passes.
+Host is recommended to wait 110us or more before raising EN again after CURR detection.
 
 
 ## Characteristics
