@@ -59,7 +59,7 @@
  * stay free of multiply/divide. A single window never exceeds the 16-bit range
  * (~3.3 ms), so elapsed time is a wrap-safe uint16 subtraction.
  */
-#define TICKS_PER_US      20u
+#define TICKS_PER_US      (F_CPU / 1000000UL)
 #define T_TRAN_TICKS      (T_TRAN_US * TICKS_PER_US)      // 60
 #define T_IG_SHORT_TICKS  (T_IG_SHORT_US * TICKS_PER_US)  // 140
 #define T_IG_MAX_TICKS    (T_IG_MAX_US * TICKS_PER_US)    // 10000

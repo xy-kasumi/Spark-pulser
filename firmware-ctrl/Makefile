@@ -1,13 +1,6 @@
-# tinyAVR 1-series Firmware Makefile
-# Supports: ATtiny816, ATtiny1616, ATtiny3216, etc.
-
 # ============ CONFIGURATION ============
 MCU      = attiny1616
-F_CPU    = 20000000
 TARGET   = main
-
-# AVR writer (web API)
-WRITER   = http://ws-octopus.local:8081
 
 # ============ TOOLCHAIN ============
 CC       = avr-gcc
@@ -19,7 +12,7 @@ DFP      = ./dfp
 DFP_URL  = https://packs.download.microchip.com/Microchip.ATtiny_DFP.3.1.260.atpack
 
 CFLAGS   = -mmcu=$(MCU) -B $(DFP)/gcc/dev/$(MCU) -I $(DFP)/include \
-           -DF_CPU=$(F_CPU)UL -O2 -Wall -std=gnu11
+           -O2 -Wall -std=gnu11
 LDFLAGS  = -mmcu=$(MCU) -B $(DFP)/gcc/dev/$(MCU)
 
 # ============ TARGETS ============
@@ -33,9 +26,6 @@ $(TARGET).hex: $(TARGET).elf
 
 size: $(TARGET).elf
 	$(SIZE) --mcu=$(MCU) -C $<
-
-flash: $(TARGET).hex
-	curl -F part=$(MCU) -F file=@$< $(WRITER)/flash
 
 # ============ SETUP ============
 setup:
@@ -59,4 +49,4 @@ clean:
 distclean: clean
 	rm -rf $(DFP)
 
-.PHONY: all flash setup format clean distclean size
+.PHONY: all setup format clean distclean size
