@@ -22,22 +22,22 @@
  * HV/HC signals are all on PORTA. I2C uses the TWI0 default pins PB0=SCL,
  * PB1=SDA (routed automatically when TWI0 is enabled; no PORTMUX needed).
  */
-#define HV_EN_bm    PIN1_bm  // PA1, output — HV gate enable, active H
-#define HV_CURR_bm  PIN2_bm  // PA2, input  — comparator out, idle L, H = current detected
-#define HV_FAULT_bm PIN3_bm  // PA3, input  — HV board fault, active L; latches permanent fault
-#define HC_EN_bm    PIN4_bm  // PA4, output — HC gate enable, active H
-#define HC_CURR_bm  PIN5_bm  // PA5, output — reserved, unused by spec logic
+#define HV_EN_bm    PIN1_bm  // PA1, output: HV gate enable, active H
+#define HV_CURR_bm  PIN2_bm  // PA2, input:  comparator out, idle L, H = current detected
+#define HV_FAULT_bm PIN3_bm  // PA3, input:  HV board fault, active L; latches permanent fault
+#define HC_EN_bm    PIN4_bm  // PA4, output: HC gate enable, active H
+#define HC_CURR_bm  PIN5_bm  // PA5, output: reserved, unused by spec logic
 
 /**
  * Window timing. See docs/operation.md.
  */
-#define T_TRAN_US 3          // ignore period of AC transient current (capacitive coupling)
-#define T_IG_SHORT_US 7      // ignition delay <= this -> short window
-#define T_IG_MAX_US 500      // no ignition within this -> open window
-#define CD_GOOD_US 15        // min cooldown after good window (de-arc)
-#define CD_SHORT_US 100      // cooldown after short window; must exceed HV internal cooldown
-#define CD_OPEN_US 500       // cooldown after open window
-#define PULSE_HANDOVER_US 5  // HV+HC overlap during handover
+#define T_TRAN_US         3    // ignore period of AC transient current (capacitive coupling)
+#define T_IG_SHORT_US     7    // ignition delay <= this -> short window
+#define T_IG_MAX_US       500  // no ignition within this -> open window
+#define CD_GOOD_US        15   // min cooldown after good window (de-arc)
+#define CD_SHORT_US       100  // cooldown after short window; must exceed HV internal cooldown
+#define CD_OPEN_US        500  // cooldown after open window
+#define PULSE_HANDOVER_US 5    // HV+HC overlap during handover
 
 /**
  * Watchdog: while running, host must read RES0 within this window. Timeout
@@ -53,12 +53,12 @@
  * stay free of multiply/divide. A single window never exceeds the 16-bit range
  * (~3.3 ms), so elapsed time is a wrap-safe uint16 subtraction.
  */
-#define TICKS_PER_US 20u
-#define T_TRAN_TICKS     (T_TRAN_US * TICKS_PER_US)      // 60
-#define T_IG_SHORT_TICKS (T_IG_SHORT_US * TICKS_PER_US)  // 140
-#define T_IG_MAX_TICKS   (T_IG_MAX_US * TICKS_PER_US)    // 10000
-#define PROBE_CHECK_TICKS (100u * TICKS_PER_US)          // 2000  (probe latch phase)
-#define PROBE_CYCLE_TICKS (500u * TICKS_PER_US)          // 10000 (probe total cycle)
+#define TICKS_PER_US      20u
+#define T_TRAN_TICKS      (T_TRAN_US * TICKS_PER_US)      // 60
+#define T_IG_SHORT_TICKS  (T_IG_SHORT_US * TICKS_PER_US)  // 140
+#define T_IG_MAX_TICKS    (T_IG_MAX_US * TICKS_PER_US)    // 10000
+#define PROBE_CHECK_TICKS (100u * TICKS_PER_US)           // 2000  (probe latch phase)
+#define PROBE_CYCLE_TICKS (500u * TICKS_PER_US)           // 10000 (probe total cycle)
 
 /**
  * Coarse timer TCA0 runs at CLK_PER / 1024 = 51.2 us/tick, used as the software

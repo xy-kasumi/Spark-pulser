@@ -40,7 +40,7 @@ static const uint8_t MODE_PROBE = 0;  // cut mode is the complementary value 1
 static volatile bool fault = false;
 
 // Config + run control. Written by the TWI ISR (host) and by the pulse loop;
-// read by the pulse loop each iteration. `run` is bidirectional — the host
+// read by the pulse loop each iteration. `run` is bidirectional: the host
 // starts/stops it, the device clears it on probe completion or WDT timeout.
 static volatile bool cfg_run = false;
 static volatile bool cfg_wdt = false;             // WDT timeout latched; host clears via FAULT
@@ -104,8 +104,12 @@ static uint8_t clamp_curr(uint8_t req) {
 static uint32_t dur_decode_us(uint8_t b) {
   uint8_t exp = (b >> 5) & 0x03;
   uint8_t frac = b & 0x1f;
-  if (exp > 2) exp = 2;
-  if (frac > 19) frac = 19;
+  if (exp > 2) {
+    exp = 2;
+  }
+  if (frac > 19) {
+    frac = 19;
+  }
   uint32_t mul = exp == 0 ? 10u : (exp == 1 ? 100u : 1000u);
   return mul * frac / 20u;
 }
@@ -124,9 +128,15 @@ static uint8_t dur_encode(uint32_t us) {
 
 // Clamp pulse duration to the operating range of the active current.
 static uint32_t clamp_dur_us(uint8_t curr, uint32_t us) {
-  if (curr == CURR_1A) return DUR_1A_US;  // fixed by HV firmware
-  if (us < DUR_10A_MIN_US) return DUR_10A_MIN_US;
-  if (us > DUR_10A_MAX_US) return DUR_10A_MAX_US;
+  if (curr == CURR_1A) {
+    return DUR_1A_US;  // fixed by HV firmware
+  }
+  if (us < DUR_10A_MIN_US) {
+    return DUR_10A_MIN_US;
+  }
+  if (us > DUR_10A_MAX_US) {
+    return DUR_10A_MAX_US;
+  }
   return us;
 }
 
@@ -139,19 +149,23 @@ static uint8_t clamp_duty_code(uint8_t curr, uint32_t dur_us, uint8_t code) {
   } else {
     hi = dur_us >= DUR_10A_LONG_US ? DUTY_10A_LONG_MAX : DUTY_10A_SHORT_MAX;
   }
-  if (code < DUTY_MIN_CODE) return DUTY_MIN_CODE;
-  if (code > hi) return hi;
+  if (code < DUTY_MIN_CODE) {
+    return DUTY_MIN_CODE;
+  }
+  if (code > hi) {
+    return hi;
+  }
   return code;
 }
 
 // Re-clamp the stored DUTY into the band allowed by the current CURR & DUR.
-static void reclamp_duty(void) {
+static void reclamp_duty() {
   cfg_duty = clamp_duty_code(cfg_curr, dur_decode_us(cfg_dur), cfg_duty);
 }
 
 // Re-clamp the stored DUR into the current CURR's range (canonicalizing the
 // byte), then re-clamp DUTY since its band depends on DUR.
-static void reclamp_dur(void) {
+static void reclamp_dur() {
   cfg_dur = dur_encode(clamp_dur_us(cfg_curr, dur_decode_us(cfg_dur)));
   reclamp_duty();
 }
@@ -177,7 +191,7 @@ static uint8_t res1_latch = 0;
 static bool i2c_ptr_written = false;
 static uint8_t i2c_reg_ptr = 0;
 
-// Called from the TWI ISR (interrupts off) — no extra locking needed.
+// Called from the TWI ISR (interrupts off); no extra locking needed.
 static void write_reg(uint8_t reg, uint8_t val) {
   switch (reg) {
     case REG_CTRL: {
@@ -186,7 +200,7 @@ static void write_reg(uint8_t reg, uint8_t val) {
         cfg_run = false;
       } else if (!cfg_run && !fault) {
         // Rising edge of run: arm WDT and clear last run's results. A latched
-        // wdt bit does not block restart — it is recoverable, unlike fault.
+        // wdt bit does not block restart; it is recoverable, unlike fault.
         cfg_run = true;
         cfg_wdt_ref = TCA0.SINGLE.CNT;
         cfg_probe_detected = false;
@@ -226,7 +240,7 @@ static void write_reg(uint8_t reg, uint8_t val) {
   }
 }
 
-// Called from the TWI ISR (interrupts off) — no extra locking needed.
+// Called from the TWI ISR (interrupts off); no extra locking needed.
 static uint8_t read_reg(uint8_t reg) {
   switch (reg) {
     case REG_CTRL:
@@ -315,13 +329,13 @@ ISR(TWI0_TWIS_vect) {
 ////////////////////////////////////////////////////////////////////////////////
 // Init.
 
-static void clock_init(void) {
+static void clock_init() {
   // Run at full 20 MHz: disable prescaler (default is /6).
   CCP = CCP_IOREG_gc;
   CLKCTRL.MCLKCTRLB = 0;
 }
 
-static void pins_init(void) {
+static void pins_init() {
   // Outputs low; HV_FAULT input with pull-up (active-low). I2C pins are driven
   // by TWI0 when enabled (board provides external pull-ups).
   VPORTA.OUT &= ~(HV_EN_bm | HC_EN_bm | HC_CURR_bm);
@@ -330,17 +344,17 @@ static void pins_init(void) {
   PORTA.PIN3CTRL = PORT_PULLUPEN_bm;  // HV_FAULT (PA3)
 }
 
-static void timers_init(void) {
+static void timers_init() {
   // TCB0: free-running 16-bit at CLK_PER (50 ns/tick) for intra-window timing.
   TCB0.CCMP = 0xFFFF;
   TCB0.CTRLB = TCB_CNTMODE_INT_gc;
   TCB0.CTRLA = TCB_CLKSEL_CLKDIV1_gc | TCB_ENABLE_bm;
 
-  // TCA0: free-running 16-bit at CLK_PER/1024 (51.2 us/tick) — software WDT clock.
+  // TCA0: free-running 16-bit at CLK_PER/1024 (51.2 us/tick); software WDT clock.
   TCA0.SINGLE.CTRLA = TCA_SINGLE_CLKSEL_DIV1024_gc | TCA_SINGLE_ENABLE_bm;
 }
 
-static void twi_init(void) {
+static void twi_init() {
   TWI0.SADDR = I2C_DEV_ADDR << 1;
   TWI0.SCTRLA = TWI_DIEN_bm | TWI_APIEN_bm | TWI_PIEN_bm | TWI_ENABLE_bm;
 }
@@ -350,18 +364,22 @@ static void twi_init(void) {
 
 typedef enum { WIN_OPEN, WIN_SHORT, WIN_GOOD } window_type_t;
 
-static inline bool hv_curr(void) { return VPORTA.IN & HV_CURR_bm; }
+static inline bool hv_curr() {
+  return VPORTA.IN & HV_CURR_bm;
+}
 static inline void hv_en(bool on) {
-  if (on)
+  if (on) {
     VPORTA.OUT |= HV_EN_bm;
-  else
+  } else {
     VPORTA.OUT &= ~HV_EN_bm;
+  }
 }
 static inline void hc_en(bool on) {
-  if (on)
+  if (on) {
     VPORTA.OUT |= HC_EN_bm;
-  else
+  } else {
     VPORTA.OUT &= ~HC_EN_bm;
+  }
 }
 
 // Busy-wait via the free-running TCB0. Safe with interrupts on or off and for
@@ -383,8 +401,7 @@ static void wait_us(uint32_t us) {
 // Runs with interrupts enabled. Pulse width stays exact because the busy-waits
 // are referenced to the free-running TCB0; a coincident TWI ISR perturbs an edge
 // by at most its own (~2 us) duration.
-static window_type_t cut_window(uint32_t pulse_dur_us, uint8_t duty_byte,
-                                bool use_hc) {
+static window_type_t cut_window(uint32_t pulse_dur_us, uint8_t duty_byte, bool use_hc) {
   hv_en(true);
 
   // Wait ignition.
@@ -443,7 +460,7 @@ static window_type_t cut_window(uint32_t pulse_dur_us, uint8_t duty_byte,
 // Returns true if conducted. HV.EN is OFF afterwards in all cases.
 // Probe cycle: 500us (100us check phase + 400us wait, to reduce electrolysis).
 // Runs with interrupts enabled (see cut_window).
-static bool probe_window(void) {
+static bool probe_window() {
   uint16_t t0 = TCB0.CNT;
   hv_en(true);
 
@@ -471,7 +488,7 @@ static bool probe_window(void) {
 
 // Permanent fault: outputs safe, sticky flag set, run cleared. Interrupts stay
 // enabled so the host can still read the FAULT register.
-static void enter_fault(void) {
+static void enter_fault() {
   hv_en(false);
   hc_en(false);
   fault = true;
@@ -481,7 +498,7 @@ static void enter_fault(void) {
 // Refresh the precomputed RES0/RES1 shadow bytes. Run out-of-window (the divisions
 // are the slow part the RES0 ISR avoids). The shadow lags the live counts by at
 // most the window that just finished, which is negligible against the ratios.
-static void recompute_res(void) {
+static void recompute_res() {
   if (cfg_mode == MODE_PROBE) {
     res1_shadow = 0;
     res0_shadow = cfg_probe_detected ? 0x01 : 0x00;
@@ -508,7 +525,7 @@ static void recompute_res(void) {
   res0_shadow = (uint8_t)((r_open << 3) | r_short);
 }
 
-int main(void) {
+int main() {
   clock_init();
   pins_init();
   timers_init();

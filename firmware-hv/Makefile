@@ -50,10 +50,13 @@ setup:
 		echo "DFP already exists at $(DFP)/"; \
 	fi
 
+format:
+	clang-format -i $(TARGET).c
+
 clean:
 	rm -f $(TARGET).elf $(TARGET).hex
 
 distclean: clean
 	rm -rf $(DFP)
 
-.PHONY: all flash setup clean distclean size
+.PHONY: all flash setup format clean distclean size
