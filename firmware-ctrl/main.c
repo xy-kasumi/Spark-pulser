@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 /**
- * ATtiny1616 port of the Pico 2 controller (firmware-test-integ). Same device
- * spec: register map docs/i2c-registers.md, window model docs/operation.md.
+ * ATtiny1616 controller firmware. Device spec: register map
+ * docs/i2c-registers.md, window model docs/operation.md.
  *
- * Single core, so the dual-core split collapses:
+ * Single core:
  *   - The pulse loop runs in the foreground (main). It is the timing-critical
  *     path and must not be disrupted by more than ~1 us in-window.
  *   - The I2C slave runs in the TWI ISR; read_reg/write_reg execute there.
@@ -524,9 +524,8 @@ int main(void) {
   twi_init();
   sei();
 
-  // Boot self-test: HV_CURR is expected L (testboard pulls it down). H means a
-  // hardware fault. (firmware-test-integ blinked an LED here; this board has no
-  // MCU LED, so latch the permanent fault instead.)
+  // Boot self-test: HV_CURR is expected L. H means a hardware fault; latch the
+  // permanent fault.
   wait_us(1000);  // pull-up + comparator settle
   if (hv_curr()) {
     enter_fault();

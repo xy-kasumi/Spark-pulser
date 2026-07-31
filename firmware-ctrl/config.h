@@ -6,10 +6,9 @@
 /**
  * ATtiny1616 controller firmware for the PULSER ctrl board.
  *
- * Same device spec as firmware-test-integ (Pico 2): see docs/i2c-registers.md
- * (I2C register map) and docs/operation.md (window/timing model). Ported to a
- * single core — the pulse loop runs in the foreground and the I2C slave runs in
- * the TWI ISR (see main.c).
+ * Device spec: docs/i2c-registers.md (I2C register map) and docs/operation.md
+ * (window/timing model). The pulse loop runs in the foreground and the I2C
+ * slave runs in the TWI ISR (see main.c).
  */
 
 /**
@@ -18,8 +17,7 @@
 #define I2C_DEV_ADDR 0x3c
 
 /**
- * GPIO pin assignments (ctrl board, schematic "Draft ctrl r2"). The schematic
- * is temporary, so the mapping lives here for easy retargeting.
+ * GPIO pin assignments (ctrl board).
  *
  * HV/HC signals are all on PORTA. I2C uses the TWI0 default pins PB0=SCL,
  * PB1=SDA (routed automatically when TWI0 is enabled; no PORTMUX needed).
@@ -31,7 +29,7 @@
 #define HC_CURR_bm  PIN5_bm  // PA5, output — reserved, unused by spec logic
 
 /**
- * Window timing. See docs/operation.md. Values match firmware-test-integ.
+ * Window timing. See docs/operation.md.
  */
 #define T_TRAN_US 3          // ignore period of AC transient current (capacitive coupling)
 #define T_IG_SHORT_US 7      // ignition delay <= this -> short window
