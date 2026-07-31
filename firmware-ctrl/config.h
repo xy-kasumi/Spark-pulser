@@ -19,14 +19,20 @@
 /**
  * GPIO pin assignments (ctrl board).
  *
- * HV/HC signals are all on PORTA. I2C uses the TWI0 default pins PB0=SCL,
- * PB1=SDA (routed automatically when TWI0 is enabled; no PORTMUX needed).
+ * HV/HC signals are all on PORTA, indicator LEDs on PORTC. I2C uses the TWI0
+ * default pins PB0=SCL, PB1=SDA (routed automatically when TWI0 is enabled;
+ * no PORTMUX needed).
  */
 #define HV_EN_bm    PIN1_bm  // PA1, output: HV gate enable, active H
 #define HV_CURR_bm  PIN2_bm  // PA2, input:  comparator out, idle L, H = current detected
 #define HV_FAULT_bm PIN3_bm  // PA3, input:  HV board fault, active L; latches permanent fault
 #define HC_EN_bm    PIN4_bm  // PA4, output: HC gate enable, active H
 #define HC_CURR_bm  PIN5_bm  // PA5, output: reserved, unused by spec logic
+
+// Indicator LEDs, all active H (pin -> LED -> resistor -> GND).
+#define LED_OK_bm  PIN0_bm  // PC0, green: successful boot
+#define LED_RUN_bm PIN1_bm  // PC1, amber: output enabled
+#define LED_ERR_bm PIN2_bm  // PC2, red:   fault (permanent or latched WDT timeout)
 
 /**
  * Window timing. See docs/operation.md.

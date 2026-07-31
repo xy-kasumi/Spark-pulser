@@ -342,6 +342,10 @@ static void pins_init() {
   VPORTA.DIR |= HV_EN_bm | HC_EN_bm | HC_CURR_bm;
   VPORTA.DIR &= ~(HV_CURR_bm | HV_FAULT_bm);
   PORTA.PIN3CTRL = PORT_PULLUPEN_bm;  // HV_FAULT (PA3)
+
+  // Indicator LEDs off until boot completes.
+  VPORTC.OUT &= ~(LED_OK_bm | LED_RUN_bm | LED_ERR_bm);
+  VPORTC.DIR |= LED_OK_bm | LED_RUN_bm | LED_ERR_bm;
 }
 
 static void timers_init() {
@@ -379,6 +383,13 @@ static inline void hc_en(bool on) {
     VPORTA.OUT |= HC_EN_bm;
   } else {
     VPORTA.OUT &= ~HC_EN_bm;
+  }
+}
+static inline void led_set(uint8_t led_bm, bool on) {
+  if (on) {
+    VPORTC.OUT |= led_bm;
+  } else {
+    VPORTC.OUT &= ~led_bm;
   }
 }
 
@@ -546,6 +557,8 @@ int main() {
   wait_us(1000);  // pull-up + comparator settle
   if (hv_curr()) {
     enter_fault();
+  } else {
+    led_set(LED_OK_bm, true);  // successful boot
   }
 
   while (true) {
@@ -568,6 +581,10 @@ int main() {
       wdt_ref = cfg_wdt_ref;
     }
     fault_now = fault || !(VPORTA.IN & HV_FAULT_bm);  // HV_FAULT is active-low
+
+    // Indicators lag state changes by at most one loop iteration (~100 us).
+    led_set(LED_RUN_bm, run && !fault_now);
+    led_set(LED_ERR_bm, fault_now || cfg_wdt);
 
     if (fault_now) {
       enter_fault();
