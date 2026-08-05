@@ -191,6 +191,11 @@ static uint8_t res1_latch = 0;
 static bool i2c_ptr_written = false;
 static uint8_t i2c_reg_ptr = 0;
 
+// True until the first transmitted byte of the current read segment. RXACK
+// latches the master's most recent ACK bit across transactions, so it is only
+// meaningful for the second and later bytes of a slave transmit.
+static bool i2c_tx_first = false;
+
 // Called from the TWI ISR (interrupts off); no extra locking needed.
 static void write_reg(uint8_t reg, uint8_t val) {
   switch (reg) {
@@ -274,15 +279,16 @@ static uint8_t read_reg(uint8_t reg) {
   return 0;
 }
 
-// TWI slave: register-pointer protocol. First byte of a write is the register
-// pointer; subsequent writes auto-increment. Reads return successive registers,
-// auto-incrementing (so the host can read RES0,RES1 in one sequential read).
+// TWI slave: register-pointer protocol. Each write segment starts with the
+// register pointer; subsequent writes auto-increment. Reads return successive
+// registers from the current pointer, auto-incrementing (so the host can read
+// RES0,RES1 in one sequential read, including via a write,Sr,read transfer).
 ISR(TWI0_TWIS_vect) {
   uint8_t s = TWI0.SSTATUS;
 
   if (s & (TWI_BUSERR_bm | TWI_COLL_bm)) {
-    // Bus error / collision: drop the transaction and re-arm.
-    i2c_ptr_written = false;
+    // Bus error / collision: drop the transaction. Per-segment state is
+    // re-armed at the next address match.
     TWI0.SSTATUS = TWI_BUSERR_bm | TWI_COLL_bm;
     TWI0.SCTRLB = TWI_SCMD_COMPTRANS_gc;
     return;
@@ -290,12 +296,16 @@ ISR(TWI0_TWIS_vect) {
 
   if (s & TWI_APIF_bm) {
     if (s & TWI_AP_bm) {
-      // Address match: ACK and proceed. Pointer state persists across a
-      // repeated start; it is reset only on stop.
+      // Address match: ACK and proceed. A write segment always starts with a
+      // pointer byte; a read segment starts from the current pointer, so the
+      // pointer survives a write,Sr,read transfer.
+      if (!(s & TWI_DIR_bm)) {
+        i2c_ptr_written = false;
+      }
+      i2c_tx_first = true;
       TWI0.SCTRLB = TWI_ACKACT_ACK_gc | TWI_SCMD_RESPONSE_gc;
     } else {
       // Stop condition.
-      i2c_ptr_written = false;
       TWI0.SCTRLB = TWI_SCMD_COMPTRANS_gc;
     }
     return;
@@ -305,9 +315,12 @@ ISR(TWI0_TWIS_vect) {
     if (s & TWI_DIR_bm) {
       // Master read: we transmit. After the first byte, RXACK reflects the
       // master's response to the previous byte; NACK means it wants no more.
-      if (s & TWI_RXACK_bm) {
+      // On the first byte RXACK is stale (typically the NACK that ended the
+      // previous read), so it must be ignored.
+      if (!i2c_tx_first && (s & TWI_RXACK_bm)) {
         TWI0.SCTRLB = TWI_SCMD_COMPTRANS_gc;
       } else {
+        i2c_tx_first = false;
         TWI0.SDATA = read_reg(i2c_reg_ptr++);
         TWI0.SCTRLB = TWI_SCMD_RESPONSE_gc;
       }
