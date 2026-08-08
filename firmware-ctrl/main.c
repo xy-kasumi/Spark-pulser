@@ -567,7 +567,7 @@ int main() {
 
   // Boot self-test: HV_CURR is expected L. H means a hardware fault; latch the
   // permanent fault.
-  wait_us(1000);  // pull-up + comparator settle
+  wait_us(250 * 1000L);  // wait for all power to settle
   if (hv_curr()) {
     enter_fault();
   } else {
