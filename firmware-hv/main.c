@@ -7,11 +7,13 @@
 
 /* -- Pin definitions ------------------------------------------------ */
 
-#define LED_STAT_bm PIN3_bm  // PC3
-#define GATE_bm     PIN4_bm  // PA4
-#define EN_bm       PIN0_bm  // PC0
-#define CURR_bm     PIN1_bm  // PC1
-#define FAULT_bm    PIN0_bm  // PB0, active-low
+#define LED_STAT_bm  PIN3_bm  // PC3
+#define LED_FAULT_bm PIN2_bm  // PC2
+#define GATE_bm      PIN4_bm  // PA4
+#define EN_bm        PIN0_bm  // PC0
+#define CURR_bm      PIN1_bm  // PC1
+#define N_FAULT_bm   PIN0_bm  // PB0
+// VTH: PA6, DAC0 output (comparator current threshold); configured in dac_init()
 
 /* -- Pulse configuration -------------------------------------------- */
 
@@ -26,15 +28,17 @@ static void pins_init() {
   VPORTC.DIR |= LED_STAT_bm;
   VPORTC.OUT &= ~LED_STAT_bm;
 
-  // !FAULT PB0: output, initially de-asserted (high)
-  VPORTB.OUT |= FAULT_bm;
-  VPORTB.DIR |= FAULT_bm;
+  // N_FAULT PB0 & FAULT LED PC2: outputs, initially de-asserted
+  VPORTB.OUT |= N_FAULT_bm;
+  VPORTB.DIR |= N_FAULT_bm;
+  VPORTC.OUT &= ~LED_FAULT_bm;
+  VPORTC.DIR |= LED_FAULT_bm;
 
   // GATE PA4: output, initially low
   VPORTA.DIR |= GATE_bm;
   VPORTA.OUT &= ~GATE_bm;
 
-  // EN PC0: input, internal pull-up (default high)
+  // EN PC0: input, internal pull-up (not ideal, but better than high-Z)
   VPORTC.DIR &= ~EN_bm;
   PORTC.PIN0CTRL = PORT_PULLUPEN_bm;
 
@@ -57,7 +61,8 @@ static void stat_led(bool on) {
 static void fault_mode() __attribute__((noreturn));
 static void fault_mode() {
   VPORTA.OUT &= ~GATE_bm;
-  VPORTB.OUT &= ~FAULT_bm;
+  VPORTB.OUT &= ~N_FAULT_bm;
+  VPORTC.OUT |= LED_FAULT_bm;
   while (1) {
   }
 }
