@@ -19,7 +19,7 @@
 
 #define PULSE_DUR_US    10
 #define COOLDOWN_DUR_US 100
-#define THRESH_MA       200
+#define THRESH_MA       500
 
 /* -- Pin initialization --------------------------------------------- */
 
@@ -106,17 +106,21 @@ int main() {
   dac_init();
   timer_init();
   _delay_ms(10);  // wait DAC & comparator stabilization
-
   stat_led(true);
+
+  // Current shouldn't be flowing; H indicates some kind of hardware fault.
+  if (VPORTC.IN & CURR_bm) {
+    fault_mode();
+  }
 
   const uint16_t pulse_ticks = PULSE_DUR_US * TICKS_PER_US;
   const uint16_t cooldown_ticks = COOLDOWN_DUR_US * TICKS_PER_US;
 
   while (1) {
     // Pre-pulse safety: CURR high without GATE means hardware fault
-    if (VPORTC.IN & CURR_bm) {
-      fault_mode();
-    }
+    //if (VPORTC.IN & CURR_bm) {
+//      fault_mode();
+    //}
 
     // Wait for EN rise & activate output
     while (!(VPORTC.IN & EN_bm)) {
