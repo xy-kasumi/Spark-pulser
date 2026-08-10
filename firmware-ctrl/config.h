@@ -27,12 +27,27 @@
 #define HV_CURR_bm  PIN2_bm  // PA2, input:  comparator out, idle L, H = current detected
 #define HV_FAULT_bm PIN3_bm  // PA3, input:  HV board fault, active L; latches permanent fault
 #define HC_EN_bm    PIN4_bm  // PA4, output: HC gate enable, active H
-#define HC_CURR_bm  PIN5_bm  // PA5, output: reserved, unused by spec logic
+#define HC_CURR_bm  PIN5_bm  // PA5, output: HC current setting, PWM driven by TCD0 WOB
 
 // Indicator LEDs, all active H (pin -> LED -> resistor -> GND).
 #define LED_OK_bm  PIN0_bm  // PC0, green: successful boot
 #define LED_RUN_bm PIN1_bm  // PC1, amber: output enabled
 #define LED_ERR_bm PIN2_bm  // PC2, red:   fault (permanent or latched WDT timeout)
+
+/**
+ * HC current setting (HC.CURR). See docs/hc.md: PWM in the 10 kHz - 200 kHz
+ * band, duty selects the output current, 45% = 10 A (above that the HC board
+ * clamps internally). HC only ever carries the 10 A case (CURR = 1 A is
+ * HV-only), so the duty is a constant.
+ *
+ * Driven by TCD0 WOB, which clocks off the 20 MHz oscillator directly rather
+ * than CLK_PER; period ticks are therefore counted at 20 MHz independently of
+ * F_CPU.
+ */
+#define HC_CURR_PWM_HZ       100000UL                       // mid-band, 0.5%/tick duty resolution
+#define HC_CURR_PWM_DUTY_PCT 45                             // 10 A
+#define HC_CURR_PERIOD_TICKS (20000000UL / HC_CURR_PWM_HZ)  // 200
+#define HC_CURR_HIGH_TICKS   (HC_CURR_PERIOD_TICKS * HC_CURR_PWM_DUTY_PCT / 100)  // 90
 
 /**
  * Window timing. See docs/operation.md.

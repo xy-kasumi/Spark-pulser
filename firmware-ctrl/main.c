@@ -26,6 +26,7 @@
  */
 #define F_CPU 20000000UL
 
+#include <avr/cpufunc.h>
 #include <avr/interrupt.h>
 #include <avr/io.h>
 #include <stdbool.h>
@@ -349,8 +350,9 @@ static void clock_init() {
 }
 
 static void pins_init() {
-  // Outputs low; HV_FAULT input with pull-up (active-low). I2C pins are driven
-  // by TWI0 when enabled (board provides external pull-ups).
+  // Outputs low; HV_FAULT input with pull-up (active-low). HC_CURR must be an
+  // output for TCD0's waveform override to reach the pin (see hc_curr_init).
+  // I2C pins are driven by TWI0 when enabled (board provides external pull-ups).
   VPORTA.OUT &= ~(HV_EN_bm | HC_EN_bm | HC_CURR_bm);
   VPORTA.DIR |= HV_EN_bm | HC_EN_bm | HC_CURR_bm;
   VPORTA.DIR &= ~(HV_CURR_bm | HV_FAULT_bm);
@@ -369,6 +371,27 @@ static void timers_init() {
 
   // TCA0: free-running 16-bit at CLK_PER/1024 (51.2 us/tick); software WDT clock.
   TCA0.SINGLE.CTRLA = TCA_SINGLE_CLKSEL_DIV1024_gc | TCA_SINGLE_ENABLE_bm;
+}
+
+// TCD0: constant-duty PWM on HC_CURR (PA5 = WOB), the HC board's current
+// setting. Runs from boot and is never changed, so the HC board's 10 ms setting
+// delay is always long expired by the time HC_EN goes active.
+static void hc_curr_init() {
+  // One ramp mode: the counter runs 0..CMPBCLR, WOB is high over the last
+  // (CMPBCLR - CMPBSET) ticks. CMPA is unused but must stay ordered ahead of
+  // CMPBSET.
+  TCD0.CMPASET = 0;
+  TCD0.CMPACLR = 1;
+  TCD0.CMPBSET = HC_CURR_PERIOD_TICKS - 1 - HC_CURR_HIGH_TICKS;
+  TCD0.CMPBCLR = HC_CURR_PERIOD_TICKS - 1;
+  TCD0.CTRLB = TCD_WGMODE_ONERAMP_gc;
+  // Override the pin with WOB only; CMPAEN stays clear so WOA leaves PA4
+  // (HC_EN) as plain GPIO.
+  _PROTECTED_WRITE(TCD0.FAULTCTRL, TCD_CMPBEN_bm);
+
+  while (!(TCD0.STATUS & TCD_ENRDY_bm)) {
+  }
+  TCD0.CTRLA = TCD_CLKSEL_20MHZ_gc | TCD_SYNCPRES_DIV1_gc | TCD_CNTPRES_DIV1_gc | TCD_ENABLE_bm;
 }
 
 static void twi_init() {
@@ -553,6 +576,7 @@ int main() {
   clock_init();
   pins_init();
   timers_init();
+  hc_curr_init();
 
   // Seed registers to reset defaults, keeping the DUR/DUTY invariant in range.
   cfg_mode = MODE_ON_RESET;
