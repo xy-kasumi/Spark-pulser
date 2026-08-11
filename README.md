@@ -2,7 +2,9 @@
 
 🚧 Under Construction 🚧
 
-Open-source EDM board.
+![Pulser V2](./docs/pulser-v2.jpg)
+
+Open-source EDM module.
 
 Explicitly designed for plunge EDM.
 But probably will work for wire EDM too.
@@ -10,26 +12,20 @@ But probably will work for wire EDM too.
 Created for https://github.com/xy-kasumi/Spark project.
 
 
-## Board Status
+## Capability (V2)
 
-V2
-* 10A max pulse
+* 10A max pulse (see [module spec](./docs/pulser.md) for details)
 * Designed for reliablity and modular testability (especially stress testing)
 
-* firmware: Pico2 & AVR
-  * `firmware-hv/`: AVR (ATtiny1616)
-  * `firmware-test-integ/`: Pico2 (CLI build. `./setup.sh` & `./build.sh` in the folder)
-* pcb: JLCPCB friendly KiCad files
+Assembly
+* PCB (`pcb/` JLCPCB friendly KiCad files (all manufacturable using "Economical PCBA" process))
+  * ctrl-r2
+  * hv-r4
+  * hc-r3
+* firmware (ATtiny1616), for `ctrl` and `hv`
+* enclosure: 3D print data in `assy`
+* needs a few other parts (12V fans & heatsinks)
 
-testboard (30hr+ successful op in real settings)
-* ctrl: r1 (breadboard, pico2), w/ `firmware-test-integ/`
-* hv: r1-r3 (ATtiny1616), w/ `firmware-hv/`
-* hc: r1-r2
-
-prod (not tested yet)
-* ctrl: r2
-* hv: r4
-* hc: r3
 
 # Legacy
 
